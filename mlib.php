@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Mlib ACF plugin
+ * Plugin Name:       MLib ACF plugin
  * Description:       A WordPress plugin for managing a Music Library (Works/Editions) using ACF PRO Blocks, Post Types, Options Pages, Taxonomies and more.
  * Dependencies:	  Requires WHx4 plugin for People CPT
  * Requires at least: 6.4
@@ -48,9 +48,6 @@ require 'includes/acf-settings-page.php';
 
 // Restrict access to ACF Admin screens
 require 'includes/acf-restrict-access.php';
-
-// Display and template helpers
-require 'includes/template-tags.php';
 	
 // Load ACF field groups hard-coded as PHP
 require 'includes/acf-field-groups.php';
