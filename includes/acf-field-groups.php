@@ -2139,6 +2139,6 @@ function mlib_register_field_groups() {
 		'show_in_rest' => 0,
 	) );
 	
-} );
+}
 
 ?>
