@@ -40,9 +40,6 @@ function mlib_queenbee() {
 // Set custom load & save JSON points for ACF sync
 require 'includes/acf-json.php';
 
-// Register blocks and other handy ACF Block helpers
-require 'includes/acf-blocks.php';
-
 // Register a default "Site Settings" Options Page
 require 'includes/acf-settings-page.php';
 
