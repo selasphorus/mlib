@@ -2277,6 +2277,83 @@ function mlib_register_field_groups() {
 		'description' => '',
 		'show_in_rest' => false,
 	) );
+	
+	// ???
+	acf_add_local_field_group( array(
+		'key' => 'group_628d19b6ea024',
+		'title' => 'Soloist: Additional Fields',
+		'fields' => array(
+			array(
+				'key' => 'field_628d19ce5ccf0',
+				'label' => 'Abbreviation',
+				'name' => 'abbr',
+				'aria-label' => '',
+				'type' => 'text',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+			),
+			array(
+				'key' => 'field_628d19e95ccf1',
+				'label' => 'Sort Num',
+				'name' => 'sort_num',
+				'aria-label' => '',
+				'type' => 'number',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'min' => '',
+				'max' => '',
+				'step' => '',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param' => 'taxonomy',
+					'operator' => '==',
+					'value' => 'soloist',
+				),
+			),
+			array(
+				array(
+					'param' => 'taxonomy',
+					'operator' => '==',
+					'value' => 'soloist_v1',
+				),
+			),
+		),
+		'menu_order' => 0,
+		'position' => 'normal',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => true,
+		'description' => '',
+		'show_in_rest' => 0,
+	) );
+	
+	//
 
 	acf_add_local_field_group( array(
 		'key' => 'group_628e832908174',
