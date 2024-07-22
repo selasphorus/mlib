@@ -72,7 +72,7 @@ foreach ( $active_modules as $module ) {
     $filepath = MLIB_PLUGIN_DIR.'modules/'.$module.'.php';
     $arr_exclusions = array ( 'instruments' ); // , 'groups', 'newsletters', 'snippets', 'logbook', 'venues', 
     if ( !in_array( $module, $arr_exclusions) ) { // skip modules w/ no associated function files
-    	if ( file_exists($filepath) ) { include_once( $filepath ); } else { echo "module file $filepath not found"; }
+    	if ( file_exists($filepath) ) { include_once( $filepath ); } else { echo "MLib module file $filepath not found"; }
     }
     
     // Add module options page for adding featured image, page-top content, &c.
