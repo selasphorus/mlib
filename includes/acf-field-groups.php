@@ -1440,7 +1440,7 @@ function mlib_register_field_groups() {
 		'position' => 'normal',
 		'style' => 'default',
 		'label_placement' => 'top',
-		'instruction_placement' => 'label',
+		'instruction_placement' => 'field',
 		'hide_on_screen' => '',
 		'active' => true,
 		'description' => '',
