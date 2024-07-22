@@ -69,9 +69,9 @@ foreach ( $active_modules as $module ) {
 
 	// Load associated functions file, if any
     $filepath = $plugin_path . 'modules/'.$module.'.php';
-    $arr_exclusions = array ( 'organs' ); // , 'groups', 'newsletters', 'snippets', 'logbook', 'venues', 
+    //$arr_exclusions = array ( 'organs' ); // , 'groups', 'newsletters', 'snippets', 'logbook', 'venues', 
     if ( !in_array( $module, $arr_exclusions) ) { // skip modules w/ no associated function files
-    	if ( file_exists($filepath) ) { include_once( $filepath ); } else { echo "module file $filepath not found"; }
+    	if ( file_exists($filepath) ) { include_once( $filepath ); } //else { echo "module file $filepath not found"; }
     }
     
     // Add module options page for adding featured image, page-top content, &c.
@@ -79,29 +79,24 @@ foreach ( $active_modules as $module ) {
     
     // Which post types are associated with this module? Build array
 	// Deal w/ modules whose names don't perfectly match their CPT names
-	/*if ( $module == "people" ) {
-		$primary_cpt = "person";
-		$cpt_names[] = "person";
-	} else if ( $module == "places" ) {
-		$primary_cpt = "location";
-		$cpt_names[] = "location";
-		//$cpt_names[] = "building"; // address
-	} else if ( $module == "events" ) {
-		$primary_cpt = "event";
-		$cpt_names[] = "event";
-		$cpt_names[] = "event_series";
+	if ( $module == "music" ) {
+		$primary_cpt = "repertoire";
+		$cpt_names[] = "repertoire";
+		$cpt_names[] = "edition";
+	} else if ( $module == "instruments" ) {
+		$primary_cpt = "instrument";
+		$cpt_names[] = "instrument";
+	} else if ( $module == "organs" ) {
+		$primary_cpt = "organ";
+		$cpt_names[] = "organ";
+		$cpt_names[] = "builder";
 	} else {
 		$cpt_name = $module;
 		// Make it singular -- remove trailing "s"
 		if ( substr($cpt_name, -1) == "s" && $cpt_name != "press" ) { $cpt_name = substr($cpt_name, 0, -1); }
 		$primary_cpt = $cpt_name;
 		$cpt_names[] = $cpt_name;
-	}*/
-	$cpt_name = $module;
-	// Make it singular -- remove trailing "s"
-	if ( substr($cpt_name, -1) == "s" && $cpt_name != "press" ) { $cpt_name = substr($cpt_name, 0, -1); }
-	$primary_cpt = $cpt_name;
-	$cpt_names[] = $cpt_name;
+	}
     
 	if ( function_exists('acf_add_options_page') ) {
 		// Add module options page

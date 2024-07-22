@@ -53,8 +53,8 @@ function mlib_register_options_page() {
 						'id' => '',
 					),
 					'choices' => array(
-						'music' => 'Music',
-						//'instruments' => 'Instruments',
+						'music' => 'Musical Works and Editions',
+						'instruments' => 'Instruments',
 						'organs' => 'Organs',
 					),
 					'default_value' => array(
