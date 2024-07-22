@@ -1360,7 +1360,7 @@ function mlib_register_field_groups() {
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
-					'width' => '50',
+					'width' => '80',
 					'class' => '',
 					'id' => '',
 				),
@@ -1400,7 +1400,7 @@ function mlib_register_field_groups() {
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
-					'width' => '20',
+					'width' => '50',
 					'class' => '',
 					'id' => '',
 				),
