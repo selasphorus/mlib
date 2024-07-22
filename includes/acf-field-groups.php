@@ -1051,7 +1051,7 @@ function mlib_register_field_groups() {
 	
 	acf_add_local_field_group( array(
 		'key' => 'group_5eecbb51a40b3',
-		'title' => 'Legacy & Admin Fields: Repertoire',
+		'title' => 'Musical Work: Legacy & Admin Fields',
 		'fields' => array(
 			array(
 				'key' => 'field_61a7c532b4153',
@@ -1968,7 +1968,7 @@ function mlib_register_field_groups() {
 	
 	acf_add_local_field_group( array(
 		'key' => 'group_605e8d3ade2c0',
-		'title' => 'Legacy & Admin Fields: Editions',
+		'title' => 'Edition: Legacy & Admin Fields',
 		'fields' => array(
 			array(
 				'key' => 'field_606f7676f0fa5',
