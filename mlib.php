@@ -69,7 +69,7 @@ foreach ( $active_modules as $module ) {
 
 	// Load associated functions file, if any
     $filepath = $plugin_path . 'modules/'.$module.'.php';
-    //$arr_exclusions = array ( 'organs' ); // , 'groups', 'newsletters', 'snippets', 'logbook', 'venues', 
+    $arr_exclusions = array ( 'instruments' ); // , 'groups', 'newsletters', 'snippets', 'logbook', 'venues', 
     if ( !in_array( $module, $arr_exclusions) ) { // skip modules w/ no associated function files
     	if ( file_exists($filepath) ) { include_once( $filepath ); } //else { echo "module file $filepath not found"; }
     }
