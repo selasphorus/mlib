@@ -19,6 +19,7 @@ define( 'MLIB_VERSION', '0.1.5' );
 define( 'MLIB_PLUGIN_DIR', __DIR__ );
 define( 'MLIB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'MLIB_PLUGIN_BLOCKS', MLIB_PLUGIN_DIR . '/blocks/' );
+//$plugin_path = plugin_dir_path( __FILE__ );
 
 /* +~+~+ *** +~+~+ */
 
@@ -68,7 +69,7 @@ if ( get_field('mlib_active_modules', 'option') ) { $active_modules = get_field(
 foreach ( $active_modules as $module ) {
 
 	// Load associated functions file, if any
-    $filepath = $plugin_path . 'modules/'.$module.'.php';
+    $filepath = MLIB_PLUGIN_DIR.'modules/'.$module.'.php';
     $arr_exclusions = array ( 'instruments' ); // , 'groups', 'newsletters', 'snippets', 'logbook', 'venues', 
     if ( !in_array( $module, $arr_exclusions) ) { // skip modules w/ no associated function files
     	if ( file_exists($filepath) ) { include_once( $filepath ); } else { echo "module file $filepath not found"; }
