@@ -3,16 +3,18 @@
  * Plugin Name:       MLib ACF plugin
  * Description:       A WordPress plugin for managing a Music Library (Works/Editions) using ACF PRO Blocks, Post Types, Options Pages, Taxonomies and more.
  * Dependencies:	  Requires WHx4 plugin for People CPT
- * Requires at least: 6.4
- * Requires PHP:      7.4
+ * //Requires at least: 6.4
+ * //Requires PHP:      7.4
  * Version:           0.1
- * Author:            ACF
+ * Author:            atc
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       mlib
  *
  * @package           mlib
  */
+
+// TODO: generalize as "library" w/ sub-options for music?
 
 // Define our handy constants.
 define( 'MLIB_VERSION', '0.1.5' );
