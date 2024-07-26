@@ -601,7 +601,7 @@ if ( in_array('people', $active_modules ) ) { // && !post_type_exists('person')
 // https://www.advancedcustomfields.com/resources/bidirectional-relationships/
 
 // WIP?
-if ( in_array('music', $sdg_modules ) ) {
+if ( in_array('music', $active_modules ) ) {
 	add_filter('acf/update_value/name=repertoire_editions', 'bidirectional_acf_update_value', 10, 3);
 	if ( is_dev_site() ) {
 		//add_action('acf/save_post', 'acf_update_related_field_on_save'); // WIP
