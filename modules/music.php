@@ -1654,7 +1654,7 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" ) {
     
 	$info .= "</form>";
 	
-	if ( $do_ts === true || $do_ts == "mlib" ) { $info .= '<div class="troubleshooting">'.$ts_info'</div>'; }
+	if ( $do_ts === true || $do_ts == "mlib" ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
     
     return $info;
     
