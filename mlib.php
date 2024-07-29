@@ -72,7 +72,7 @@ foreach ( $active_modules as $module ) {
 
 	// Load associated functions file, if any
     $filepath = MLIB_PLUGIN_DIR.'/modules/'.$module.'.php';
-    $arr_exclusions = array ( 'instruments' ); // , 'groups', 'newsletters', 'snippets', 'logbook', 'venues', 
+    $arr_exclusions = array ( 'instruments', 'mdev' ); // , 'groups', 'newsletters', 'snippets', 'logbook', 'venues', 
     if ( !in_array( $module, $arr_exclusions) ) { // skip modules w/ no associated function files
     	if ( file_exists($filepath) ) { include_once( $filepath ); } else { echo "MLib module file $filepath not found"; }
     }
