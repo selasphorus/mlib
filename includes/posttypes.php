@@ -194,6 +194,10 @@ if ( in_array('music', $active_modules ) ) {
 	}
 	add_action( 'init', 'register_post_type_publication' );
 
+}
+
+if ( in_array('mdev', $active_modules ) ) {
+
 	// Music List
 	function register_post_type_music_list() {
 
@@ -234,7 +238,7 @@ if ( in_array('music', $active_modules ) ) {
 		register_post_type( 'music_list', $args );
 	
 	}
-	//add_action( 'init', 'register_post_type_music_list' );
+	add_action( 'init', 'register_post_type_music_list' );
 
 }
 
