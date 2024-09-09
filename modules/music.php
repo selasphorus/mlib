@@ -235,10 +235,10 @@ function get_cpt_repertoire_content( $post_id = null ) {
     }*/
     
     //$ts_info .= "test"; // tft
-    //if ( $do_ts === true || $do_ts == "mlib" ) { $ts_info = '<div class="troubleshooting">'.$ts_info.'</div>'; }
+    //if ( $ts_info != "" && ( $do_ts === true || $do_ts == "" ) ) { $ts_info = '<div class="troubleshooting">'.$ts_info.'</div>'; }
 	
 	$arr_info['info'] = $info;
-    if ( $do_ts === true || $do_ts == "mlib" ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
+    if ( $ts_info != "" && ( $do_ts === true || $do_ts == "" ) ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
     
     return $arr_info;
 }
@@ -1654,7 +1654,7 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" ) {
     
 	$info .= "</form>";
 	
-	if ( $do_ts === true || $do_ts == "mlib" ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
+	if ( $ts_info != "" && ( $do_ts === true || $do_ts == "" ) ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
     
     return $info;
     
