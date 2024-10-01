@@ -138,7 +138,7 @@ function update_repertoire_events( $rep_id = null, $run_slow_queries = false, $a
 function get_cpt_repertoire_content( $post_id = null ) {
 	
 	// TS/logging setup
-    $do_ts = devmode_active(); 
+    $do_ts = devmode_active( array("sdg", "music") );
     $do_log = false;
     sdg_log( "divline2", $do_log );
     
@@ -185,7 +185,7 @@ function get_cpt_repertoire_content( $post_id = null ) {
             $x++;
         }
     } else {
-        if ( devmode_active() ) { 
+        if ( devmode_active( array("mlib", "events") ); ) { 
             $info .= "<p>No related events were found.</p>"; // tft
         }
     }
@@ -229,25 +229,29 @@ function get_cpt_repertoire_content( $post_id = null ) {
             $x++;
         }
     } else {
-        if ( devmode_active() ) { 
+        if ( devmode_active( array("mlib", "rep") ) ) { 
             $ts_info .= "<p>No duplicate posts were found.</p>"; // tft
         }
     }*/
     
     //$ts_info .= "test"; // tft
-    //if ( $ts_info != "" && ( $do_ts === true || $do_ts == "" ) ) { $ts_info = '<div class="troubleshooting">'.$ts_info.'</div>'; }
+    //if ( $ts_info != "" && $do_ts === true ) { $ts_info = '<div class="troubleshooting">'.$ts_info.'</div>'; }
 	
 	$arr_info['info'] = $info;
-    if ( $ts_info != "" && ( $do_ts === true || $do_ts == "" ) ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
+    if ( $ts_info != "" && $do_ts === true ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
     
     return $arr_info;
 }
+
+/*********** CPT: MUSIC LIST ***********/
+
+// See display content plugin >> ACF repeater rows fcn...
 
 /*********** CPT: EDITION ***********/
 function get_cpt_edition_content( $post_id = null ) {
     
     // TS/logging setup
-    $do_ts = devmode_active(); 
+    $do_ts = devmode_active( array("mlib", "editions") ); 
     $do_log = false;
     sdg_log( "divline2", $do_log );
 	
@@ -443,7 +447,7 @@ function is_anon( $post_id = null ) {
 function str_from_persons_array ( $args = array() ) {
     
     // TS/logging setup
-    $do_ts = devmode_active(); 
+    $do_ts = devmode_active( array("mlib", "people") ); 
     $do_log = false;
     sdg_log( "divline2", $do_log );
     sdg_log( "function called: str_from_persons_array", $do_log );
@@ -557,7 +561,7 @@ function str_from_persons_array ( $args = array() ) {
 function get_authorship_info ( $args = array() ) {
 
 	// TS/logging setup
-	$do_ts = devmode_active(); 
+	$do_ts = devmode_active( array("mlib", "people") ); 
     $do_log = false;
     sdg_log( "divline2", $do_log ); 
     sdg_log( "function called: get_authorship_info", $do_log );
@@ -913,7 +917,7 @@ function get_authorship_info ( $args = array() ) {
 function get_excerpted_from( $post_id = null ) {
 
 	// TS/logging setup
-	$do_ts = devmode_active(); 
+	$do_ts = devmode_active( array("mlib", "rep") ); 
     $do_log = false;
     sdg_log( "divline2", $do_log ); 
     
@@ -962,7 +966,7 @@ function get_excerpted_from( $post_id = null ) {
 function get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true, $full_title = false ) {
 	
 	// TS/logging setup
-	$do_ts = devmode_active(); 
+	$do_ts = devmode_active( array("mlib", "rep") ); 
     $do_log = false;
     sdg_log( "divline2", $do_log );
     sdg_log( "function called: get_rep_info", $do_log );
@@ -1018,7 +1022,7 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
     // Psalms: Anglican Chant
     // TODO: If title starts w/ number and includes words 'Anglican Chant' and has category 'Anglican Chant' and/or 'Psalms', then fix the post_title by prepending 'Psalm'
     
-    if (  $show_title == false || // ACF field option per program row
+    if (  $show_title == false || // ACF field option per row
         ( $format == 'display' && $title == "Responses" ) // Responses -- don't display title in event programs, &c. -- front end display
        ){ //|| has_term( 'responses', 'repertoire_category', $post_id )
         $title = "";
@@ -1112,7 +1116,7 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
 function get_rep_meta_info ( $post_id = null ) {
 
 	// TS/logging setup
-	$do_ts = devmode_active(); 
+	$do_ts = devmode_active( array("mlib", "rep") ); 
     $do_log = false;
     sdg_log( "divline2", $do_log );
     sdg_log( "function called: get_rep_meta_info", $do_log );
@@ -1654,7 +1658,7 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" ) {
     
 	$info .= "</form>";
 	
-	if ( $ts_info != "" && ( $do_ts === true || $do_ts == "" ) ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
+	if ( $ts_info != "" && $do_ts === true ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
     
     return $info;
     
