@@ -185,7 +185,7 @@ function get_cpt_repertoire_content( $post_id = null ) {
             $x++;
         }
     } else {
-        if ( devmode_active( array("mlib", "events") ); ) { 
+        if ( devmode_active( array("mlib", "events") ) ) { 
             $info .= "<p>No related events were found.</p>"; // tft
         }
     }
