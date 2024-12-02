@@ -95,8 +95,6 @@ if ( in_array('music', $active_modules ) ) {
 	}
 	add_action( 'init', 'register_taxonomy_repertoire_category' );
 
-	/*** Taxonomies for EDITIONS ***/
-
 	// Custom Taxonomy: Instrument
 	function register_taxonomy_instrument() {
 		$labels = array(
@@ -133,9 +131,11 @@ if ( in_array('music', $active_modules ) ) {
 				'assign_terms'  =>   'assign_'.$cap.'_terms',
 			);
 		}
-		register_taxonomy( 'instrument', [ 'edition' ], $args );
+		register_taxonomy( 'instrument', [ 'edition', 'roster' ], $args );
 	}
 	add_action( 'init', 'register_taxonomy_instrument' );
+
+	/*** Taxonomies for EDITIONS ***/
 
 	// Custom Taxonomy: Key
 	function register_taxonomy_key() {

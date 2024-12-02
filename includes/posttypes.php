@@ -60,7 +60,7 @@ if ( in_array('music', $active_modules ) ) {
 			'menu_position'		=> null,
 			'supports' 			=> array( 'title', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'revisions', 'page-attributes' ), //'editor', 
 			'taxonomies'		=> array( 'repertoire_category', 'occasion', 'post_tag', 'admin_tag' ), //, 'season'
-			'show_in_rest'		=> true,    
+			'show_in_rest'		=> true, // false = use classic, not block editor
 		);
 
 		register_post_type( 'repertoire', $args );
@@ -607,9 +607,9 @@ if ( in_array('people', $active_modules ) ) { // && !post_type_exists('person')
 // WIP?
 if ( in_array('music', $active_modules ) ) {
 	add_filter('acf/update_value/name=repertoire_editions', 'bidirectional_acf_update_value', 10, 3);
-	if ( is_dev_site() ) {
+	/*if ( function_exists('is_dev_site') && is_dev_site() ) {
 		//add_action('acf/save_post', 'acf_update_related_field_on_save'); // WIP
-	}
+	}*/
 }
 
 if ( !function_exists( 'bidirectional_acf_update_value' ) ) {
