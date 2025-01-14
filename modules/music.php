@@ -1328,7 +1328,12 @@ function match_group_field ( $field_groups, $field_name ) {
 //
 function format_search_results ( $post_ids, $search_type = "choirplanner" ) {
     
-    // init
+    // TS/logging setup
+    $do_ts = devmode_active( array("mlib") );
+    $do_log = false;
+    sdg_log( "divline2", $do_log );
+
+	// Init vars
     $info = ""; 
     $ts_info = "";
     
