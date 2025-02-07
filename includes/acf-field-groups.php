@@ -2497,7 +2497,7 @@ function mlib_register_field_groups() {
 				array(
 					'param' => 'post_type',
 					'operator' => '==',
-					'value' => 'post',
+					'value' => 'music_list',
 				),
 			),
 		),
