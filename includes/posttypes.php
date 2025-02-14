@@ -247,49 +247,96 @@ if ( in_array('mdev', $active_modules ) ) {
 /*** ORGANS ***/
 // >>> MLIB
 // TODO: generalize as "instruments"?
-if ( in_array('organs', $active_modules ) ) {
+if ( in_array('organs', $active_modules ) || in_array('instruments', $active_modules ) ) {
 
-	// Organ
-	function register_post_type_organ() {
-
-		if ( mlib_custom_caps() ) { $caps = array('organ', 'organs'); } else { $caps = "post"; }
+	if ( in_array('instruments', $active_modules ) ) {
+		// Instrument
+		function register_post_type_instrument() {
+	
+			if ( mlib_custom_caps() ) { $caps = array('instrument', 'instruments'); } else { $caps = "post"; }
+			
+			$labels = array(
+				'name' => __( 'Instruments', 'mlib' ),
+				'singular_name' => __( 'Instrument', 'mlib' ),
+				'add_new' => __( 'New Instrument', 'mlib' ),
+				'add_new_item' => __( 'Add New Instrument', 'mlib' ),
+				'edit_item' => __( 'Edit Instrument', 'mlib' ),
+				'new_item' => __( 'New Instrument', 'mlib' ),
+				'view_item' => __( 'View Instrument', 'mlib' ),
+				'search_items' => __( 'Search Instruments', 'mlib' ),
+				'not_found' =>  __( 'No Instruments Found', 'mlib' ),
+				'not_found_in_trash' => __( 'No Instruments found in Trash', 'mlib' ),
+			);
 		
-		$labels = array(
-			'name' => __( 'Organs', 'mlib' ),
-			'singular_name' => __( 'Organ', 'mlib' ),
-			'add_new' => __( 'New Organ', 'mlib' ),
-			'add_new_item' => __( 'Add New Organ', 'mlib' ),
-			'edit_item' => __( 'Edit Organ', 'mlib' ),
-			'new_item' => __( 'New Organ', 'mlib' ),
-			'view_item' => __( 'View Organ', 'mlib' ),
-			'search_items' => __( 'Search Organs', 'mlib' ),
-			'not_found' =>  __( 'No Organs Found', 'mlib' ),
-			'not_found_in_trash' => __( 'No Organs found in Trash', 'mlib' ),
-		);
+			$args = array(
+				'labels' => $labels,
+				'public' => true,
+				'publicly_queryable'=> true,
+				'show_ui' 			=> true,
+				'show_in_menu'     	=> true,
+				'query_var'        	=> true,
+				'rewrite'			=> array( 'slug' => 'instruments' ), // permalink structure slug
+				'capability_type'	=> $caps,
+				'map_meta_cap'		=> true,
+				'has_archive' 		=> true,
+				'hierarchical'		=> true,
+				'menu_icon'			=> 'dashicons-playlist-audio',
+				'menu_position'		=> null,
+				'supports' 			=> array( 'title', 'author', 'thumbnail', 'editor', 'excerpt', 'custom-fields', 'revisions', 'page-attributes' ), //
+				'taxonomies'		=> array( 'action_type', 'organ_tag', 'admin_tag' ),
+				'show_in_rest'		=> false, // i.e. false = use classic, not block editor
+			);
 	
-		$args = array(
-			'labels' => $labels,
-			'public' => true,
-			'publicly_queryable'=> true,
-			'show_ui' 			=> true,
-			'show_in_menu'     	=> true,
-			'query_var'        	=> true,
-			'rewrite'			=> array( 'slug' => 'dborgans' ), // permalink structure slug
-			'capability_type'	=> $caps,
-			'map_meta_cap'		=> true,
-			'has_archive' 		=> true,
-			'hierarchical'		=> false,
-			'menu_icon'			=> 'dashicons-playlist-audio',
-			'menu_position'		=> null,
-			'supports' 			=> array( 'title', 'author', 'thumbnail', 'editor', 'excerpt', 'custom-fields', 'revisions', 'page-attributes' ), //
-			'taxonomies'		=> array( 'action_type', 'organ_tag', 'admin_tag' ),
-			'show_in_rest'		=> false, // i.e. false = use classic, not block editor
-		);
-
-		register_post_type( 'organ', $args );
-	
+			register_post_type( 'instrument', $args );
+		
+		}
+		add_action( 'init', 'register_post_type_instrument' );
 	}
-	add_action( 'init', 'register_post_type_organ' );
+	
+	if ( in_array('organs', $active_modules ) ) {
+		// Organ
+		function register_post_type_organ() {
+	
+			if ( mlib_custom_caps() ) { $caps = array('organ', 'organs'); } else { $caps = "post"; }
+			
+			$labels = array(
+				'name' => __( 'Organs', 'mlib' ),
+				'singular_name' => __( 'Organ', 'mlib' ),
+				'add_new' => __( 'New Organ', 'mlib' ),
+				'add_new_item' => __( 'Add New Organ', 'mlib' ),
+				'edit_item' => __( 'Edit Organ', 'mlib' ),
+				'new_item' => __( 'New Organ', 'mlib' ),
+				'view_item' => __( 'View Organ', 'mlib' ),
+				'search_items' => __( 'Search Organs', 'mlib' ),
+				'not_found' =>  __( 'No Organs Found', 'mlib' ),
+				'not_found_in_trash' => __( 'No Organs found in Trash', 'mlib' ),
+			);
+		
+			$args = array(
+				'labels' => $labels,
+				'public' => true,
+				'publicly_queryable'=> true,
+				'show_ui' 			=> true,
+				'show_in_menu'     	=> true,
+				'query_var'        	=> true,
+				'rewrite'			=> array( 'slug' => 'dborgans' ), // permalink structure slug
+				'capability_type'	=> $caps,
+				'map_meta_cap'		=> true,
+				'has_archive' 		=> true,
+				'hierarchical'		=> false,
+				'menu_icon'			=> 'dashicons-playlist-audio',
+				'menu_position'		=> null,
+				'supports' 			=> array( 'title', 'author', 'thumbnail', 'editor', 'excerpt', 'custom-fields', 'revisions', 'page-attributes' ), //
+				'taxonomies'		=> array( 'action_type', 'organ_tag', 'admin_tag' ),
+				'show_in_rest'		=> false, // i.e. false = use classic, not block editor
+			);
+	
+			register_post_type( 'organ', $args );
+		
+		}
+		add_action( 'init', 'register_post_type_organ' );
+	}
+	
 
 	// Organ Builder
 	function register_post_type_builder() {
