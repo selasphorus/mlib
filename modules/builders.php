@@ -51,8 +51,9 @@ function get_cpt_builder_content( $post_id = null ) {
 		// Get and display post titles for "related_liturgical_dates".
 		$instruments = get_field('instruments', $post_id, false); // returns array of IDs
 		if ( $instruments ) {
-	
-			$info .= "<h2>".count($instruments)." instruments by this builder in our database:</h2>";
+		
+			$info .= "<h3>Instruments</h3>";
+			$info .= "<p>".count($instruments)." instruments by this builder in our database:</p>";
 			$ts_info .= $fcn_id."<pre>instruments: ".print_r($instruments, true)."</pre>";
 			
 			foreach ($instruments AS $instrument_id) {
@@ -61,6 +62,8 @@ function get_cpt_builder_content( $post_id = null ) {
 				$info .= make_link( get_the_permalink($instrument_id), $instrument_title, null, null, "_blank" );
 				$info .= '</span>';
 			}
+			
+			$info .= "<hr />";
 	
 		}
     	
