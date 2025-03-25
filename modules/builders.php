@@ -52,6 +52,7 @@ function get_cpt_builder_content( $post_id = null ) {
 		$instruments = get_field('instruments', $post_id, false); // returns array of IDs
 		if ( $instruments ) {
 	
+			$info .= count($instruments)." instruments by this builder in our database:<br />";
 			foreach ($instruments AS $instrument_id) {
 				$info .= '<span class="instrument">';
 				$info .= get_the_title($instrument_id);
