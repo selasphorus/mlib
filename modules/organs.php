@@ -49,6 +49,13 @@ function get_cpt_organ_content( $post_id = null ) {
     	//if ( $build_year ) { $info .= '<strong>Build Year:</strong>: <div class="xxx wip">'.$build_year."</div>"; }
     	if ( $build_year ) { $info .= '&nbsp;(<span class="build_year">'.$build_year.'</span>)'; }
     	
+    	//
+    	$organ_sum_html = get_post_meta( $post_id, 'organ_sum_html', true );
+    	if ( $organ_sum_html ) { $info .= '<div class="organ_sum_html">'.$organ_sum_html.'</div>'; }
+    	//
+    	$organ_html = get_post_meta( $post_id, 'organ_html', true );
+    	if ( $organ_html ) { $info .= '<div class="organ_html">'.$organ_html.'</div>'; }
+    	
     }
     
     if ( $ts_info != "" && ( $do_ts === true || $do_ts == "venues" ) ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
