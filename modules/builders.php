@@ -44,7 +44,7 @@ function get_cpt_builder_content( $post_id = null ) {
     	if ( $location ) { $info .= '<span class="location">'.$location.'</span>'; }
     	
     	$aka = get_post_meta( $post_id, 'aka', true );
-    	if ( $build_year ) { $info .= '<strong>Aka:</strong>: <div class="aka wip">'.$aka."</div>"; }
+    	if ( $aka ) { $info .= '<strong>Aka:</strong>: <div class="aka wip">'.$aka."</div>"; }
     	
     	//
     	
