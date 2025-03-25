@@ -62,7 +62,7 @@ function get_cpt_builder_content( $post_id = null ) {
     	
     }
     
-    if ( $ts_info != "" && ( $do_ts === true || $do_ts == "venues" ) ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
+    if ( $ts_info != "" && ( $do_ts === true || $do_ts == "builders" ) ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
     
     return $info;
     
