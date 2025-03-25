@@ -53,11 +53,12 @@ function get_cpt_builder_content( $post_id = null ) {
 		if ( $instruments ) {
 	
 			$info .= count($instruments)." instruments by this builder in our database:<br />";
-			$info .= $fcn_id."<pre>instruments: ".print_r($instruments, true)."</pre>";
+			$ts_info .= $fcn_id."<pre>instruments: ".print_r($instruments, true)."</pre>";
 			
 			foreach ($instruments AS $instrument_id) {
+				$instrument_title .= get_the_title($instrument_id);
 				$info .= '<span class="instrument">';
-				$info .= get_the_title($instrument_id);
+				$info .= make_link( get_the_permalink($instrument_id), $instrument_title, null, null, "_blank" );
 				$info .= '</span>';
 			}
 	
