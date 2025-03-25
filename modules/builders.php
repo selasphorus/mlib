@@ -44,7 +44,7 @@ function get_cpt_builder_content( $post_id = null ) {
     	if ( $location ) { $info .= '<span class="location">'.$location.'</span>'; }
     	
     	$aka = get_post_meta( $post_id, 'aka', true );
-    	if ( $aka ) { $info .= '<strong>Aka:</strong>: <span class="aka">'.$aka."</span><br />"; }
+    	if ( $aka ) { $info .= '<strong>Aka</strong>: <span class="aka">'.$aka."</span><br />"; }
     	
     	//
     	
@@ -52,7 +52,7 @@ function get_cpt_builder_content( $post_id = null ) {
 		$instruments = get_field('instruments', $post_id, false); // returns array of IDs
 		if ( $instruments ) {
 	
-			$info .= count($instruments)." instruments by this builder in our database:<br />";
+			$info .= "<h2>".count($instruments)." instruments by this builder in our database:</h2>";
 			$ts_info .= $fcn_id."<pre>instruments: ".print_r($instruments, true)."</pre>";
 			
 			foreach ($instruments AS $instrument_id) {
