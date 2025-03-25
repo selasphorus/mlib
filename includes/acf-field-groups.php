@@ -2949,9 +2949,10 @@ function mlib_register_field_groups() {
 	
 	// Organs
 	
+	// Many of the following fields are very AGO-specific => TODO: generalize
 	acf_add_local_field_group( array(
 		'key' => 'group_6227e29e38f7f',
-		'title' => 'Organ Info',
+		'title' => 'Instrument Info',
 		'fields' => array(
 			array(
 				'key' => 'field_6283ee1ac809c',
@@ -3003,7 +3004,7 @@ function mlib_register_field_groups() {
 			array(
 				'key' => 'field_64a72357bd5f0',
 				'label' => 'Venue',
-				'name' => 'venues_organs',
+				'name' => 'venues_organs', // ToDo: generalize/rename?
 				'aria-label' => '',
 				'type' => 'post_object',
 				'instructions' => '',
@@ -3087,7 +3088,7 @@ function mlib_register_field_groups() {
 				'append' => '',
 			),
 			array(
-				'key' => 'field_6283ee566d867',
+				'key' => 'field_6283ee566d867', // rename as field_mlib_instrument_builder?
 				'label' => 'Builder(s)',
 				'name' => 'builder',
 				'aria-label' => '',
@@ -3105,12 +3106,19 @@ function mlib_register_field_groups() {
 				),
 				'post_status' => '',
 				'taxonomy' => '',
-				'return_format' => 'object',
+				//
+				'return_format' => 'id',
 				'multiple' => 1,
+				'save_custom' => 1,
+				'save_post_type' => 'builder',
+				'save_post_status' => 'publish',
+				'bidirectional' => 1,
+				'bidirectional_target' => array(
+					0 => 'field_mlib_builder_instruments',
+				),
+				//
 				'allow_null' => 0,
-				'bidirectional' => 0,
 				'ui' => 1,
-				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6227e29e4250d',
@@ -3832,7 +3840,7 @@ function mlib_register_field_groups() {
 				array(
 					'param' => 'post_type',
 					'operator' => '==',
-					'value' => 'organ',
+					'value' => 'organ', // TODO: change to 'instrument'
 				),
 			),
 		),
@@ -3909,11 +3917,11 @@ function mlib_register_field_groups() {
 				'new_lines' => '',
 			),
 			array(
-				'key' => 'field_62853a6160cff',
-				'label' => 'Organs',
-				'name' => 'organs_builders',
+				'key' => 'field_mlib_builder_instruments',
+				'label' => 'Instruments',
+				'name' => 'instruments',
 				'aria-label' => '',
-				'type' => 'relationship',
+				'type' => 'post_object', //'type' => 'relationship',
 				'instructions' => '',
 				'required' => 0,
 				'conditional_logic' => 0,
@@ -3925,15 +3933,28 @@ function mlib_register_field_groups() {
 				'post_type' => array(
 					0 => 'organ',
 				),
+				'post_status' => '',
 				'taxonomy' => '',
-				'filters' => array(
+				/*'filters' => array(
 					0 => 'search',
 				),
 				'elements' => '',
 				'min' => '',
-				'max' => '',
-				'return_format' => 'object',
-				'bidirectional_target' => array(),
+				'max' => '',*/
+				'return_format' => 'id', //'return_format' => 'object',
+				//
+				'multiple' => 1,
+				'save_custom' => 1,
+				'save_post_type' => 'organ', // generalize to instrument, eventually?
+				'save_post_status' => 'publish',
+				//
+				'bidirectional' => 1,
+				'bidirectional_target' => array(
+					0 => 'field_6283ee566d867', // wip --??
+				),
+				'allow_null' => 0,
+				'allow_in_bindings' => 0,
+				'ui' => 1,
 			),
 		),
 		'location' => array(
