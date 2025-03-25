@@ -183,8 +183,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6246160deca70',
@@ -211,8 +210,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6246163ceca71',
@@ -239,8 +237,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_62461669eca73',
@@ -267,8 +264,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6246164deca72',
@@ -295,8 +291,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_624616aac8dc5',
@@ -863,8 +858,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_624616e0c8dc7',
@@ -911,8 +905,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'id',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6244c1b44d2b9',
@@ -939,8 +932,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'id',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6244c1ce4d2ba',
@@ -967,8 +959,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'id',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6258645862634',
@@ -996,8 +987,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'elements' => '',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_627526bc93599',
@@ -1025,8 +1015,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 		),
 		'location' => array(
@@ -1460,8 +1449,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'elements' => '',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 		),
 		'location' => array(
@@ -1558,8 +1546,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6244d279cde53',
@@ -1586,8 +1573,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'id',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_62681746f7f12',
@@ -1632,8 +1618,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6268177797837',
@@ -1660,8 +1645,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_626817a097838',
@@ -1688,8 +1672,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_626818039783a',
@@ -2559,8 +2542,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6273eb7e84e80',
@@ -2588,8 +2570,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6273ebae84e81',
@@ -2617,8 +2598,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6273ebc684e82',
@@ -2646,8 +2626,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6275294d0732f',
@@ -2693,8 +2672,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6273ec7484e89',
@@ -2723,8 +2701,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6273ec9784e8a',
@@ -3047,8 +3024,7 @@ function mlib_register_field_groups() {
 				'allow_null' => 0,
 				'bidirectional' => 0,
 				'ui' => 1,
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6227e29e423b9',
@@ -3134,8 +3110,7 @@ function mlib_register_field_groups() {
 				'allow_null' => 0,
 				'bidirectional' => 0,
 				'ui' => 1,
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6227e29e4250d',
@@ -3579,8 +3554,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6283ece29ef1f',
@@ -3610,8 +3584,7 @@ function mlib_register_field_groups() {
 				'max' => '',
 				'elements' => '',
 				'bidirectional' => 0,
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6228cf006bd23',
@@ -3960,8 +3933,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 		),
 		'location' => array(
@@ -4034,8 +4006,7 @@ function mlib_register_field_groups() {
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
-				'bidirectional_target' => array(
-				),
+				'bidirectional_target' => array(),
 			),
 			array(
 				'key' => 'field_6283eadcf36df',
