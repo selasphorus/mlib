@@ -36,16 +36,18 @@ function get_cpt_organ_content( $post_id = null ) {
     if ( function_exists('sdg_editmode') && !sdg_editmode() ) {
     	
     	$builder_str = get_arr_str(get_post_meta( $post_id, 'builder', true )); //$builder = get_field( 'builder', $post_id ); //
-    	$info .= '<strong>builder(s)</strong>: <div class="xxx wip">'.$builder_str."</div>";
+    	$info .= '<h2 class="builder">'.$builder_str."</h2>";
     	
     	$model = get_post_meta( $post_id, 'model', true );
-    	if ( $model ) { $info .= '<strong>Model</strong>: <div class="xxx wip">'.$model."</div>"; }
-    	
-    	$build_year = get_post_meta( $post_id, 'build_year', true );
-    	if ( $build_year ) { $info .= '<strong>Build Year:</strong>: <div class="xxx wip">'.$build_year."</div>"; }
+    	if ( $model ) { $info .= '<strong>Model</strong>: <span class="model">'.$model."</span>"; }
     	
     	$opus_num = get_post_meta( $post_id, 'opus_num', true );
-    	if ( $opus_num ) { $info .= '<strong>Opus Num.</strong>: <div class="xxx wip">'.$opus_num."</div>"; }
+    	//if ( $opus_num ) { $info .= '<strong>Opus Num.</strong>: <div class="xxx wip">'.$opus_num."</div>"; }
+    	if ( $opus_num ) { $info .= '<span class="opus_num">'.$opus_num.'</span>'; }
+    	
+    	$build_year = get_post_meta( $post_id, 'build_year', true );
+    	//if ( $build_year ) { $info .= '<strong>Build Year:</strong>: <div class="xxx wip">'.$build_year."</div>"; }
+    	if ( $build_year ) { $info .= '&nbsp;(<span class="build_year">'.$build_year.'</span>)'; }
     	
     }
     
