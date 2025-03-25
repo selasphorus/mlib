@@ -56,6 +56,7 @@ function mlib_register_options_page() {
 						'music' => 'Musical Works and Editions',
 						'instruments' => 'Instruments',
 						'organs' => 'Organs',
+						'builders' => 'Instrument Builders',
 						'mdev' => 'Dev Module',
 					),
 					'default_value' => array(
