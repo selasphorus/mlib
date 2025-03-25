@@ -10,6 +10,7 @@ if ( !function_exists( 'add_action' ) ) {
 
 /*********** Functions pertaining to CPT: ORGANS ***********/
 
+// WIP -- not for production use -- see organs.php
 function get_cpt_instrument_content( $post_id = null ) {
 	
 	// This function retrieves supplementary info -- the regular content template (content.php) handles title, content, featured image
