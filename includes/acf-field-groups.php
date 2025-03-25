@@ -3210,7 +3210,7 @@ function mlib_register_field_groups() {
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
-					'width' => '20',
+					'width' => '15',
 					'class' => '',
 					'id' => '',
 				),
@@ -3230,7 +3230,7 @@ function mlib_register_field_groups() {
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
-					'width' => '20',
+					'width' => '15',
 					'class' => '',
 					'id' => '',
 				),
@@ -3250,7 +3250,7 @@ function mlib_register_field_groups() {
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
-					'width' => '20',
+					'width' => '10',
 					'class' => '',
 					'id' => '',
 				),
@@ -3270,7 +3270,7 @@ function mlib_register_field_groups() {
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
-					'width' => '20',
+					'width' => '10',
 					'class' => '',
 					'id' => '',
 				),
@@ -3290,7 +3290,7 @@ function mlib_register_field_groups() {
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
-					'width' => '20',
+					'width' => '15',
 					'class' => '',
 					'id' => '',
 				),
@@ -3310,7 +3310,7 @@ function mlib_register_field_groups() {
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
-					'width' => '20',
+					'width' => '15',
 					'class' => '',
 					'id' => '',
 				),
