@@ -17,7 +17,7 @@ function get_cpt_builder_content( $post_id = null ) {
 	// This function retrieves supplementary info -- the regular content template (content.php) handles title, content, featured image
 	
     // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "instruments") ); 
+    $do_ts = devmode_active( array("mlib", "builders") ); 
     $do_log = false;
     $fcn_id = "[mlib-get_cpt_instrument_content]&nbsp;";
     sdg_log( "divline2", $do_log );
