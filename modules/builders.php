@@ -56,7 +56,7 @@ function get_cpt_builder_content( $post_id = null ) {
 			$ts_info .= $fcn_id."<pre>instruments: ".print_r($instruments, true)."</pre>";
 			
 			foreach ($instruments AS $instrument_id) {
-				$instrument_title .= get_the_title($instrument_id);
+				$instrument_title = get_the_title($instrument_id);
 				$info .= '<span class="instrument">';
 				$info .= make_link( get_the_permalink($instrument_id), $instrument_title, null, null, "_blank" );
 				$info .= '</span>';
