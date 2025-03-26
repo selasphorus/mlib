@@ -35,8 +35,9 @@ function get_cpt_organ_content( $post_id = null ) {
     //
 	if ( function_exists('sdg_editmode') && sdg_editmode() ) {
 		
+		// Needs work -- default of acf_form function is echo...
 		$settings = array( 'post_content' => true, 'instruction_placement' => 'field', 'fields' => array( 'builder', 'model', 'opus_num', 'build_year', 'build_location', 'num_manuals', 'num_divisions', 'num_ranks', 'num_stops', 'num_pipes', 'num_registers', 'num_other', 'action_type', 'venue_filename', 'venue_name', 'organ_sum_html', 'organ_html', 'specs_html', 'stops_summary' ) );
-		acf_form( $settings );
+		//$info .= acf_form( $settings );
 		
 	} else {
     	
