@@ -32,8 +32,15 @@ function get_cpt_organ_content( $post_id = null ) {
     if ($post_id === null) { $post_id = get_the_ID(); } 
     if ( $post_id === null ) { return false; }
     
-    // If not in editmode, show content instead of acf_form -- WIP
-    if ( function_exists('sdg_editmode') && !sdg_editmode() ) {
+    //
+	if ( function_exists('sdg_editmode') && sdg_editmode() ) {
+		
+		$settings = array( 'post_content' => true, 'instruction_placement' => 'field', 'fields' => array( 'builder', 'model', 'opus_num', 'build_year', 'build_location', 'num_manuals', 'num_divisions', 'num_ranks', 'num_stops', 'num_pipes', 'num_registers', 'num_other', 'action_type', 'venue_filename', 'venue_name', 'organ_sum_html', 'organ_html', 'specs_html', 'stops_summary' ) );
+		acf_form( $settings );
+		
+	} else {
+    	
+    	// If not in editmode, show content instead of acf_form -- WIP
     	
     	$builder_str = get_arr_str(get_post_meta( $post_id, 'builder', true )); //$builder = get_field( 'builder', $post_id ); //
     	$info .= '<h2 class="builder">'.$builder_str."</h2>";
