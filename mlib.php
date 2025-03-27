@@ -144,17 +144,18 @@ function mlib_acf_form ( $atts = array() ) {
     	$arr_fields[] = $fields;
     }
     
-	ob_start();
+	
 	$settings = array( 'post_content' => $post_content, 'instruction_placement' => $instruction_placement, 'fields' => $arr_fields );
 	//$ts_info .= "arr_fields: <pre>".print_r($arr_fields, true)."</pre>";
 	//$ts_info .= "settings: <pre>".print_r($settings, true)."</pre>";
     //$info .= $ts_info;
 	
+	ob_start();
     acf_form( $settings );
-    $info = ob_get_clean();
+    //$info = ob_get_clean(); // this approach needs work -- was ending up with doubled content
+    //return $info;
     
-    //return ob_get_clean();
-    return $info;
+    return ob_get_clean();
     
 }
 
