@@ -136,13 +136,14 @@ function mlib_acf_form ( $atts = array() ) {
 	extract( $args );
 	
 	// Turn fields var into array, in case of multiple fields
-    $arr_fields = array(); // init
-    if ( strpos($fields, ',') !== false ) {
+	$arr_fields = "array(".$fields.")";
+    //$arr_fields = array(); // init
+    /*if ( strpos($fields, ',') !== false ) {
     	// comma-separated values
     	$arr_fields = explode(",",$fields);
     } else {
     	$arr_fields[] = $fields;
-    }
+    }*/
     
 	ob_start();
 	$settings = array( 'post_content' => $post_content, 'instruction_placement' => $instruction_placement, 'fields' => $arr_fields );
