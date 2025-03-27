@@ -116,6 +116,7 @@ foreach ( $active_modules as $module ) {
 }
 
 /* +~+~+ Enable ACF FORM as shortcode +~+~+ */
+// TBD: move this to SDG for more general use?
 
 add_action( 'template_redirect', 'acf_form_head' ); // See https://wordpress.org/support/topic/acf-create-a-front-end-form/
 
