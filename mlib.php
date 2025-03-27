@@ -136,23 +136,23 @@ function mlib_acf_form ( $atts = array() ) {
 	extract( $args );
 	
 	// Turn fields var into array, in case of multiple fields
-	$arr_fields = "array(";
+	$fields_str = "array(";
 	//$arr_fields = "array(".$fields.")";
     //$arr_fields = array(); // init
     if ( strpos($fields, ',') !== false ) {
     	// comma-separated values
-    	$fields = explode(",",$fields);
-    	foreach ( $fields as $field ) {
-    		$arr_fields .= "'".$field."', ";
+    	$arr_fields = explode(",",$fields);
+    	foreach ( $arr_fields as $field ) {
+    		$fields_str .= "'".$field."', ";
     	}
     } else {
-    	$arr_fields .= "'".$fields."'";
+    	$fields_str .= "'".$fields."'";
     	//$arr_fields[] = $fields;
     }
-    $arr_fields .= ")";
+    $fields_str .= ")";
     
 	ob_start();
-	$settings = array( 'post_content' => $post_content, 'instruction_placement' => $instruction_placement, 'fields' => $arr_fields );
+	$settings = array( 'post_content' => $post_content, 'instruction_placement' => $instruction_placement, 'fields' => $fields_str );
 	//$ts_info .= "arr_fields: <pre>".print_r($arr_fields, true)."</pre>";
 	$ts_info .= "settings: <pre>".print_r($settings, true)."</pre>";
 	
