@@ -123,6 +123,9 @@ add_action( 'template_redirect', 'acf_form_head' ); // See https://wordpress.org
 add_shortcode('mlib_acf_form', 'mlib_acf_form');
 function mlib_acf_form ( $atts = array() ) {
 
+	$info = "";
+	$ts_info = "";
+	
 	$args = shortcode_atts( array(
         'post_content' => true,
         'instruction_placement' => 'field',
@@ -143,9 +146,15 @@ function mlib_acf_form ( $atts = array() ) {
     
 	ob_start();
 	$settings = array( 'post_content' => $post_content, 'instruction_placement' => $instruction_placement, 'fields' => $arr_fields );
+	$ts_info .= "<pre>".print_r($arr_fields, true)."</pre>";
 	
     acf_form( $settings );
-    return ob_get_clean();
+    $info = ob_get_clean();
+    
+    $info .= $ts_info;
+    
+    //return ob_get_clean();
+    return $info;
     
 }
 
