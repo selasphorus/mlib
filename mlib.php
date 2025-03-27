@@ -159,11 +159,13 @@ function mlib_acf_form ( $atts = array() ) {
     
 }
 
+/*
 // WIP -- attempt to prevent conversion to (and addition of) curly quotes in front-end forms
+// This didn't work -- apparently theme-related -- switched back to Trudy and problem went away
 function my_acf_remove_curly_quotes() {
     remove_filter ('acf_the_content', 'wptexturize');
 }
 add_action('acf/init', 'my_acf_remove_curly_quotes');
-
+*/
 
 ?>
