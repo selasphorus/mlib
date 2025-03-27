@@ -152,10 +152,12 @@ function mlib_acf_form ( $atts = array() ) {
 	
 	ob_start();
     acf_form( $settings );
-    //$info = ob_get_clean(); // this approach needs work -- was ending up with doubled content
-    //return $info;
+    //$info = ob_get_clean(); // one step version of the following -- TS content doubling
+    $info = ob_get_contents();
+	ob_end_clean();
     
-    return ob_get_clean();
+    //return ob_get_clean();
+    return $info;
     
 }
 
