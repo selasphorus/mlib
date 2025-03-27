@@ -115,4 +115,37 @@ foreach ( $active_modules as $module ) {
 
 }
 
+/* +~+~+ Enable ACF FORM as shortcode +~+~+ */
+
+add_action( 'template_redirect', 'acf_form_head' ); // See https://wordpress.org/support/topic/acf-create-a-front-end-form/
+
+add_shortcode('mlib_acf_form', 'mlib_acf_form');
+function mlib_acf_form ( $atts = array() ) {
+
+	$args = shortcode_atts( array(
+        'post_content' => true,
+        'instruction_placement' => 'field',
+        'fields' => true
+    ), $atts );
+    
+    // Extract
+	extract( $args );
+	
+	// Turn fields var into array, in case of multiple fields
+    $arr_fields = array(); // init
+    if ( strpos($fields, ',') !== false ) {
+    	// comma-separated values
+    	$arr_fields = explode(",",$fields);
+    } else {
+    	$arr_fields[] = $fields;
+    }
+    
+	ob_start();
+	$settings = array( 'post_content' => $post_content, 'instruction_placement' => $instruction_placement, 'fields' => $arr_fields );
+	
+    acf_form( $settings );
+    return ob_get_clean();
+    
+}
+
 ?>
