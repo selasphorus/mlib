@@ -141,7 +141,8 @@ function mlib_acf_form ( $atts = array() ) {
     $arr_fields = array(); // init
     if ( strpos($fields, ',') !== false ) {
     	// comma-separated values
-    	$arr_fields = explode(",",$fields);
+    	//$arr_fields = explode(",",$fields);
+    	$arr_fields = array_map('trim', explode(',', $fields)); // trim to deal w/ possibility of comma followed by space and sim
     	/*foreach ( $arr_fields as $field ) {
     		$fields_str .= "'".$field."', ";
     	}*/
