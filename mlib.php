@@ -141,7 +141,7 @@ function mlib_acf_form ( $atts = array() ) {
     //$arr_fields = array(); // init
     if ( strpos($fields, ',') !== false ) {
     	// comma-separated values
-    	//$arr_fields = explode(",",$fields);
+    	$fields = explode(",",$fields);
     	foreach ( $fields as $field ) {
     		$arr_fields .= "'".$field."', ";
     	}
