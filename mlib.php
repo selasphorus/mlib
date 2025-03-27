@@ -148,11 +148,10 @@ function mlib_acf_form ( $atts = array() ) {
 	$settings = array( 'post_content' => $post_content, 'instruction_placement' => $instruction_placement, 'fields' => $arr_fields );
 	//$ts_info .= "arr_fields: <pre>".print_r($arr_fields, true)."</pre>";
 	//$ts_info .= "settings: <pre>".print_r($settings, true)."</pre>";
+    //$info .= $ts_info;
 	
     acf_form( $settings );
     $info = ob_get_clean();
-    
-    $info .= $ts_info;
     
     //return ob_get_clean();
     return $info;
