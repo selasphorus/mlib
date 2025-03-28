@@ -3002,32 +3002,6 @@ function mlib_register_field_groups() {
 				'placeholder' => '',
 			),
 			array(
-				'key' => 'field_64a72357bd5f0',
-				'label' => 'Venue (Deprecated)',
-				'name' => 'venues_organs', // ToDo: generalize/rename?
-				'aria-label' => '',
-				'type' => 'post_object',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '25',
-					'class' => '',
-					'id' => '',
-				),
-				'post_type' => array(
-					0 => 'venue',
-				),
-				'post_status' => '',
-				'taxonomy' => '',
-				'return_format' => 'id',
-				'multiple' => 1,
-				'allow_null' => 0,
-				'bidirectional' => 0,
-				'ui' => 1,
-				'bidirectional_target' => array(),
-			),
-			array(
 				'key' => 'field_mlib_instrument_venues', // was field_64a72357bd5f0 => TODO!: f/r in dev DB
 				'label' => 'Related Venue(s)',
 				'name' => 'instrument_venues',
@@ -3862,6 +3836,32 @@ function mlib_register_field_groups() {
 				'placeholder' => '',
 				'prepend' => '',
 				'append' => '',
+			),
+			array(
+				'key' => 'field_64a72357bd5f0',
+				'label' => 'Venue (Deprecated)',
+				'name' => 'venues_organs', // ToDo: generalize/rename?
+				'aria-label' => '',
+				'type' => 'post_object',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '25',
+					'class' => '',
+					'id' => '',
+				),
+				'post_type' => array(
+					0 => 'venue',
+				),
+				'post_status' => '',
+				'taxonomy' => '',
+				'return_format' => 'id',
+				'multiple' => 1,
+				'allow_null' => 0,
+				'bidirectional' => 0,
+				'ui' => 1,
+				'bidirectional_target' => array(),
 			),
 		),
 		'location' => array(
