@@ -3002,9 +3002,9 @@ function mlib_register_field_groups() {
 				'placeholder' => '',
 			),
 			array(
-				'key' => 'field_64a72357bd5f0',
-				'label' => 'Venue',
-				'name' => 'venues_organs', // ToDo: generalize/rename?
+				'key' => 'field_mlib_instrument_venues',
+				'label' => 'Related Venue(s)',
+				'name' => 'venues',
 				'aria-label' => '',
 				'type' => 'post_object',
 				'instructions' => '',
@@ -3023,9 +3023,12 @@ function mlib_register_field_groups() {
 				'return_format' => 'id',
 				'multiple' => 1,
 				'allow_null' => 0,
-				'bidirectional' => 0,
-				'ui' => 1,
-				'bidirectional_target' => array(),
+				'allow_in_bindings' => 1,
+				'bidirectional' => 1,
+				'bidirectional_target' => array(
+					0 => 'whx4_venue',
+				),
+				'ui' => 1,				
 			),
 			array(
 				'key' => 'field_6227e29e423b9',
