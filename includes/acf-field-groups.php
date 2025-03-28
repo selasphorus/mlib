@@ -3869,7 +3869,14 @@ function mlib_register_field_groups() {
 				array(
 					'param' => 'post_type',
 					'operator' => '==',
-					'value' => 'organ', // TODO: change to 'instrument'
+					'value' => 'organ',
+				),
+			),
+			array(
+				array(
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'instrument',
 				),
 			),
 		),
