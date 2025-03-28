@@ -3003,7 +3003,7 @@ function mlib_register_field_groups() {
 			),
 			array(
 				'key' => 'field_64a72357bd5f0',
-				'label' => 'Venue',
+				'label' => 'Venue (Deprecated)',
 				'name' => 'venues_organs', // ToDo: generalize/rename?
 				'aria-label' => '',
 				'type' => 'post_object',
