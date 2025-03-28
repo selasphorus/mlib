@@ -3030,7 +3030,7 @@ function mlib_register_field_groups() {
 			array(
 				'key' => 'field_mlib_instrument_venues', // was field_64a72357bd5f0 => TODO!: f/r in dev DB
 				'label' => 'Related Venue(s)',
-				'name' => 'venues',
+				'name' => 'related_venues',
 				'aria-label' => '',
 				'type' => 'post_object',
 				'instructions' => '',
