@@ -77,6 +77,10 @@ function get_cpt_organ_content( $post_id = null ) {
     	//$organ_html = get_post_meta( $post_id, 'organ_html', true );
     	//if ( $organ_html ) { $info .= '<div class="organ_html">'.$organ_html.'</div>'; }
     	
+    	// Specs WIP
+    	$specs_html = get_post_meta( $post_id, 'specs_html', true );
+    	if ( $specs_html ) { $info .= '<div class="specs_html">'.$specs_html.'</div>'; }
+    	
     	$info .= "<hr />";
     	
     }
