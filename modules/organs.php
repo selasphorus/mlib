@@ -43,6 +43,8 @@ function get_cpt_organ_content( $post_id = null ) {
 	} else {
     	
     	// If not in editmode, show content instead of acf_form -- WIP
+    	
+    	// TODO: use this summary_str as a model for re-titling organ posts
     	$summary_str = "";
     	
     	$builder_str = get_arr_str(get_post_meta( $post_id, 'builder', true )); //$builder = get_field( 'builder', $post_id ); //
@@ -50,7 +52,7 @@ function get_cpt_organ_content( $post_id = null ) {
     	
     	$opus_num = get_post_meta( $post_id, 'opus_num', true );
     	//if ( $opus_num ) { $info .= '<strong>Opus Num.</strong>: <div class="xxx wip">'.$opus_num."</div>"; }
-    	if ( $opus_num ) { $summary_str .= '<span class="opus_num">'.$opus_num.'</span>'; }
+    	if ( $opus_num ) { $summary_str .= '&nbsp;<span class="opus_num">'.$opus_num.'</span>'; }
     	
     	$model = get_post_meta( $post_id, 'model', true );
     	if ( $model ) { $summary_str .= ' / <span class="model">'.$model."</span>"; }
