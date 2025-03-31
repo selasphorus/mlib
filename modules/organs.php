@@ -72,6 +72,8 @@ function get_cpt_organ_content( $post_id = null ) {
     	//$organ_html = get_post_meta( $post_id, 'organ_html', true );
     	//if ( $organ_html ) { $info .= '<div class="organ_html">'.$organ_html.'</div>'; }
     	
+    	$info .= "<hr />";
+    	
     }
     
     if ( $ts_info != "" && ( $do_ts === true || $do_ts == "venues" ) ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
