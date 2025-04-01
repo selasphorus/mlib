@@ -776,6 +776,26 @@ function mlib_register_field_groups() {
 				'selected' => 0,
 			),
 			array(
+				'key' => 'field_mlib_synopsis',
+				'label' => 'Synopsis',
+				'name' => 'synopsis',
+				'aria-label' => '',
+				'type' => 'textarea',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '50',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'placeholder' => '',
+				'maxlength' => '',
+				'rows' => '',
+				'new_lines' => '',
+			),
+			array(
 				'key' => 'field_6240a7037b52d',
 				'label' => 'Full Translation',
 				'name' => 'full_translation',
@@ -785,7 +805,7 @@ function mlib_register_field_groups() {
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
-					'width' => '',
+					'width' => '50',
 					'class' => '',
 					'id' => '',
 				),
@@ -3344,6 +3364,8 @@ function mlib_register_field_groups() {
 				'prepend' => '',
 				'append' => '',
 			),
+			// TODO: add related_instruments field to link related/duplicate records
+			//
 			array(
 				'key' => 'field_6227e4a1e4205',
 				'label' => 'Specifications',
