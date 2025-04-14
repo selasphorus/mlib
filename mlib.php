@@ -5,7 +5,7 @@
  * //Requires at least: 6.4
  * //Requires PHP:      7.4
  * Dependencies:	  Requires WHx4 plugin for People CPT and SDG for various utility functions
- * Requires Plugins:  sdg, whx4
+ * Requires Plugins:  whx4, sdg
  * Version:           0.1
  * Author:            atc
  * License:           GPL-2.0-or-later
@@ -16,6 +16,46 @@
  */
 
 // TODO: generalize as "library" w/ sub-options for music?
+
+
+if( !defined('ABSPATH') ) {
+	exit;
+}
+
+// Make sure we don't expose any info if called directly
+if ( !function_exists( 'add_action' ) ) {
+	echo 'Hi there!  I\'m just a plugin, not much I can do when called directly.';
+	exit;
+}
+
+// Enforce dependency on WHx4
+add_action('plugins_loaded', function() {
+	if( !class_exists('atc\WHx4\Core\Plugin') ) {
+		add_action('admin_notices', function() {
+			echo '<div class="notice notice-error"><p><strong>MLib</strong> requires the <strong>WHx4</strong> plugin to be active. The plugin has been deactivated.</p></div>';
+		});
+
+		add_action('admin_init', function() {
+			deactivate_plugins(plugin_basename(__FILE__));
+		});
+
+		return;
+	}
+});
+
+// WIP >> OOP
+
+// Via Composer
+require_once plugin_dir_path(__FILE__) . 'vendor/autoload.php';
+//require_once __DIR__ . '/src/Modules/Horseplay.php';
+
+use atc\MLib\Modules\Horseplay;
+
+add_filter( 'rex_register_modules', function( array $modules ) {
+	$modules['horseplay'] = Horseplay::class;
+	return $modules;
+});
+
 
 // Define our handy constants.
 define( 'MLIB_VERSION', '0.1.5' );
