@@ -30,7 +30,7 @@ if ( !function_exists( 'add_action' ) ) {
 
 // Enforce dependency on WHx4
 add_action('plugins_loaded', function() {
-	if( !class_exists('atc\WHx4\Core\Plugin') ) {
+	if( !class_exists('atc\WHx4\Plugin') ) {
 		add_action('admin_notices', function() {
 			echo '<div class="notice notice-error"><p><strong>MLib</strong> requires the <strong>WHx4</strong> plugin to be active. The plugin has been deactivated.</p></div>';
 		});
