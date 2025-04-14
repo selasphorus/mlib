@@ -44,10 +44,10 @@ add_action('plugins_loaded', function() {
 });
 
 // WIP >> OOP
-
+/*
 // Via Composer
 require_once plugin_dir_path(__FILE__) . 'vendor/autoload.php';
-/*
+
 use atc\MLib\Modules\Repertoire;
 use atc\MLib\Modules\Instruments;
 use atc\MLib\Modules\Builders;
