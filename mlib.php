@@ -67,7 +67,8 @@ require 'includes/cpts.php';
 // Get plugin options -- WIP
 // Get plugin options to determine which modules are active
 $options = get_option( 'mlib_settings' );
-if ( get_field('mlib_active_modules', 'option') ) { $active_modules = get_field('mlib_active_modules', 'option'); } else { $active_modules = array(); }
+//if ( get_field('mlib_active_modules', 'option') ) { $active_modules = get_field('mlib_active_modules', 'option'); } else { $active_modules = array(); }
+if ( isset($options['mlib_active_modules']) ) { $active_modules = $options['mlib_active_modules']; } else { $active_modules = array(); }
 
 foreach ( $active_modules as $module ) {
 
