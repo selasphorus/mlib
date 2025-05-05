@@ -29,7 +29,7 @@ if ( !function_exists( 'add_action' ) ) {
 }
 
 // Enforce dependency on WHx4
-add_action('plugins_loaded', function() {
+/*add_action('plugins_loaded', function() {
 	if( !class_exists('atc\WHx4\Plugin') ) {
 		add_action('admin_notices', function() {
 			echo '<div class="notice notice-error"><p><strong>MLib</strong> requires the <strong>WHx4</strong> plugin to be active. The plugin has been deactivated.</p></div>';
@@ -41,7 +41,7 @@ add_action('plugins_loaded', function() {
 
 		return;
 	}
-});
+});*/
 
 // WIP >> OOP
 /*
@@ -97,7 +97,7 @@ require 'includes/acf-settings-page.php';
 
 // Restrict access to ACF Admin screens
 require 'includes/acf-restrict-access.php';
-	
+
 // Load ACF field groups hard-coded as PHP
 require 'includes/acf-field-groups.php';
 
@@ -122,14 +122,14 @@ foreach ( $active_modules as $module ) {
 
 	// Load associated functions file, if any
     $filepath = MLIB_PLUGIN_DIR.'/modules/'.$module.'.php';
-    $arr_exclusions = array ( 'mdev' ); // 'instruments', 'groups', 'newsletters', 'snippets', 'logbook', 'venues', 
+    $arr_exclusions = array ( 'mdev' ); // 'instruments', 'groups', 'newsletters', 'snippets', 'logbook', 'venues',
     if ( !in_array( $module, $arr_exclusions) ) { // skip modules w/ no associated function files
     	if ( file_exists($filepath) ) { include_once( $filepath ); } else { echo "MLib module file $filepath not found"; }
     }
-    
+
     // Add module options page for adding featured image, page-top content, &c.
     $cpt_names = array(); // array because some modules include multiple post types
-    
+
     // Which post types are associated with this module? Build array
 	// Deal w/ modules whose names don't perfectly match their CPT names
 	if ( $module == "music" ) {
@@ -151,7 +151,7 @@ foreach ( $active_modules as $module ) {
 		$primary_cpt = $cpt_name;
 		$cpt_names[] = $cpt_name;
 	}
-    
+
 	if ( function_exists('acf_add_options_page') ) {
 		// Add module options page
     	acf_add_options_sub_page(array(
@@ -174,16 +174,16 @@ function mlib_acf_form ( $atts = array() ) {
 
 	$info = "";
 	$ts_info = "";
-	
+
 	$args = shortcode_atts( array(
         'post_content' => true,
         'instruction_placement' => 'field',
         'fields' => true
     ), $atts );
-    
+
     // Extract
 	extract( $args );
-	
+
 	// Turn fields var into array, in case of multiple fields
     $arr_fields = array(); // init
     if ( strpos($fields, ',') !== false ) {
@@ -192,20 +192,20 @@ function mlib_acf_form ( $atts = array() ) {
     } else {
     	$arr_fields[] = $fields;
     }
-    
-	
+
+
 	$settings = array( 'post_content' => $post_content, 'instruction_placement' => $instruction_placement, 'fields' => $arr_fields );
 	//$ts_info .= "arr_fields: <pre>".print_r($arr_fields, true)."</pre>";
 	//$ts_info .= "settings: <pre>".print_r($settings, true)."</pre>";
     //$info .= $ts_info;
-	
+
 	ob_start();
     acf_form( $settings );
     $info = ob_get_clean(); // one step version of ob_get_contents(); ob_end_clean();
-    
+
     //return ob_get_clean();
     return $info;
-    
+
 }
 
 /*
