@@ -19,28 +19,28 @@
 
 
 if( !defined('ABSPATH') ) {
-	exit;
+    exit;
 }
 
 // Make sure we don't expose any info if called directly
 if ( !function_exists( 'add_action' ) ) {
-	echo 'Hi there!  I\'m just a plugin, not much I can do when called directly.';
-	exit;
+    echo 'Hi there!  I\'m just a plugin, not much I can do when called directly.';
+    exit;
 }
 
 // Enforce dependency on WHx4
 /*add_action('plugins_loaded', function() {
-	if( !class_exists('atc\WHx4\Plugin') ) {
-		add_action('admin_notices', function() {
-			echo '<div class="notice notice-error"><p><strong>MLib</strong> requires the <strong>WHx4</strong> plugin to be active. The plugin has been deactivated.</p></div>';
-		});
+    if ( !class_exists('atc\WHx4\Plugin') ) {
+        add_action('admin_notices', function() {
+            echo '<div class="notice notice-error"><p><strong>MLib</strong> requires the <strong>WHx4</strong> plugin to be active. The plugin has been deactivated.</p></div>';
+        });
 
-		add_action('admin_init', function() {
-			deactivate_plugins(plugin_basename(__FILE__));
-		});
+        add_action('admin_init', function() {
+            deactivate_plugins(plugin_basename(__FILE__));
+        });
 
-		return;
-	}
+        return;
+    }
 });*/
 
 // WIP >> OOP
@@ -53,16 +53,16 @@ use atc\MLib\Modules\Instruments;
 use atc\MLib\Modules\Builders;
 use atc\MLib\Modules\Organs;
 */
-add_filter( 'whx4_register_modules', function( array $modules ) {
-	//$modules['music'] = Music::class;
-	$modules = [
+/*add_filter( 'whx4_register_modules', function( array $modules ) {
+    //$modules['music'] = Music::class;
+    $modules = [
         //'repertoire'	=> Repertoire::class, // or: Music?
         //'instruments'	=> Instruments::class,
        	//'builder'		=> Builders::class,
         //'organs' 		=> Organs::class // tmp?
     ];
-	return $modules;
-});
+    return $modules;
+});*/
 
 
 // Define our handy constants.
