@@ -26,21 +26,21 @@ add_filter( 'block_editor_settings_all', 'mlib_restrict_locking_ui', 10, 2 );
  * @since 0.1.2
  */
 function mlib_show_acf_admin() {
-	// If our user can manage site options.
-	if ( current_user_can( 'manage_options' ) ) {
-	
-		$user = wp_get_current_user();
+    // If our user can manage site options.
+    if ( current_user_can( 'manage_options' ) ) {
+    
+        $user = wp_get_current_user();
 
-		// Make sure we have a WP_User object and email address.
-		if ( $user && isset( $user->user_email ) ) {
-			
-			// Compare current logged in user's email with our allow list.
-			//if ( in_array( $email_domain, $allowed_email_domains, true ) ) {
-			if ( $user->user_email == "birdhive@gmail.com" || $user->user_email == "alphameric@protonmail.com" ) {
-				return true;
-			}
-		}
-	}
+        // Make sure we have a WP_User object and email address.
+        if ( $user && isset( $user->user_email ) ) {
+            
+            // Compare current logged in user's email with our allow list.
+            //if ( in_array( $email_domain, $allowed_email_domains, true ) ) {
+            if ( $user->user_email == "birdhive@gmail.com" || $user->user_email == "alphameric@protonmail.com" ) {
+                return true;
+            }
+        }
+    }
 }
 
 /**
@@ -51,7 +51,7 @@ function mlib_show_acf_admin() {
  * @since 0.1.3
  */
 function mlib_restrict_locking_ui( $settings ) {
-	$settings['canLockBlocks'] = mlib_show_acf_admin();
+    $settings['canLockBlocks'] = mlib_show_acf_admin();
 
-	return $settings;
+    return $settings;
 }

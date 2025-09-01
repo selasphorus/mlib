@@ -24,12 +24,12 @@ add_filter( 'acf/json/save_file_name', 'mlib_json_filename', 10, 3 );
  * @since 0.1.1
  */
 function mlib_json_load_paths( $paths ) {
-	$paths[] = MLIB_PLUGIN_DIR . '/acf-json/field-groups';
-	$paths[] = MLIB_PLUGIN_DIR . '/acf-json/options-pages';
-	$paths[] = MLIB_PLUGIN_DIR . '/acf-json/post-types';
-	$paths[] = MLIB_PLUGIN_DIR . '/acf-json/taxonomies';
+    $paths[] = MLIB_PLUGIN_DIR . '/acf-json/field-groups';
+    $paths[] = MLIB_PLUGIN_DIR . '/acf-json/options-pages';
+    $paths[] = MLIB_PLUGIN_DIR . '/acf-json/post-types';
+    $paths[] = MLIB_PLUGIN_DIR . '/acf-json/taxonomies';
 
-	return $paths;
+    return $paths;
 }
 
 /**
@@ -43,7 +43,7 @@ function mlib_json_load_paths( $paths ) {
  * @since 0.1.1
  */
 function mlib_json_save_path_for_post_types() {
-	return MLIB_PLUGIN_DIR . '/acf-json/post-types';
+    return MLIB_PLUGIN_DIR . '/acf-json/post-types';
 }
 
 /**
@@ -57,7 +57,7 @@ function mlib_json_save_path_for_post_types() {
  * @since 0.1.1
  */
 function mlib_json_save_path_for_field_groups() {
-	return MLIB_PLUGIN_DIR . '/acf-json/field-groups';
+    return MLIB_PLUGIN_DIR . '/acf-json/field-groups';
 }
 
 /**
@@ -71,7 +71,7 @@ function mlib_json_save_path_for_field_groups() {
  * @since 0.1.1
  */
 function mlib_json_save_path_for_taxonomies() {
-	return MLIB_PLUGIN_DIR . '/acf-json/taxonomies';
+    return MLIB_PLUGIN_DIR . '/acf-json/taxonomies';
 }
 
 /**
@@ -85,7 +85,7 @@ function mlib_json_save_path_for_taxonomies() {
  * @since 0.1.1
  */
 function mlib_json_save_path_for_option_pages() {
-	return MLIB_PLUGIN_DIR . '/acf-json/options-pages';
+    return MLIB_PLUGIN_DIR . '/acf-json/options-pages';
 }
 
 /**
@@ -101,19 +101,19 @@ function mlib_json_save_path_for_option_pages() {
  * @since  0.1.1
  */
 function mlib_json_filename( $filename, $post ) {
-	$filename = str_replace(
-		array(
-			' ',
-			'_',
-		),
-		array(
-			'-',
-			'-',
-		),
-		$post['title']
-	);
+    $filename = str_replace(
+        array(
+            ' ',
+            '_',
+        ),
+        array(
+            '-',
+            '-',
+        ),
+        $post['title']
+    );
 
-	$filename = strtolower( $filename ) . '.json';
+    $filename = strtolower( $filename ) . '.json';
 
-	return $filename;
+    return $filename;
 }

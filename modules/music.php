@@ -4,8 +4,8 @@ defined( 'ABSPATH' ) or die( 'Nope!' );
 
 // Make sure we don't expose any info if called directly
 if ( !function_exists( 'add_action' ) ) {
-	echo 'Hi there!  I\'m just a plugin file, not much I can do when called directly.';
-	exit;
+    echo 'Hi there!  I\'m just a plugin file, not much I can do when called directly.';
+    exit;
 }
 
 
@@ -13,158 +13,158 @@ if ( !function_exists( 'add_action' ) ) {
 
 /* ~~~ Admin/Dev functions ~~~ */
 function update_repertoire_events( $rep_id = null, $run_slow_queries = false, $arr_event_ids = array() ) {
-	
-	$info = "";
-	$updates = false;
-	
-	$info .= "About to run update_repertoire_events for rep item with ID:".$rep_id."<br />";
-	
-	// get the repertoire_events field contents for the rep item
-	$repertoire_events = get_field('repertoire_events', $rep_id, false);
-	
-	if ( !empty($repertoire_events) ) {
-		//$info .= "This rep item currently has the following repertoire_events: <pre>".print_r($repertoire_events,true)."</pre>";
-		if ( !is_array($repertoire_events) ) { $repertoire_events = explode( ", ",$repertoire_events ); } // If it's not an array already, make it one
-		$info .= "This rep item currently has [".count($repertoire_events)."] repertoire_events<br />";	
-	} else {
-		$info .= "This rep item currently has no repertoire_events.<br />";
-		$repertoire_events = array(); // No repertoire_events set yet, so prep an empty array
-	}
-	
-	// Check to see if any event_ids were submitted and proceed accordingly
-	if ( empty($arr_event_ids) && $run_slow_queries == true ) {
-	
-		// No event_ids were submitted -> run a query to find ALL event_ids for events with programs containing the rep_id		
-		$related_events = get_related_events ( "program_item", $rep_id );
-		$arr_event_ids = $related_events['event_posts'];
-	
-		if ( empty($arr_event_ids) ) {
-			$info .= "No related events were found using the get_related_events fcn.<br />"; // tft
-		}
     
-	}
+    $info = "";
+    $updates = false;
+    
+    $info .= "About to run update_repertoire_events for rep item with ID:".$rep_id."<br />";
+    
+    // get the repertoire_events field contents for the rep item
+    $repertoire_events = get_field('repertoire_events', $rep_id, false);
+    
+    if ( !empty($repertoire_events) ) {
+        //$info .= "This rep item currently has the following repertoire_events: <pre>".print_r($repertoire_events,true)."</pre>";
+        if ( !is_array($repertoire_events) ) { $repertoire_events = explode( ", ",$repertoire_events ); } // If it's not an array already, make it one
+        $info .= "This rep item currently has [".count($repertoire_events)."] repertoire_events<br />";    
+    } else {
+        $info .= "This rep item currently has no repertoire_events.<br />";
+        $repertoire_events = array(); // No repertoire_events set yet, so prep an empty array
+    }
+    
+    // Check to see if any event_ids were submitted and proceed accordingly
+    if ( empty($arr_event_ids) && $run_slow_queries == true ) {
+    
+        // No event_ids were submitted -> run a query to find ALL event_ids for events with programs containing the rep_id        
+        $related_events = get_related_events ( "program_item", $rep_id );
+        $arr_event_ids = $related_events['event_posts'];
+    
+        if ( empty($arr_event_ids) ) {
+            $info .= "No related events were found using the get_related_events fcn.<br />"; // tft
+        }
+    
+    }
 
-	// Check event_ids to see if they're already in the repertoire_events array and add them if not
-	foreach($arr_event_ids as $event_id) {
-		if ( !in_array( $event_id, $repertoire_events ) ) {
-			$repertoire_events[] = $event_id;
-			$updates = true;
-		} else {
-			$info .= "The event_id [$event_id] is already in the array.<br />";	
-		}
-	}
-	
-	// If changes have been made, then update the repertoire_events field with the modified array of event_id values
-	if ( $updates == true ) {
-		if ( update_field('repertoire_events', $repertoire_events, $rep_id ) ) {
-			$info .= "Success! repertoire_events field updated<br />";
-			$info .= "Updated repertoire_events: <pre>".print_r($repertoire_events,true)."</pre>";
-		} else {
-			$info .= "phooey. update failed.<br />";
-		}
-	} else {
-		$info .= "No update needed.<br />";
-	}
-	
-	$info .= "+++++<br /><br />";
-	
-	return $info;
-	
+    // Check event_ids to see if they're already in the repertoire_events array and add them if not
+    foreach($arr_event_ids as $event_id) {
+        if ( !in_array( $event_id, $repertoire_events ) ) {
+            $repertoire_events[] = $event_id;
+            $updates = true;
+        } else {
+            $info .= "The event_id [$event_id] is already in the array.<br />";    
+        }
+    }
+    
+    // If changes have been made, then update the repertoire_events field with the modified array of event_id values
+    if ( $updates == true ) {
+        if ( update_field('repertoire_events', $repertoire_events, $rep_id ) ) {
+            $info .= "Success! repertoire_events field updated<br />";
+            $info .= "Updated repertoire_events: <pre>".print_r($repertoire_events,true)."</pre>";
+        } else {
+            $info .= "phooey. update failed.<br />";
+        }
+    } else {
+        $info .= "No update needed.<br />";
+    }
+    
+    $info .= "+++++<br /><br />";
+    
+    return $info;
+    
 }
 
 // WIP fcn to update to new bidirectional field: repertoire_litdates
 /*function update_repertoire_litdates( $rep_id = null, $run_slow_queries = false, $arr_litdate_ids = array() ) {
-	
-	$info = "";
-	$updates = false;
-	
-	$info .= "About to update repertoire_litdates for rep item with ID:".$rep_id."<br />";
-	
-	// get the repertoire_litdates field contents for the rep item
-	$repertoire_litdates = get_field('repertoire_litdates', $rep_id, false);
-	
-	if ( !empty($repertoire_litdates) ) {
-		$info .= "This rep item currently has the following repertoire_litdates: <pre>".print_r($repertoire_litdates,true)."</pre>";								
-		if ( !is_array($repertoire_litdates) ) { $repertoire_litdates = explode( ", ",$repertoire_litdates ); } // If it's not an array already, make it one		
-	} else {
-		$info .= "This rep item currently has no repertoire_litdates.<br />";
-		$repertoire_litdates = array(); // No repertoire_litdates set yet, so prep an empty array
-	}
-	
-	// Check to see if any litdate_ids were submitted and proceed accordingly
-	if ( empty($arr_litdate_ids) && $run_slow_queries == true ) {
-	
-		// No litdate_ids were submitted -> run a query to find ALL litdate_ids for litdates with programs containing the rep_id		
-		$related_litdates = get_related_litdates ( "program_item", $rep_id );
-		$arr_litdate_ids = $related_litdates['litdate_posts'];
-	
-		if ( empty($arr_litdate_ids) ) {
-			$info .= "No related litdates were found using the get_related_litdates fcn.<br />"; // tft
-		}
     
-	}
+    $info = "";
+    $updates = false;
+    
+    $info .= "About to update repertoire_litdates for rep item with ID:".$rep_id."<br />";
+    
+    // get the repertoire_litdates field contents for the rep item
+    $repertoire_litdates = get_field('repertoire_litdates', $rep_id, false);
+    
+    if ( !empty($repertoire_litdates) ) {
+        $info .= "This rep item currently has the following repertoire_litdates: <pre>".print_r($repertoire_litdates,true)."</pre>";                                
+        if ( !is_array($repertoire_litdates) ) { $repertoire_litdates = explode( ", ",$repertoire_litdates ); } // If it's not an array already, make it one        
+    } else {
+        $info .= "This rep item currently has no repertoire_litdates.<br />";
+        $repertoire_litdates = array(); // No repertoire_litdates set yet, so prep an empty array
+    }
+    
+    // Check to see if any litdate_ids were submitted and proceed accordingly
+    if ( empty($arr_litdate_ids) && $run_slow_queries == true ) {
+    
+        // No litdate_ids were submitted -> run a query to find ALL litdate_ids for litdates with programs containing the rep_id        
+        $related_litdates = get_related_litdates ( "program_item", $rep_id );
+        $arr_litdate_ids = $related_litdates['litdate_posts'];
+    
+        if ( empty($arr_litdate_ids) ) {
+            $info .= "No related litdates were found using the get_related_litdates fcn.<br />"; // tft
+        }
+    
+    }
 
-	// Check litdate_ids to see if they're already in the repertoire_litdates array and add them if not
-	foreach($arr_litdate_ids as $litdate_id) {
-		if ( !in_array( $litdate_id, $repertoire_litdates ) ) {
-			$repertoire_litdates[] = $litdate_id;
-			$updates = true;
-		} else {
-			$info .= "The litdate_id [$litdate_id] is already in the array.<br />";	
-		}
-	}
-	
-	// If changes have been made, then update the repertoire_litdates field with the modified array of litdate_id values
-	if ( $updates == true ) {
-		if ( update_field('repertoire_litdates', $repertoire_litdates, $rep_id ) ) {
-			$info .= "Success! repertoire_litdates field updated<br />";
-			$info .= "Updated repertoire_litdates: <pre>".print_r($repertoire_litdates,true)."</pre>";
-		} else {
-			$info .= "phooey. update failed.<br />";
-		}
-	} else {
-		$info .= "No update needed.<br />";
-	}
-	
-	$info .= "+++++<br /><br />";
-	
-	return $info;
-	
+    // Check litdate_ids to see if they're already in the repertoire_litdates array and add them if not
+    foreach($arr_litdate_ids as $litdate_id) {
+        if ( !in_array( $litdate_id, $repertoire_litdates ) ) {
+            $repertoire_litdates[] = $litdate_id;
+            $updates = true;
+        } else {
+            $info .= "The litdate_id [$litdate_id] is already in the array.<br />";    
+        }
+    }
+    
+    // If changes have been made, then update the repertoire_litdates field with the modified array of litdate_id values
+    if ( $updates == true ) {
+        if ( update_field('repertoire_litdates', $repertoire_litdates, $rep_id ) ) {
+            $info .= "Success! repertoire_litdates field updated<br />";
+            $info .= "Updated repertoire_litdates: <pre>".print_r($repertoire_litdates,true)."</pre>";
+        } else {
+            $info .= "phooey. update failed.<br />";
+        }
+    } else {
+        $info .= "No update needed.<br />";
+    }
+    
+    $info .= "+++++<br /><br />";
+    
+    return $info;
+    
 }*/
 
 
 /* ~~~ Display functions ~~~ */
 
 function get_cpt_repertoire_content( $post_id = null ) {
-	
-	// TS/logging setup
+    
+    // TS/logging setup
     $do_ts = devmode_active( array("sdg", "music") );
     $do_log = false;
     sdg_log( "divline2", $do_log );
     
-	// Init vars
+    // Init vars
     $arr_info = array();
     $info = "";
     $ts_info = "";
     
-	if ($post_id === null) { $post_id = get_the_ID(); }
-	//$ts_info .="[get_cpt_repertoire_content] post_id: $post_id<br />";
-	
+    if ($post_id === null) { $post_id = get_the_ID(); }
+    //$ts_info .="[get_cpt_repertoire_content] post_id: $post_id<br />";
+    
     $arr_rep_info = get_rep_info( $post_id, 'display', true, true ); // get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true )
-	$rep_info = $arr_rep_info['info'];
-	$ts_info .= $arr_rep_info['ts_info'];
-						
-	if ( $rep_info ) {
+    $rep_info = $arr_rep_info['info'];
+    $ts_info .= $arr_rep_info['ts_info'];
+                        
+    if ( $rep_info ) {
         //$info .= "<h3>The Work:</h3>";
         $info .= $rep_info;
     }
     
     // Related Events
     $repertoire_events = get_field('repertoire_events', $post_id, false);
-	if ( empty($repertoire_events) && is_dev_site() ) {
-		// Field repertoire_events is empty -> check to see if updates are in order
-		$ts_info .= '<!-- '.update_repertoire_events( $post_id ).' -->';
-	}
+    if ( empty($repertoire_events) && is_dev_site() ) {
+        // Field repertoire_events is empty -> check to see if updates are in order
+        $ts_info .= '<!-- '.update_repertoire_events( $post_id ).' -->';
+    }
     
     if ( $repertoire_events ) { 
         //global $post;
@@ -198,7 +198,7 @@ function get_cpt_repertoire_content( $post_id = null ) {
     if ( $related_editions &&
         ( ( is_dev_site() && current_user_can('read_repertoire') ) || current_user_can('read_music') ) 
        ) {
-       	//-- STC
+           //-- STC
         $info .= "<h3>Edition(s) in the Saint Thomas Library:</h3>";
         //$ts_info .= "<pre>related_editions: ".print_r($related_editions, true)."</pre>";
         foreach ( $related_editions as $edition_id ) {
@@ -236,8 +236,8 @@ function get_cpt_repertoire_content( $post_id = null ) {
     
     //$ts_info .= "test"; // tft
     //if ( $ts_info != "" && $do_ts === true ) { $ts_info = '<div class="troubleshooting">'.$ts_info.'</div>'; }
-	
-	$arr_info['info'] = $info;
+    
+    $arr_info['info'] = $info;
     if ( $ts_info != "" && $do_ts === true ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
     
     return $arr_info;
@@ -254,13 +254,13 @@ function get_cpt_edition_content( $post_id = null ) {
     $do_ts = devmode_active( array("mlib", "editions") ); 
     $do_log = false;
     sdg_log( "divline2", $do_log );
-	
-	// Init vars
-	$info = "";
-	$ts_info = "";
-	if ($post_id === null) { $post_id = get_the_ID(); }
-	
-	$ts_info .= "<!-- edition post_id: $post_id -->";
+    
+    // Init vars
+    $info = "";
+    $ts_info = "";
+    if ($post_id === null) { $post_id = get_the_ID(); }
+    
+    $ts_info .= "<!-- edition post_id: $post_id -->";
     
     // Musical Work
     if ( get_field( 'repertoire_editions', $post_id )  ) {
@@ -285,7 +285,7 @@ function get_cpt_edition_content( $post_id = null ) {
     // TODO: use get_rep_info to make more refined view?
     
     /*$rep_info = get_rep_info( $post_id, 'display', true, true ); // get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true )
-	if ( $rep_info ) {
+    if ( $rep_info ) {
         $info .= "<h3>The Work:</h3>";
         $info .= $rep_info;
     }*/
@@ -410,16 +410,16 @@ function get_cpt_edition_content( $post_id = null ) {
     
     if ( $do_ts ) { $info .= $ts_info; }
     
-	return $info;
-	
+    return $info;
+    
 }
 
 // Function to determine if rep work is of anonymous or unknown authorship
 function is_anon( $post_id = null ) {
     
     // Init vars
-	if ($post_id === null) { $post_id = get_the_ID(); }
-	if ( empty($post_id) ) { return null; }
+    if ($post_id === null) { $post_id = get_the_ID(); }
+    if ( empty($post_id) ) { return null; }
     $info = "";
     $composers_str = "";
     $anon = false;
@@ -429,9 +429,9 @@ function is_anon( $post_id = null ) {
     
     $composers = get_field('composer', $post_id, false);
     if ( $composers ) {
-    	foreach ( $composers as $composer ) {
-			if ( $composer ) { $composers_str .= get_the_title($composer); }
-		}
+        foreach ( $composers as $composer ) {
+            if ( $composer ) { $composers_str .= get_the_title($composer); }
+        }
     }    
     
     if ( $composers_str == '[Unknown]' || $composers_str == 'Unknown' || $composers_str == 'Anonymous' || $composers_str == 'Plainsong' ) {
@@ -458,19 +458,19 @@ function str_from_persons_array ( $args = array() ) {
     $ts_info = "";
     
     // Defaults
-	$defaults = array(
-		'arr_persons'     	=> array(),
-		'person_category' 	=> null,
-		'post_id' 			=> null,
-		'format'    		=> 'display', // other possible values include: "post_title", "edition_title" -- ??
-		'arr_of'    		=> 'objects',
-		'abbr'    			=> false,
-		'links'    			=> false,
-	);
+    $defaults = array(
+        'arr_persons'         => array(),
+        'person_category'     => null,
+        'post_id'             => null,
+        'format'            => 'display', // other possible values include: "post_title", "edition_title" -- ??
+        'arr_of'            => 'objects',
+        'abbr'                => false,
+        'links'                => false,
+    );
 
-	// Parse & Extract args
-	$args = wp_parse_args( $args, $defaults );
-	extract( $args );
+    // Parse & Extract args
+    $args = wp_parse_args( $args, $defaults );
+    extract( $args );
     
     //sdg_log( "[str_from_persons] arr_persons: ".print_r($arr_persons, true), $do_log );
     sdg_log( "[ssfpa] person_category: ".$person_category, $do_log );
@@ -498,9 +498,9 @@ function str_from_persons_array ( $args = array() ) {
         
         // Set up display args to pass to fcn get_person_display_name
         if ( $abbr || has_term( 'psalms', 'repertoire_category', $post_id ) && !has_term( 'motets', 'repertoire_category', $post_id ) && !has_term( 'anthems', 'repertoire_category', $post_id ) ) { 
-        	$name_abbr = "abbr";
+            $name_abbr = "abbr";
         } else {
-        	$name_abbr = "full";
+            $name_abbr = "full";
         }
         
         $override = "none";
@@ -510,28 +510,28 @@ function str_from_persons_array ( $args = array() ) {
         $show_job_title = false;
         $show_dates = false;
         $styled = true;
-        	
+            
         if ( $person_category == "composers" || $person_category == "arrangers" ) {
-        	//
+            //
         }
         
         if ( ( $format == "post_title" || $format == "edition_title" ) && ( $person_category == "composers" || $person_category == "arrangers" ) ) { 
-			$show_dates = true;
-			$styled = false; // don't add person_dates span/style for post_titles
-		} else if ( $abbr !== true ) {
-			$show_dates = true;
-			$styled = true; // add dates with span/style
-		}
+            $show_dates = true;
+            $styled = false; // don't add person_dates span/style for post_titles
+        } else if ( $abbr !== true ) {
+            $show_dates = true;
+            $styled = true; // add dates with span/style
+        }
         
         if ( $links ) {
-        	// TODO: verify post_type == person?
-			$person_url = esc_url( get_permalink( $person_id ) );
-			if ( $person_url ) { $display_args['url'] = $person_url; }
-		} else {
-			$person_url = null;
-		}
-		
-		$display_args = array( 'person_id' => $person_id, 'override' => $override, 'name_abbr' => $name_abbr, 'show_prefix' => $show_prefix, 'show_suffix' => $show_suffix, 'show_job_title' => $show_job_title, 'show_dates' => $show_dates, 'url' => $person_url, 'styled' => $styled );
+            // TODO: verify post_type == person?
+            $person_url = esc_url( get_permalink( $person_id ) );
+            if ( $person_url ) { $display_args['url'] = $person_url; }
+        } else {
+            $person_url = null;
+        }
+        
+        $display_args = array( 'person_id' => $person_id, 'override' => $override, 'name_abbr' => $name_abbr, 'show_prefix' => $show_prefix, 'show_suffix' => $show_suffix, 'show_job_title' => $show_job_title, 'show_dates' => $show_dates, 'url' => $person_url, 'styled' => $styled );
         
         // Get the display_name
         $arr_person_name = get_person_display_name( $display_args );
@@ -549,9 +549,9 @@ function str_from_persons_array ( $args = array() ) {
     }
     
     $arr_info['info'] = $info;
-	if ( $do_ts ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
-	
-	return $arr_info;
+    if ( $do_ts ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
+    
+    return $arr_info;
     
 }
 
@@ -560,27 +560,27 @@ function str_from_persons_array ( $args = array() ) {
 // $format options include: display; post_title; ....? (TODO: better info here)
 function get_authorship_info ( $args = array() ) {
 
-	// TS/logging setup
-	$do_ts = devmode_active( array("mlib", "people") ); 
+    // TS/logging setup
+    $do_ts = devmode_active( array("mlib", "people") ); 
     $do_log = false;
     sdg_log( "divline2", $do_log ); 
     sdg_log( "function called: get_authorship_info", $do_log );
     
     // Defaults
-	$defaults = array(
-		'data'     		=> array(),
-		'format'    	=> 'post_title',
-		'abbr'    		=> false,
-		'is_single_work'=> false,
-		'show_title'    => false,
-		'links'    		=> false,
-	);
+    $defaults = array(
+        'data'             => array(),
+        'format'        => 'post_title',
+        'abbr'            => false,
+        'is_single_work'=> false,
+        'show_title'    => false,
+        'links'            => false,
+    );
 
-	// Parse & Extract args
-	$args = wp_parse_args( $args, $defaults );
-	extract( $args );
-	
-	/*
+    // Parse & Extract args
+    $args = wp_parse_args( $args, $defaults );
+    extract( $args );
+    
+    /*
     sdg_log( "[authorship_info] data: ".print_r($data, true), $do_log );
     sdg_log( "[authorship_info] format: ".$format, $do_log );
     sdg_log( "[authorship_info] is_single_work: ".$is_single_work, $do_log );
@@ -606,9 +606,9 @@ function get_authorship_info ( $args = array() ) {
     $is_psalm = false;
     //
     if ( $format == "post_title" || $format == "edition_title" ) {
-    	$html = false;
+        $html = false;
     } else {
-    	$html = true;
+        $html = true;
     }
     
     // Get info either via post_id, if set, or from data array
@@ -624,7 +624,7 @@ function get_authorship_info ( $args = array() ) {
             $ts_info .= "<!-- [authorship_info] rep_title from data['rep_title'] -->";
             $rep_title = $data['rep_title'];
         } else {
-       		$ts_info .= "<!-- [authorship_info] rep_title from post_id -->";
+               $ts_info .= "<!-- [authorship_info] rep_title from post_id -->";
             $title_clean = get_post_meta( $post_id, 'title_clean' );
             if ( $title_clean != "" ) {
                 $rep_title = $title_clean;
@@ -740,7 +740,7 @@ function get_authorship_info ( $args = array() ) {
 
             if ( $is_anon == true ) { // || $composer_info == 'Plainsong'
                 if ( $anon_info != "" ) {
-                	$show_anon = "";
+                    $show_anon = "";
                     // 1a. "Anonymous/anon_info"
                     //sdg_log( "[authorship_info] is_anon + anon_info", $do_log );
                     if ( $format == "post_title" || $format == "edition_title" || $format == "concert_item" ) {
@@ -822,17 +822,17 @@ function get_authorship_info ( $args = array() ) {
             }
             if ( $authorship_info != "" ) { $authorship_info .= ", "; } else if ( $format != "concert_item" ) { $authorship_info .= " -- "; }
             if ( $html ) { 
-            	$authorship_info .= '<span class="arranger">arr. '.$arrangers_info.'</span>';
+                $authorship_info .= '<span class="arranger">arr. '.$arrangers_info.'</span>';
             } else {
-            	$authorship_info .= "arr. ".$arrangers_info;
+                $authorship_info .= "arr. ".$arrangers_info;
             }
             
         }
 
     }
 
-	// TODO: consolidate the following three blocks into a single loop for transcribers, librettists, translators (poss also arrangers)
-	
+    // TODO: consolidate the following three blocks into a single loop for transcribers, librettists, translators (poss also arrangers)
+    
     // 3. Transcriber(s)
     if ( !empty($transcribers) ) {
 
@@ -852,11 +852,11 @@ function get_authorship_info ( $args = array() ) {
                     $authorship_info .= " -- ";
                 }
                 if ( $html ) { 
-					$authorship_info .= '<span class="transcriber">transcr. '.$transcribers_info.'</span>';
-				} else {
-					if ( $authorship_info != "" ) { $authorship_info .= ", "; } else { $authorship_info .= " -- "; }
-					$authorship_info .= "transcr. ".$transcribers_info;
-				}
+                    $authorship_info .= '<span class="transcriber">transcr. '.$transcribers_info.'</span>';
+                } else {
+                    if ( $authorship_info != "" ) { $authorship_info .= ", "; } else { $authorship_info .= " -- "; }
+                    $authorship_info .= "transcr. ".$transcribers_info;
+                }
             }
         }
         
@@ -874,12 +874,12 @@ function get_authorship_info ( $args = array() ) {
         if ( $is_single_work == true && $librettists_info != "") {
             $authorship_info .= "Librettist(s): ".$librettists_info."<br />";
         } else {
-        	if ( $html ) { 
-				$authorship_info .= '<span class="librettist">text by '.$librettists_info.'</span>';
-			} else {
-				if ( $authorship_info != "" ) { $authorship_info .= ", "; } else { $authorship_info .= " -- "; }
-				$authorship_info .= "text by ".$librettists_info;
-			}            
+            if ( $html ) { 
+                $authorship_info .= '<span class="librettist">text by '.$librettists_info.'</span>';
+            } else {
+                if ( $authorship_info != "" ) { $authorship_info .= ", "; } else { $authorship_info .= " -- "; }
+                $authorship_info .= "text by ".$librettists_info;
+            }            
         }
 
     }
@@ -892,16 +892,16 @@ function get_authorship_info ( $args = array() ) {
         $translators_info = $arr_translators_info['info'];
         $ts_translators = $arr_translators_info['ts_info'];
         $ts_info .= $ts_translators;
-		
+        
         if ( $is_single_work == true && $translators_info != "") {
             $authorship_info .= "Translator(s): ".$translators_info."<br />";
         } else {
-        	if ( $html ) { 
-				$authorship_info .= '<span class="librettist">transl. '.$translators_info.'</span>';
-			} else {
-				if ( $authorship_info != "" ) { $authorship_info .= ", "; } else { $authorship_info .= " -- "; }
-				$authorship_info .= "transl. ".$translators_info;
-			}
+            if ( $html ) { 
+                $authorship_info .= '<span class="librettist">transl. '.$translators_info.'</span>';
+            } else {
+                if ( $authorship_info != "" ) { $authorship_info .= ", "; } else { $authorship_info .= " -- "; }
+                $authorship_info .= "transl. ".$translators_info;
+            }
         }
 
     }
@@ -916,8 +916,8 @@ function get_authorship_info ( $args = array() ) {
 // Excerpted From
 function get_excerpted_from( $post_id = null ) {
 
-	// TS/logging setup
-	$do_ts = devmode_active( array("mlib", "rep") ); 
+    // TS/logging setup
+    $do_ts = devmode_active( array("mlib", "rep") ); 
     $do_log = false;
     sdg_log( "divline2", $do_log ); 
     
@@ -964,18 +964,18 @@ function get_excerpted_from( $post_id = null ) {
 // Return formats include 'display' (for front end), 'txt' (for back end(, and 'sanitized' (for DB matching)
 // TODO: streamline, pass args instead of separate parameters, build in more formatting options
 function get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true, $full_title = false ) {
-	
-	// TS/logging setup
-	$do_ts = devmode_active( array("mlib", "rep") ); 
+    
+    // TS/logging setup
+    $do_ts = devmode_active( array("mlib", "rep") ); 
     $do_log = false;
     sdg_log( "divline2", $do_log );
     sdg_log( "function called: get_rep_info", $do_log );
     
-	// Init vars
+    // Init vars
     $arr_info = array();
     $info = "";
     $ts_info = "";    
-	if ( $post_id === null ) { $post_id = get_the_ID(); }
+    if ( $post_id === null ) { $post_id = get_the_ID(); }
     
     sdg_log( "[get_rep_info] post_id: ".$post_id, $do_log );
     sdg_log( "[get_rep_info] format: ".$format, $do_log );
@@ -988,7 +988,7 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
     if ( $show_authorship == 'true' ) { $show_authorship = true; } else { $show_authorship = false; }    
     if ( $show_title == 'true' ) { $show_title = true; }
     if ( is_singular('repertoire') ) { $is_single_work = true; } else { $is_single_work = false; }
-	//if ( $format == 'display') { $info = "<!-- post_id: $post_id -->"; } // tft
+    //if ( $format == 'display') { $info = "<!-- post_id: $post_id -->"; } // tft
         
     $post_title = get_the_title( $post_id );
     $title_clean = get_post_meta( $post_id, 'title_clean', true );
@@ -1069,7 +1069,7 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
         } else {
             $title .= " &ndash; ".$tune_name;
         }
-	}
+    }
     
     // Add the assembled title to the info to be returned
     if ( $is_single_work == false ) {
@@ -1105,121 +1105,121 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
     } else {
         $info = make_link( get_the_permalink( $post_id ), $info, $title_clean, 'subtle', '_blank' );
     }
-	
-	$arr_info['info'] = $info;
-	if ( $do_ts ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
-	
-	return $arr_info;
-	
+    
+    $arr_info['info'] = $info;
+    if ( $do_ts ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
+    
+    return $arr_info;
+    
 } // END function get_rep_info
 
 function get_rep_meta_info ( $post_id = null ) {
 
-	// TS/logging setup
-	$do_ts = devmode_active( array("mlib", "rep") ); 
+    // TS/logging setup
+    $do_ts = devmode_active( array("mlib", "rep") ); 
     $do_log = false;
     sdg_log( "divline2", $do_log );
     sdg_log( "function called: get_rep_meta_info", $do_log );
     
-	// Init vars
+    // Init vars
     $arr_info = array();
     $info = "";
     $ts_info = "";    
-	if ( $post_id === null ) { $post_id = get_the_ID(); }
-	
-	// Get and display term names for "repertoire_category".
-	$rep_categories = wp_get_post_terms( $post_id, 'repertoire_category', array( 'fields' => 'names' ) );
-	if ( count($rep_categories) > 0 ) {
-		foreach ( $rep_categories as $category ) {
-			if ( $category != "Choral Works" ) {
-				$info .= '<span class="category rep_category">';
-				$info .= $category;
-				$info .= '</span>';
-			}                
-		}
-		//$info .= "Categories: ";
-		//$info .= implode(", ",$rep_categories);
-		//$info .= "<br />";
-	}
+    if ( $post_id === null ) { $post_id = get_the_ID(); }
+    
+    // Get and display term names for "repertoire_category".
+    $rep_categories = wp_get_post_terms( $post_id, 'repertoire_category', array( 'fields' => 'names' ) );
+    if ( count($rep_categories) > 0 ) {
+        foreach ( $rep_categories as $category ) {
+            if ( $category != "Choral Works" ) {
+                $info .= '<span class="category rep_category">';
+                $info .= $category;
+                $info .= '</span>';
+            }                
+        }
+        //$info .= "Categories: ";
+        //$info .= implode(", ",$rep_categories);
+        //$info .= "<br />";
+    }
 
-	// Get and display term names for "season".
-	//$seasons = wp_get_post_terms( $post_id, 'season', array( 'fields' => 'names' ) );
-	$seasons = get_field('season', $post_id, false); // returns array of IDs
-	if ( is_array($seasons) && count($seasons) > 0 ) {
-		foreach ( $seasons as $season ) {
-			$info .= '<span class="season">';
-			$info .= ucfirst($season);
-			$info .= '</span>';
-		}
-		//$info .= implode(", ",$seasons);
-	}
-	
-	// Get and display post titles for "related_liturgical_dates".
-	$repertoire_litdates = get_field('repertoire_litdates', $post_id, false); // returns array of IDs
-	if ( $repertoire_litdates ) {
+    // Get and display term names for "season".
+    //$seasons = wp_get_post_terms( $post_id, 'season', array( 'fields' => 'names' ) );
+    $seasons = get_field('season', $post_id, false); // returns array of IDs
+    if ( is_array($seasons) && count($seasons) > 0 ) {
+        foreach ( $seasons as $season ) {
+            $info .= '<span class="season">';
+            $info .= ucfirst($season);
+            $info .= '</span>';
+        }
+        //$info .= implode(", ",$seasons);
+    }
+    
+    // Get and display post titles for "related_liturgical_dates".
+    $repertoire_litdates = get_field('repertoire_litdates', $post_id, false); // returns array of IDs
+    if ( $repertoire_litdates ) {
 
-		foreach ($repertoire_litdates AS $litdate_id) {
-			$info .= '<span class="liturgical_date">';
-			$info .= get_the_title($litdate_id);
-			$info .= '</span>';
-		}
+        foreach ($repertoire_litdates AS $litdate_id) {
+            $info .= '<span class="liturgical_date">';
+            $info .= get_the_title($litdate_id);
+            $info .= '</span>';
+        }
 
-	}
-	// Old version of field.
-	$related_liturgical_dates = get_field('related_liturgical_dates', $post_id, false);
-	if ( $related_liturgical_dates ) {
+    }
+    // Old version of field.
+    $related_liturgical_dates = get_field('related_liturgical_dates', $post_id, false);
+    if ( $related_liturgical_dates ) {
 
-		foreach ($related_liturgical_dates AS $litdate_id) {
-			$info .= '<span class="liturgical_date_old devinfo">';
-			$info .= get_the_title($litdate_id);
-			$info .= '</span>';
-		}
+        foreach ($related_liturgical_dates AS $litdate_id) {
+            $info .= '<span class="liturgical_date_old devinfo">';
+            $info .= get_the_title($litdate_id);
+            $info .= '</span>';
+        }
 
-	}
-	
-	// Get and display term names for "occasion".
-	$occasions = wp_get_post_terms( $post_id, 'occasion', array( 'fields' => 'names' ) );
-	if ( count($occasions) > 0 ) {
-		foreach ( $occasions as $occasion ) {
-			$info .= '<span class="occasion">';
-			$info .= $occasion;
-			$info .= '</span>';
-		}
-		//$info .= implode(", ",$occasions);
-	}
+    }
+    
+    // Get and display term names for "occasion".
+    $occasions = wp_get_post_terms( $post_id, 'occasion', array( 'fields' => 'names' ) );
+    if ( count($occasions) > 0 ) {
+        foreach ( $occasions as $occasion ) {
+            $info .= '<span class="occasion">';
+            $info .= $occasion;
+            $info .= '</span>';
+        }
+        //$info .= implode(", ",$occasions);
+    }
 
-	// Get and display term names for "voicing".
-	$voicings = wp_get_post_terms( $post_id, 'voicing', array( 'fields' => 'names' ) );
-	if ( count($voicings) > 0 ) {
-		foreach ( $voicings as $voicing ) {
-			$info .= '<span class="voicing devinfo">';
-			$info .= $voicing;
-			$info .= '</span>';
-		}
-	}
+    // Get and display term names for "voicing".
+    $voicings = wp_get_post_terms( $post_id, 'voicing', array( 'fields' => 'names' ) );
+    if ( count($voicings) > 0 ) {
+        foreach ( $voicings as $voicing ) {
+            $info .= '<span class="voicing devinfo">';
+            $info .= $voicing;
+            $info .= '</span>';
+        }
+    }
 
-	// Get and display term names for "instrument".
-	$instruments = wp_get_post_terms( $post_id, 'instrument', array( 'fields' => 'names' ) );
-	if ( count($instruments) > 0 ) {
-		foreach ( $instruments as $instrument ) {
-			$info .= '<span class="instrumentation devinfo">';
-			$info .= $instrument;
-			$info .= '</span>';
-		}
-	}
-	
-	return $info;
-		
+    // Get and display term names for "instrument".
+    $instruments = wp_get_post_terms( $post_id, 'instrument', array( 'fields' => 'names' ) );
+    if ( count($instruments) > 0 ) {
+        foreach ( $instruments as $instrument ) {
+            $info .= '<span class="instrumentation devinfo">';
+            $info .= $instrument;
+            $info .= '</span>';
+        }
+    }
+    
+    return $info;
+        
 }
 
 function get_author_ids ( $post_id = null, $include_composers = true ) {
     
     $arr_ids = array();
-	//if ($post_id === null) { $post_id = get_the_ID(); }
+    //if ($post_id === null) { $post_id = get_the_ID(); }
     
     // Do nothing if post_id is empty or this is not a rep record
     if ( $post_id === null || get_post_type( $post_id ) != 'repertoire' ) { return "no post_id"; } //return null; }
-	
+    
     // Get postmeta
     $composers = get_field('composer', $post_id, false);
     $arrangers = get_field('arranger', $post_id, false);
@@ -1246,11 +1246,11 @@ function get_author_ids ( $post_id = null, $include_composers = true ) {
 function get_composer_ids ( $post_id = null ) {
     
     $arr_ids = array();
-	//if ($post_id === null) { $post_id = get_the_ID(); }
+    //if ($post_id === null) { $post_id = get_the_ID(); }
     
     // Do nothing if post_id is empty or this is not a rep record
     if ( $post_id === null || get_post_type( $post_id ) != 'repertoire' ) { return "no post_id"; } //return null; }
-	
+    
     $composers = get_field('composer', $post_id, false);
     if ( !is_array($composers) ) { return null; }
     foreach ($composers AS $composer_id) {
@@ -1333,7 +1333,7 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" ) {
     $do_log = false;
     sdg_log( "divline2", $do_log );
 
-	// Init vars
+    // Init vars
     $info = ""; 
     $ts_info = "";
     
@@ -1396,7 +1396,7 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" ) {
     $info .= "<p>Num matching posts found: [".count($rep_ids)."]</p>";
     $limit = 100; // tft -- limit num of posts to display, lest search is broken and it tried to display thousands of records at once...
     if ( count($rep_ids) > $limit ) {
-    	$info .= "<p>To keep page load times under control, only the first ".$limit." results are displayed.<br />You might want to try narrowing your search by adding additional terms or filters.</p>";
+        $info .= "<p>To keep page load times under control, only the first ".$limit." results are displayed.<br />You might want to try narrowing your search by adding additional terms or filters.</p>";
     }
     
     $info .= '<form id="cp_merge" method="get" action="/merge-records/" target="_blank">';
@@ -1432,8 +1432,8 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" ) {
         $info .= "&nbsp;";
         $authorship_args = array( 'data' => array( 'post_id' => $post_id ), 'format' => 'display', 'abbr' => false, 'is_single_work' => false, 'show_title' => false, 'links' => true );
         $arr_authorship_info = get_authorship_info ( $authorship_args );
-		$authorship_info = $arr_authorship_info['info'];
-		$ts_info .= $arr_authorship_info['ts_info'];
+        $authorship_info = $arr_authorship_info['info'];
+        $ts_info .= $arr_authorship_info['ts_info'];
         $info .= $authorship_info;
         /*
         $info .= " by ";
@@ -1452,7 +1452,7 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" ) {
         
         // Excerpted from
         $arr_excerpted_from = get_excerpted_from( $post_id );
-    	$excerpted_from = $arr_excerpted_from['info'];
+        $excerpted_from = $arr_excerpted_from['info'];
         if ( $excerpted_from ) { $info .= '<br /><span class="excerpted_from">Excerpted from: '.$excerpted_from.'</span>'; }
         
         // Tune Name
@@ -1463,35 +1463,35 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" ) {
 
         // Get rep-specific info: rep categories, etc
         $rep_info = get_rep_meta_info($post_id);
-		if ( $rep_info != "" ) { $info .= "<br />".$rep_info; }
-		
-		// Get and display note of num event programs which include this work, if any
-		// Get Related Events        
-		// New way
-		$repertoire_events = get_field('repertoire_events', $post_id, false);
-		if ( is_array($repertoire_events) && count($repertoire_events) > 0 ) {
-			$info .= '<br /><span class="nb orange">This work appears in ['.count($repertoire_events).'] event program(s).</span>';
-		} else {
-			// Field repertoire_events is empty -> check to see if updates are in order
-			if ( is_dev_site() ) {
-				$info .= '<p class="troubleshooting">';
-				$info .= update_repertoire_events( $post_id, false );
-				$info .= '</p>';
-			} else if ( $i < 5 ) {  // On live site, for now, limit number of records that are processed, because the queries may be slow
-				$info .= '<p class="troubleshooting">{'.$i.'}'.update_repertoire_events( $post_id, false ).'</p>';
-			}			
-		}
-	
-		// Old way
-		/*
-		$related_events = get_related_events ( "program_item", $post_id );
-		$event_post_ids = $related_events['event_posts'];
+        if ( $rep_info != "" ) { $info .= "<br />".$rep_info; }
+        
+        // Get and display note of num event programs which include this work, if any
+        // Get Related Events        
+        // New way
+        $repertoire_events = get_field('repertoire_events', $post_id, false);
+        if ( is_array($repertoire_events) && count($repertoire_events) > 0 ) {
+            $info .= '<br /><span class="nb orange">This work appears in ['.count($repertoire_events).'] event program(s).</span>';
+        } else {
+            // Field repertoire_events is empty -> check to see if updates are in order
+            if ( is_dev_site() ) {
+                $info .= '<p class="troubleshooting">';
+                $info .= update_repertoire_events( $post_id, false );
+                $info .= '</p>';
+            } else if ( $i < 5 ) {  // On live site, for now, limit number of records that are processed, because the queries may be slow
+                $info .= '<p class="troubleshooting">{'.$i.'}'.update_repertoire_events( $post_id, false ).'</p>';
+            }            
+        }
+    
+        // Old way
+        /*
+        $related_events = get_related_events ( "program_item", $post_id );
+        $event_post_ids = $related_events['event_posts'];
 
-		if ( $event_post_ids ) {
-			$info .= '<br /><span class="nb orange">This work appears in ['.count($event_post_ids).'] event program(s).</span>';
-		}
-		*/
-	
+        if ( $event_post_ids ) {
+            $info .= '<br /><span class="nb orange">This work appears in ['.count($event_post_ids).'] event program(s).</span>';
+        }
+        */
+    
         $info .= '</td>';
 
         // Related Editions
@@ -1658,12 +1658,12 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" ) {
     // Users with the appropriate permissions can merge duplicate records
     // Also check to see if there are at least two records -- otherwise there's nothing to merge!
     if ( count($rep_ids) > 2 && ( current_user_can('read_repertoire') || current_user_can('read_music') ) ) {
-    	$info .= '<input type="submit" value="Merge Selected">';
+        $info .= '<input type="submit" value="Merge Selected">';
     }
     
-	$info .= "</form>";
-	
-	if ( $ts_info != "" && $do_ts === true ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
+    $info .= "</form>";
+    
+    if ( $ts_info != "" && $do_ts === true ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
     
     return $info;
     
@@ -1672,13 +1672,13 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" ) {
 
 /*********** CPT: GROUP ***********/
 function get_cpt_group_content() {
-	
-	$info = "";
-	$post_id = get_the_ID();
-	$info .= "group post_id: $post_id<br />";
-	
-	return $info;
-	
+    
+    $info = "";
+    $post_id = get_the_ID();
+    $info .= "group post_id: $post_id<br />";
+    
+    return $info;
+    
 }
 
 ?>

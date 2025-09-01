@@ -4,7 +4,7 @@
  * Description:       A WordPress plugin for managing a Music Library (Works/Editions) using ACF PRO Blocks, Post Types, Options Pages, Taxonomies and more.
  * //Requires at least: 6.4
  * //Requires PHP:      7.4
- * Dependencies:	  Requires WHx4 plugin for People CPT and SDG for various utility functions
+ * Dependencies:      Requires WHx4 plugin for People CPT and SDG for various utility functions
  * Requires Plugins:  whx4, sdg
  * Version:           0.1
  * Author:            atc
@@ -56,10 +56,10 @@ use atc\MLib\Modules\Organs;
 /*add_filter( 'whx4_register_modules', function( array $modules ) {
     //$modules['music'] = Music::class;
     $modules = [
-        //'repertoire'	=> Repertoire::class, // or: Music?
-        //'instruments'	=> Instruments::class,
-       	//'builder'		=> Builders::class,
-        //'organs' 		=> Organs::class // tmp?
+        //'repertoire'    => Repertoire::class, // or: Music?
+        //'instruments'    => Instruments::class,
+           //'builder'        => Builders::class,
+        //'organs'         => Organs::class // tmp?
     ];
     return $modules;
 });*/
@@ -76,14 +76,14 @@ define( 'MLIB_PLUGIN_BLOCKS', MLIB_PLUGIN_DIR . '/blocks/' );
 
 // Function to check for dev/admin user
 function mlib_queenbee() {
-	$current_user = wp_get_current_user();
-	$username = $current_user->user_login;
-	$useremail = $current_user->user_email;
-	//
+    $current_user = wp_get_current_user();
+    $username = $current_user->user_login;
+    $useremail = $current_user->user_email;
+    //
     if ( $username == 'stcdev' || $useremail == "birdhive@gmail.com" ) {
-    	return true;
+        return true;
     } else {
-    	return false;
+        return false;
     }
 }
 
@@ -120,47 +120,47 @@ if ( isset($options['mlib_active_modules']) ) { $active_modules = $options['mlib
 
 foreach ( $active_modules as $module ) {
 
-	// Load associated functions file, if any
+    // Load associated functions file, if any
     $filepath = MLIB_PLUGIN_DIR.'/modules/'.$module.'.php';
     $arr_exclusions = array ( 'mdev' ); // 'instruments', 'groups', 'newsletters', 'snippets', 'logbook', 'venues',
     if ( !in_array( $module, $arr_exclusions) ) { // skip modules w/ no associated function files
-    	if ( file_exists($filepath) ) { include_once( $filepath ); } else { echo "MLib module file $filepath not found"; }
+        if ( file_exists($filepath) ) { include_once( $filepath ); } else { echo "MLib module file $filepath not found"; }
     }
 
     // Add module options page for adding featured image, page-top content, &c.
     $cpt_names = array(); // array because some modules include multiple post types
 
     // Which post types are associated with this module? Build array
-	// Deal w/ modules whose names don't perfectly match their CPT names
-	if ( $module == "music" ) {
-		$primary_cpt = "repertoire";
-		$cpt_names[] = "repertoire";
-		$cpt_names[] = "edition";
-	} else if ( $module == "instruments" ) {
-		$primary_cpt = "instrument";
-		$cpt_names[] = "instrument";
-		$cpt_names[] = "builder"; // or "maker"?
-	} else if ( $module == "organs" ) {
-		$primary_cpt = "organ";
-		$cpt_names[] = "organ";
-		$cpt_names[] = "builder";
-	} else {
-		$cpt_name = $module;
-		// Make it singular -- remove trailing "s"
-		if ( substr($cpt_name, -1) == "s" && $cpt_name != "press" ) { $cpt_name = substr($cpt_name, 0, -1); }
-		$primary_cpt = $cpt_name;
-		$cpt_names[] = $cpt_name;
-	}
+    // Deal w/ modules whose names don't perfectly match their CPT names
+    if ( $module == "music" ) {
+        $primary_cpt = "repertoire";
+        $cpt_names[] = "repertoire";
+        $cpt_names[] = "edition";
+    } else if ( $module == "instruments" ) {
+        $primary_cpt = "instrument";
+        $cpt_names[] = "instrument";
+        $cpt_names[] = "builder"; // or "maker"?
+    } else if ( $module == "organs" ) {
+        $primary_cpt = "organ";
+        $cpt_names[] = "organ";
+        $cpt_names[] = "builder";
+    } else {
+        $cpt_name = $module;
+        // Make it singular -- remove trailing "s"
+        if ( substr($cpt_name, -1) == "s" && $cpt_name != "press" ) { $cpt_name = substr($cpt_name, 0, -1); }
+        $primary_cpt = $cpt_name;
+        $cpt_names[] = $cpt_name;
+    }
 
-	if ( function_exists('acf_add_options_page') ) {
-		// Add module options page
-    	acf_add_options_sub_page(array(
-			'page_title'	=> ucfirst($module).' Module Options',
-			'menu_title'    => ucfirst($module).' Module Options',//'menu_title'    => 'Archive Options', //ucfirst($cpt_name).
-			'menu_slug' 	=> $module.'-module-options',
-			'parent_slug'   => 'edit.php?post_type='.$primary_cpt,
-		));
-	}
+    if ( function_exists('acf_add_options_page') ) {
+        // Add module options page
+        acf_add_options_sub_page(array(
+            'page_title'    => ucfirst($module).' Module Options',
+            'menu_title'    => ucfirst($module).' Module Options',//'menu_title'    => 'Archive Options', //ucfirst($cpt_name).
+            'menu_slug'     => $module.'-module-options',
+            'parent_slug'   => 'edit.php?post_type='.$primary_cpt,
+        ));
+    }
 
 }
 
@@ -172,34 +172,34 @@ add_action( 'template_redirect', 'acf_form_head' ); // See https://wordpress.org
 add_shortcode('mlib_acf_form', 'mlib_acf_form');
 function mlib_acf_form ( $atts = array() ) {
 
-	$info = "";
-	$ts_info = "";
+    $info = "";
+    $ts_info = "";
 
-	$args = shortcode_atts( array(
+    $args = shortcode_atts( array(
         'post_content' => true,
         'instruction_placement' => 'field',
         'fields' => true
     ), $atts );
 
     // Extract
-	extract( $args );
+    extract( $args );
 
-	// Turn fields var into array, in case of multiple fields
+    // Turn fields var into array, in case of multiple fields
     $arr_fields = array(); // init
     if ( strpos($fields, ',') !== false ) {
-    	// comma-separated values
-    	$arr_fields = array_map('trim', explode(',', $fields)); // trim to deal w/ possibility of comma followed by space and sim
+        // comma-separated values
+        $arr_fields = array_map('trim', explode(',', $fields)); // trim to deal w/ possibility of comma followed by space and sim
     } else {
-    	$arr_fields[] = $fields;
+        $arr_fields[] = $fields;
     }
 
 
-	$settings = array( 'post_content' => $post_content, 'instruction_placement' => $instruction_placement, 'fields' => $arr_fields );
-	//$ts_info .= "arr_fields: <pre>".print_r($arr_fields, true)."</pre>";
-	//$ts_info .= "settings: <pre>".print_r($settings, true)."</pre>";
+    $settings = array( 'post_content' => $post_content, 'instruction_placement' => $instruction_placement, 'fields' => $arr_fields );
+    //$ts_info .= "arr_fields: <pre>".print_r($arr_fields, true)."</pre>";
+    //$ts_info .= "settings: <pre>".print_r($settings, true)."</pre>";
     //$info .= $ts_info;
 
-	ob_start();
+    ob_start();
     acf_form( $settings );
     $info = ob_get_clean(); // one step version of ob_get_contents(); ob_end_clean();
 
