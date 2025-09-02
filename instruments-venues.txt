@@ -1,0 +1,20 @@
+SELECT DISTINCT `meta_key`, `meta_value` FROM `gqk_postmeta` WHERE `meta_key` LIKE '%venues_organs%' OR `meta_key` LIKE '%field_64a72357bd5f0%' OR `meta_value` LIKE '%field_64a72357bd5f0%'  
+ORDER BY `meta_key`, `meta_value`
+
+
+
+SELECT pm.* FROM `gqk_postmeta` AS pm, `gqk_posts` AS p 
+WHERE (`meta_key` LIKE '%venues_organs%' OR `meta_key` LIKE '%field_64a72357bd5f0%' OR `meta_value` LIKE '%field_64a72357bd5f0%')
+AND pm.post_id=p.ID AND p.post_type='organ'
+ORDER BY `pm`.`post_id` ASC;
+
+
+
+UPDATE `gqk_postmeta`
+SET `meta_key`='_instrument_venues', `meta_value`='field_mlib_instrument_venues'
+WHERE `meta_key`='_venues_organs' AND `meta_value`='field_64a72357bd5f0';
+
+UPDATE `gqk_postmeta` AS pm, `gqk_posts` AS p
+SET `meta_key`='instrument_venues'
+WHERE `meta_key`='venues_organs'
+AND pm.post_id=p.ID AND p.post_type='organ';
