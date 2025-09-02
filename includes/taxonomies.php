@@ -8,6 +8,8 @@ if ( !function_exists( 'add_action' ) ) {
     exit;
 }
 
+// TODO: **** Make master Library plugin with Subtypes to cover repertoire etc.? -- TBD **** //
+
 // Get plugin options to determine which modules are active
 $options = get_option( 'mlib_settings' );
 if ( get_field('mlib_active_modules', 'option') ) { $active_modules = get_field('mlib_active_modules', 'option'); } else { $active_modules = array(); }
@@ -18,7 +20,7 @@ if ( get_field('mlib_active_modules', 'option') ) { $active_modules = get_field(
 if ( in_array('music', $active_modules ) ) {
 
     /*** Taxonomies for REPERTOIRE ***/
-    
+
     // Custom Taxonomy: Occasion
     function register_taxonomy_occasion() {
         $labels = array(
@@ -252,7 +254,7 @@ if ( in_array('music', $active_modules ) ) {
     add_action( 'init', 'register_taxonomy_voicing' );
 
     // Custom Taxonomy: Library Tag
-    function register_taxonomy_library_tag() {    
+    function register_taxonomy_library_tag() {
         $labels = array(
             'name'              => _x( 'Library Tags', 'taxonomy general name' ),
             'singular_name'     => _x( 'Library Tag', 'taxonomy singular name' ),
@@ -285,7 +287,7 @@ if ( in_array('music', $active_modules ) ) {
                 'delete_terms'  =>   'delete_'.$cap.'_terms',
                 'assign_terms'  =>   'assign_'.$cap.'_terms',
             );
-        }    
+        }
         register_taxonomy( 'library_tag', [ 'edition' ], $args );
     }
     add_action( 'init', 'register_taxonomy_library_tag' );
@@ -374,7 +376,7 @@ if ( in_array('organs', $active_modules ) ) {
         register_taxonomy( 'action_type', [ 'organ' ], $args );
     }
     add_action( 'init', 'register_taxonomy_action_type' );
-    
+
     // Custom Taxonomy: Organ Tag
     function register_taxonomy_organ_tag() {
         $cap = 'organ';
@@ -410,7 +412,7 @@ if ( in_array('organs', $active_modules ) ) {
         register_taxonomy( 'organ_tag', [ 'organ' ], $args );
     }
     add_action( 'init', 'register_taxonomy_organ_tag' );
-    
+
 }
 
 ?>
