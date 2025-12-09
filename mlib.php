@@ -35,6 +35,27 @@ define( 'MLIB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'MLIB_PLUGIN_BLOCKS', MLIB_PLUGIN_DIR . '/blocks/' );
 //$plugin_path = plugin_dir_path( __FILE__ );
 
+// WIP >> OOP
+/*
+// Via Composer
+require_once plugin_dir_path(__FILE__) . 'vendor/autoload.php';
+
+use atc\MLib\Modules\Repertoire;
+use atc\MLib\Modules\Instruments;
+use atc\MLib\Modules\Builders;
+use atc\MLib\Modules\Organs;
+*/
+/*add_filter( 'whx4_register_modules', function( array $modules ) {
+    //$modules['music'] = Music::class;
+    $modules = [
+        //'repertoire'    => Repertoire::class, // or: Music?
+        //'instruments'    => Instruments::class,
+           //'builder'        => Builders::class,
+        //'organs'         => Organs::class // tmp?
+    ];
+    return $modules;
+});*/
+
 /* +~+~+ ACF +~+~+ */
 
 // Set custom load & save JSON points for ACF sync
@@ -110,7 +131,7 @@ foreach ( $active_modules as $module ) {
 }
 
 /* +~+~+ Enable ACF FORM as shortcode +~+~+ */
-// TBD: move this to SDG for more general use?
+// TBD: move this to WXC for more general use?
 
 add_action( 'template_redirect', 'acf_form_head' ); // See https://wordpress.org/support/topic/acf-create-a-front-end-form/
 
