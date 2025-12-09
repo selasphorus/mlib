@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       MLib-OG
+ * Plugin Name:       MLib-OOP
  * Description:       A WordPress plugin for managing a Music Library (Works/Editions) using ACF PRO Blocks, Post Types, Options Pages, Taxonomies and more.
  * //Requires at least: 6.4
  * //Requires PHP:      7.4
