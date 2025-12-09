@@ -112,6 +112,9 @@ require 'includes/cpts.php';
 
 /* +~+~+ Optional Modules +~+~+ */
 
+// TMP force include of main music module
+require 'modules/music.php';
+
 // Get plugin options -- WIP
 // Get plugin options to determine which modules are active
 $options = get_option( 'mlib_settings' );
