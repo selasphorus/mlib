@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       MLib ACF plugin
+ * Plugin Name:       MLib-OG
  * Description:       A WordPress plugin for managing a Music Library (Works/Editions) using ACF PRO Blocks, Post Types, Options Pages, Taxonomies and more.
  * //Requires at least: 6.4
  * //Requires PHP:      7.4
@@ -73,19 +73,6 @@ define( 'MLIB_PLUGIN_BLOCKS', MLIB_PLUGIN_DIR . '/blocks/' );
 //$plugin_path = plugin_dir_path( __FILE__ );
 
 /* +~+~+ *** +~+~+ */
-
-// Function to check for dev/admin user
-function mlib_queenbee() {
-    $current_user = wp_get_current_user();
-    $username = $current_user->user_login;
-    $useremail = $current_user->user_email;
-    //
-    if ( $username == 'stcdev' || $useremail == "birdhive@gmail.com" ) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 /* +~+~+ ACF +~+~+ */
 
