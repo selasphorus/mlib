@@ -4,8 +4,8 @@
  * Description:       A WordPress plugin for managing a Music Library (Works/Editions) using ACF PRO Blocks, Post Types, Options Pages, Taxonomies and more.
  * //Requires at least: 6.4
  * //Requires PHP:      7.4
- * Dependencies:      Requires WHx4 plugin for People CPT and SDG for various utility functions
- * Requires Plugins:  whx4, sdg
+ * Dependencies:      Requires WHx4 plugin for People CPT etc.
+ * Requires Plugins:  whx4
  * Version:           0.1
  * Author:            atc
  * License:           GPL-2.0-or-later
@@ -28,20 +28,6 @@ if ( !function_exists( 'add_action' ) ) {
     exit;
 }
 
-// Enforce dependency on WHx4
-/*add_action('plugins_loaded', function() {
-    if ( !class_exists('atc\WHx4\Plugin') ) {
-        add_action('admin_notices', function() {
-            echo '<div class="notice notice-error"><p><strong>MLib</strong> requires the <strong>WHx4</strong> plugin to be active. The plugin has been deactivated.</p></div>';
-        });
-
-        add_action('admin_init', function() {
-            deactivate_plugins(plugin_basename(__FILE__));
-        });
-
-        return;
-    }
-});*/
 
 // WIP >> OOP
 /*
