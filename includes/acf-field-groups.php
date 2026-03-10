@@ -2876,13 +2876,6 @@ function mlib_register_field_groups() {
                     'value' => 'publication',
                 ),
             ),
-            array(
-                array(
-                    'param' => 'post_type',
-                    'operator' => '==',
-                    'value' => 'post',
-                ),
-            ),
         ),
         'menu_order' => 0,
         'position' => 'normal',
@@ -2946,13 +2939,6 @@ function mlib_register_field_groups() {
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'publisher',
-                ),
-            ),
-            array(
-                array(
-                    'param' => 'post_type',
-                    'operator' => '==',
-                    'value' => 'post',
                 ),
             ),
         ),
