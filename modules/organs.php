@@ -10,15 +10,10 @@ if ( !function_exists( 'add_action' ) ) {
 
 /*********** Functions pertaining to CPT: ORGANS ***********/
 
-function get_cpt_organ_content( $post_id = null ) {
-    
+function get_cpt_organ_content( $post_id = null )
+{
     // This function retrieves supplementary info -- the regular content template (content.php) handles title, content, featured image
-    
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "instruments") ); 
-    $do_log = false;
-    $fcn_id = "[mlib-get_cpt_instrument_content]&nbsp;";
-    sdg_log( "divline2", $do_log );
+    $logCtx = ['mlib', 'instruments'];
     
     // Init vars
     $info = "";
@@ -27,7 +22,7 @@ function get_cpt_organ_content( $post_id = null ) {
     if ( $post_id === null ) { return false; }
     
     $post_meta = get_post_meta( $post_id );
-    $ts_info .= $fcn_id."<pre>post_meta: ".print_r($post_meta, true)."</pre>";
+    $ts_info .= "<pre>post_meta: ".print_r($post_meta, true)."</pre>";
     
     if ($post_id === null) { $post_id = get_the_ID(); } 
     if ( $post_id === null ) { return false; }

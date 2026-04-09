@@ -10,17 +10,11 @@ if ( !function_exists( 'add_action' ) ) {
 
 /*********** Functions pertaining to CPT: ORGANS ***********/
 
-function get_cpt_builder_content( $post_id = null ) {
-    
+function get_cpt_builder_content( $post_id = null )
+{
+    $logCtx= ['mlib', 'builders'];
     // WIP -- content, organs...
-    
     // This function retrieves supplementary info -- the regular content template (content.php) handles title, content, featured image
-    
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "builders") ); 
-    $do_log = false;
-    $fcn_id = "[mlib-get_cpt_instrument_content]&nbsp;";
-    sdg_log( "divline2", $do_log );
     
     // Init vars
     $info = "";
@@ -29,7 +23,7 @@ function get_cpt_builder_content( $post_id = null ) {
     if ( $post_id === null ) { return false; }
     
     $post_meta = get_post_meta( $post_id );
-    $ts_info .= $fcn_id."<pre>post_meta: ".print_r($post_meta, true)."</pre>";
+    $ts_info .= "<pre>post_meta: ".print_r($post_meta, true)."</pre>";
     
     if ($post_id === null) { $post_id = get_the_ID(); } 
     if ( $post_id === null ) { return false; }
@@ -54,7 +48,7 @@ function get_cpt_builder_content( $post_id = null ) {
         
             $info .= "<h3>Instruments</h3>";
             $info .= "<p>".count($instruments)." instruments by this builder in our database:</p>";
-            $ts_info .= $fcn_id."<pre>instruments: ".print_r($instruments, true)."</pre>";
+            $ts_info .= "<pre>instruments: ".print_r($instruments, true)."</pre>";
             
             foreach ($instruments AS $instrument_id) {
                 $instrument_title = get_the_title($instrument_id);

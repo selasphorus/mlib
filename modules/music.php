@@ -135,12 +135,9 @@ function update_repertoire_events( $rep_id = null, $run_slow_queries = false, $a
 
 /* ~~~ Display functions ~~~ */
 
-function get_cpt_repertoire_content( $post_id = null ) {
-    
-    // TS/logging setup
-    $do_ts = devmode_active( array("sdg", "music") );
-    $do_log = false;
-    sdg_log( "divline2", $do_log );
+function get_cpt_repertoire_content( $post_id = null )
+{
+    $logCtx = ['mlib', 'music'];
     
     // Init vars
     $arr_info = array();
@@ -248,12 +245,9 @@ function get_cpt_repertoire_content( $post_id = null ) {
 // See display content plugin >> ACF repeater rows fcn...
 
 /*********** CPT: EDITION ***********/
-function get_cpt_edition_content( $post_id = null ) {
-    
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "editions") ); 
-    $do_log = false;
-    sdg_log( "divline2", $do_log );
+function get_cpt_edition_content( $post_id = null )
+{
+    $logCtx = ['mlib', 'editions'];
     
     // Init vars
     $info = "";
@@ -408,7 +402,7 @@ function get_cpt_edition_content( $post_id = null ) {
 
     $info .= '</table>';
     
-    if ( $do_ts ) { $info .= $ts_info; }
+    //if ( $do_ts ) { $info .= $ts_info; }
     
     return $info;
     
@@ -444,13 +438,9 @@ function is_anon( $post_id = null ) {
 // Stringify an array of person ids or objects, with formatting options
 // TODO: better documentation
 // TODO: add option to make_link for each name
-function str_from_persons_array ( $args = array() ) {
-    
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "people") ); 
-    $do_log = false;
-    sdg_log( "divline2", $do_log );
-    sdg_log( "function called: str_from_persons_array", $do_log );
+function str_from_persons_array ( $args = array() )
+{
+    $logCtx = ['mlib', 'people'];
     
     // Init vars
     $arr_info = array();
@@ -472,13 +462,13 @@ function str_from_persons_array ( $args = array() ) {
     $args = wp_parse_args( $args, $defaults );
     extract( $args );
     
-    //sdg_log( "[str_from_persons] arr_persons: ".print_r($arr_persons, true), $do_log );
-    sdg_log( "[ssfpa] person_category: ".$person_category, $do_log );
-    sdg_log( "[ssfpa] post_id: ".$post_id, $do_log );
-    sdg_log( "[ssfpa] format: ".$format, $do_log );
-    sdg_log( "[ssfpa] arr_of: ".$arr_of, $do_log );
-    sdg_log( "[ssfpa] abbr: ".(int)$abbr, $do_log );
-    sdg_log( "[ssfpa] links: ".(int)$links, $do_log );
+    //wxc_log( "[str_from_persons] arr_persons: ".print_r($arr_persons, true));
+    wxc_log( "[ssfpa] person_category: ".$person_category);
+    wxc_log( "[ssfpa] post_id: ".$post_id);
+    wxc_log( "[ssfpa] format: ".$format);
+    wxc_log( "[ssfpa] arr_of: ".$arr_of);
+    wxc_log( "[ssfpa] abbr: ".(int)$abbr);
+    wxc_log( "[ssfpa] links: ".(int)$links);
     
     $ts_info .= "<!-- [ssfpa] format: $format -->";
     $ts_info .= "<!-- [ssfpa] person_category: $person_category -->";
@@ -493,10 +483,10 @@ function str_from_persons_array ( $args = array() ) {
         } else {
             $person_id = $person;
         }*/
-        sdg_log( "[ssfpa] person_id: ".$person_id, $do_log );
+        wxc_log( "[ssfpa] person_id: ".$person_id);
         $ts_info .= "<!-- [ssfpa] person_id: ".$person_id." -->";
         
-        // Set up display args to pass to fcn get_person_display_name
+        // Set up display args to pass to fcn getPersonDisplayName
         if ( $abbr || has_term( 'psalms', 'repertoire_category', $post_id ) && !has_term( 'motets', 'repertoire_category', $post_id ) && !has_term( 'anthems', 'repertoire_category', $post_id ) ) { 
             $name_abbr = "abbr";
         } else {
@@ -534,7 +524,7 @@ function str_from_persons_array ( $args = array() ) {
         $display_args = array( 'person_id' => $person_id, 'override' => $override, 'name_abbr' => $name_abbr, 'show_prefix' => $show_prefix, 'show_suffix' => $show_suffix, 'show_job_title' => $show_job_title, 'show_dates' => $show_dates, 'url' => $person_url, 'styled' => $styled );
         
         // Get the display_name
-        $arr_person_name = get_person_display_name( $display_args );
+        $arr_person_name = getPersonDisplayName( $display_args );
         $person_name = $arr_person_name['info'];            
         $info .= $person_name;
         $ts_info .= $arr_person_name['ts_info'];
@@ -558,13 +548,9 @@ function str_from_persons_array ( $args = array() ) {
 // Retrieve properly formatted authorship info for Repertoire records
 // Authorship: Composers, Arrangers, Transcriber, Librettists, &c.
 // $format options include: display; post_title; ....? (TODO: better info here)
-function get_authorship_info ( $args = array() ) {
-
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "people") ); 
-    $do_log = false;
-    sdg_log( "divline2", $do_log ); 
-    sdg_log( "function called: get_authorship_info", $do_log );
+function get_authorship_info ( $args = array() )
+{
+    $logCtx = ['mlib', 'people'];
     
     // Defaults
     $defaults = array(
@@ -581,11 +567,11 @@ function get_authorship_info ( $args = array() ) {
     extract( $args );
     
     /*
-    sdg_log( "[authorship_info] data: ".print_r($data, true), $do_log );
-    sdg_log( "[authorship_info] format: ".$format, $do_log );
-    sdg_log( "[authorship_info] is_single_work: ".$is_single_work, $do_log );
-    sdg_log( "[authorship_info] show_title: ".$show_title, $do_log );
-    sdg_log( "[authorship_info] abbr: ".(int)$abbr, $do_log );
+    wxc_log( "[authorship_info] data: ".print_r($data, true));
+    wxc_log( "[authorship_info] format: ".$format);
+    wxc_log( "[authorship_info] is_single_work: ".$is_single_work);
+    wxc_log( "[authorship_info] show_title: ".$show_title);
+    wxc_log( "[authorship_info] abbr: ".(int)$abbr);
     */
     
     // Init vars
@@ -614,7 +600,7 @@ function get_authorship_info ( $args = array() ) {
     // Get info either via post_id, if set, or from data array
     if ( isset($data['post_id']) ) {
         
-        sdg_log( "[authorship_info] get info from data['post_id']", $do_log );
+        wxc_log( "[authorship_info] get info from data['post_id']");
         $ts_info .= "<!-- [authorship_info] get info from data['post_id'] -->";
         
         $post_id = $data['post_id'];
@@ -678,7 +664,7 @@ function get_authorship_info ( $args = array() ) {
         
     } else {
         
-        sdg_log( "[authorship_info] get info from data without post_id", $do_log );
+        wxc_log( "[authorship_info] get info from data without post_id");
         $ts_info .= "<!-- [authorship_info] get info from data without post_id -->";
         
         $post_id = null;
@@ -700,18 +686,18 @@ function get_authorship_info ( $args = array() ) {
     if ( $rep_title == "" || empty($rep_title) || $rep_title == "Responses" ) { $show_title = false; }
     $ts_info .= "<!-- [authorship_info] rep_title: ".print_r($rep_title,true)." -->";
     
-    sdg_log( "[authorship_info] anon_info: ".$anon_info, $do_log );
-    //sdg_log( "[authorship_info] rep_title: ".print_r($rep_title, true), $do_log );
+    wxc_log( "[authorship_info] anon_info: ".$anon_info);
+    //wxc_log( "[authorship_info] rep_title: ".print_r($rep_title, true));
     
     // Build the authorship_info string
     
     // 1. Composer(s)
     if ( !empty($composers) ) { //
         
-        sdg_log( "[authorship_info] composers: ".print_r($composers, true), $do_log );
+        wxc_log( "[authorship_info] composers: ".print_r($composers, true));
         
         $persons_args = array( 'arr_persons' => $composers, 'person_category' => 'composers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
-        sdg_log( "[authorship_info] persons_args: ".print_r($persons_args, true), $do_log );
+        wxc_log( "[authorship_info] persons_args: ".print_r($persons_args, true));
         $ts_info .= "<!-- [authorship_info] persons_args: <pre>".print_r($persons_args, true)."</pre> -->";
         $arr_composers_str = str_from_persons_array ( $persons_args );
         $composer_info = $arr_composers_str['info'];
@@ -722,16 +708,16 @@ function get_authorship_info ( $args = array() ) {
         // Redundant: TODO: instead use is_anon fcn? Any reason why not to do this?
         if ( $composer_info == '[Unknown]' || $composer_info == 'Unknown' || $composer_info == 'Anonymous' || $composer_info == 'Plainsong' ) { //
             $is_anon = true;
-            sdg_log( "[authorship_info] is_anon.", $do_log);
+            wxc_log( "[authorship_info] is_anon." );
         } else {
-            sdg_log( "[authorship_info] NOT is_anon.", $do_log);
+            wxc_log( "[authorship_info] NOT is_anon." );
         }
         if ( $composer_info == "Unknown" || ( $composer_info == "Anonymous" && $anon_info == "" ) ) { 
             $composer_info = "";
         }
         
-        sdg_log( "[authorship_info] composer_info: ".$composer_info, $do_log );
-        sdg_log( "[authorship_info] anon_info: ".$anon_info, $do_log );
+        wxc_log( "[authorship_info] composer_info: ".$composer_info);
+        wxc_log( "[authorship_info] anon_info: ".$anon_info);
         
         ///$ts_info .= "<!-- composer_info: ".$composer_info." -->";
         ///$ts_info .= "<!-- anon_info: ".$anon_info." -->";
@@ -742,7 +728,7 @@ function get_authorship_info ( $args = array() ) {
                 if ( $anon_info != "" ) {
                     $show_anon = "";
                     // 1a. "Anonymous/anon_info"
-                    //sdg_log( "[authorship_info] is_anon + anon_info", $do_log );
+                    //wxc_log( "[authorship_info] is_anon + anon_info");
                     if ( $format == "post_title" || $format == "edition_title" || $format == "concert_item" ) {
                         if ( $composer_info != "" ) {
                             $show_anon .= "/";
@@ -914,12 +900,9 @@ function get_authorship_info ( $args = array() ) {
 }
 
 // Excerpted From
-function get_excerpted_from( $post_id = null ) {
-
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "rep") ); 
-    $do_log = false;
-    sdg_log( "divline2", $do_log ); 
+function get_excerpted_from( $post_id = null )
+{
+    $logCtx = ['mlib', 'rep'];
     
     // Init vars
     $arr_info = array();
@@ -963,13 +946,9 @@ function get_excerpted_from( $post_id = null ) {
 // Retrieve full rep title and associated info. 
 // Return formats include 'display' (for front end), 'txt' (for back end(, and 'sanitized' (for DB matching)
 // TODO: streamline, pass args instead of separate parameters, build in more formatting options
-function get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true, $full_title = false ) {
-    
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "rep") ); 
-    $do_log = false;
-    sdg_log( "divline2", $do_log );
-    sdg_log( "function called: get_rep_info", $do_log );
+function get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true, $full_title = false )
+{
+    $logCtx = ['mlib', 'rep'];
     
     // Init vars
     $arr_info = array();
@@ -977,10 +956,10 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
     $ts_info = "";    
     if ( $post_id === null ) { $post_id = get_the_ID(); }
     
-    sdg_log( "[get_rep_info] post_id: ".$post_id, $do_log );
-    sdg_log( "[get_rep_info] format: ".$format, $do_log );
-    sdg_log( "[get_rep_info] show_authorship: ".$show_authorship, $do_log );
-    sdg_log( "[get_rep_info] show_title: ".$show_title, $do_log );
+    wxc_log( "[get_rep_info] post_id: ".$post_id);
+    wxc_log( "[get_rep_info] format: ".$format);
+    wxc_log( "[get_rep_info] show_authorship: ".$show_authorship);
+    wxc_log( "[get_rep_info] show_title: ".$show_title);
     
     // Do nothing if post_id is empty or this is not a rep record
     if ( $post_id === null || get_post_type( $post_id ) != 'repertoire' ) { return null; }
@@ -1113,13 +1092,9 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
     
 } // END function get_rep_info
 
-function get_rep_meta_info ( $post_id = null ) {
-
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "rep") ); 
-    $do_log = false;
-    sdg_log( "divline2", $do_log );
-    sdg_log( "function called: get_rep_meta_info", $do_log );
+function get_rep_meta_info ( $post_id = null )
+{
+    $logCtx = ['mlib', 'rep'];
     
     // Init vars
     $arr_info = array();
@@ -1326,12 +1301,9 @@ function match_group_field ( $field_groups, $field_name ) {
 
 
 //
-function format_search_results ( $post_ids, $search_type = "choirplanner" ) {
-    
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib") );
-    $do_log = false;
-    sdg_log( "divline2", $do_log );
+function format_search_results ( $post_ids, $search_type = "choirplanner" )
+{
+    $logCtx = ['mlib'];
 
     // Init vars
     $info = ""; 
