@@ -534,7 +534,7 @@ function str_from_persons_array ( $args = array() ) {
         $display_args = array( 'person_id' => $person_id, 'override' => $override, 'name_abbr' => $name_abbr, 'show_prefix' => $show_prefix, 'show_suffix' => $show_suffix, 'show_job_title' => $show_job_title, 'show_dates' => $show_dates, 'url' => $person_url, 'styled' => $styled );
         
         // Get the display_name
-        $arr_person_name = get_person_display_name( $display_args );
+        $arr_person_name = getPersonDisplayName( $display_args );
         $person_name = $arr_person_name['info'];            
         $info .= $person_name;
         $ts_info .= $arr_person_name['ts_info'];
