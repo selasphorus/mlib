@@ -18,12 +18,11 @@ function get_cpt_instrument_content( $post_id = null )
     
     // Init vars
     $info = "";
-    $ts_info = "";
     if ( $post_id === null ) { $post_id = get_the_ID(); }
     if ( $post_id === null ) { return false; }
     
     $post_meta = get_post_meta( $post_id );
-    $ts_info .= "<pre>post_meta: ".print_r($post_meta, true)."</pre>";
+    wxc_log("post_meta", $post_meta, $logCtx);
     
     if ($post_id === null) { $post_id = get_the_ID(); } 
     if ( $post_id === null ) { return false; }
@@ -45,10 +44,5 @@ function get_cpt_instrument_content( $post_id = null )
         
     }
     
-    if ( $ts_info != "" && ( $do_ts === true || $do_ts == "venues" ) ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
-    
-    return $info;
-    
+    return $info; 
 }
-
-?>

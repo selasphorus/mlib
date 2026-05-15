@@ -140,7 +140,6 @@ function mlib_acf_form ( $atts = array() )
 {
 
     $info = "";
-    $ts_info = "";
 
     $args = shortcode_atts( array(
         'post_content' => true,
@@ -162,9 +161,8 @@ function mlib_acf_form ( $atts = array() )
 
 
     $settings = array( 'post_content' => $post_content, 'instruction_placement' => $instruction_placement, 'fields' => $arr_fields );
-    //$ts_info .= "arr_fields: <pre>".print_r($arr_fields, true)."</pre>";
-    //$ts_info .= "settings: <pre>".print_r($settings, true)."</pre>";
-    //$info .= $ts_info;
+    //wxc_log("arr_fields", $arr_fields);
+    //wxc_log("settings", $settings);
 
     ob_start();
     acf_form( $settings );
@@ -172,5 +170,4 @@ function mlib_acf_form ( $atts = array() )
 
     //return ob_get_clean();
     return $info;
-
 }

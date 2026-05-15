@@ -17,26 +17,22 @@ function get_cpt_organ_content( $post_id = null )
     
     // Init vars
     $info = "";
-    $ts_info = "";
     if ( $post_id === null ) { $post_id = get_the_ID(); }
     if ( $post_id === null ) { return false; }
     
     $post_meta = get_post_meta( $post_id );
-    $ts_info .= "<pre>post_meta: ".print_r($post_meta, true)."</pre>";
+    wxc_log("post_meta", $post_meta, $logCtx);
     
     if ($post_id === null) { $post_id = get_the_ID(); } 
     if ( $post_id === null ) { return false; }
     
     //
     if ( function_exists('sdg_editmode') && sdg_editmode() ) {
-        
         //$settings = array( 'post_content' => true, 'instruction_placement' => 'field', 'fields' => array( 'builder', 'model', 'opus_num', 'build_year', 'build_location', 'num_manuals', 'num_divisions', 'num_ranks', 'num_stops', 'num_pipes', 'num_registers', 'num_other', 'action_type', 'venue_filename', 'venue_name', 'organ_sum_html', 'organ_html', 'specs_html', 'stops_summary' ) );
         //$info .= acf_form( $settings );
         $acf_fields = 'builder, model, opus_num, build_year, build_location, num_manuals, num_divisions, num_ranks, num_stops, num_pipes, num_registers, num_other, action_type, venue_filename, venue_name, organ_sum_html, organ_html, specs_html, stops_summary';
-        $info .= do_shortcode( '[mlib_acf_form fields="'.$acf_fields.'"]' );
-        
+        $info .= do_shortcode( '[mlib_acf_form fields="'.$acf_fields.'"]' );     
     } else {
-        
         // If not in editmode, show content instead of acf_form -- WIP
         
         // TODO: use this summary_str as a model for re-titling organ posts
@@ -77,13 +73,7 @@ function get_cpt_organ_content( $post_id = null )
         if ( $specs_html ) { $info .= '<div class="specs_html">'.$specs_html.'</div>'; }
         
         $info .= "<hr />";
-        
     }
     
-    if ( $ts_info != "" && ( $do_ts === true || $do_ts == "venues" ) ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
-    
     return $info;
-    
 }
-
-?>

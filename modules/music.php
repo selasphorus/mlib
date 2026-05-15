@@ -142,14 +142,12 @@ function get_cpt_repertoire_content( $post_id = null )
     // Init vars
     $arr_info = array();
     $info = "";
-    $ts_info = "";
     
     if ($post_id === null) { $post_id = get_the_ID(); }
-    //$ts_info .="[get_cpt_repertoire_content] post_id: $post_id<br />";
+    wxc_log("post_id", $post_id, $logCtx);
     
     $arr_rep_info = get_rep_info( $post_id, 'display', true, true ); // get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true )
     $rep_info = $arr_rep_info['info'];
-    $ts_info .= $arr_rep_info['ts_info'];
                         
     if ( $rep_info ) {
         //$info .= "<h3>The Work:</h3>";

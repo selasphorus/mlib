@@ -18,12 +18,11 @@ function get_cpt_builder_content( $post_id = null )
     
     // Init vars
     $info = "";
-    $ts_info = "";
     if ( $post_id === null ) { $post_id = get_the_ID(); }
     if ( $post_id === null ) { return false; }
     
     $post_meta = get_post_meta( $post_id );
-    $ts_info .= "<pre>post_meta: ".print_r($post_meta, true)."</pre>";
+    wxc_log("post_meta", $post_meta, $logCtx);
     
     if ($post_id === null) { $post_id = get_the_ID(); } 
     if ( $post_id === null ) { return false; }
@@ -40,15 +39,12 @@ function get_cpt_builder_content( $post_id = null )
         $aka = get_post_meta( $post_id, 'aka', true );
         if ( $aka ) { $info .= '<strong>Aka</strong>: <span class="aka">'.$aka."</span><br />"; }
         
-        //
-        
         // Get and display post titles for "related_liturgical_dates".
         $instruments = get_field('instruments', $post_id, false); // returns array of IDs
         if ( $instruments ) {
-        
             $info .= "<h3>Instruments</h3>";
             $info .= "<p>".count($instruments)." instruments by this builder in our database:</p>";
-            $ts_info .= "<pre>instruments: ".print_r($instruments, true)."</pre>";
+            wxc_log("instruments", $instruments, $logCtx);
             
             foreach ($instruments AS $instrument_id) {
                 $instrument_title = get_the_title($instrument_id);
@@ -58,15 +54,10 @@ function get_cpt_builder_content( $post_id = null )
             }
             
             $info .= "<hr />";
-    
         }
-        
     }
     
-    if ( $ts_info != "" && ( $do_ts === true || $do_ts == "builders" ) ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
-    
     return $info;
-    
 }
 
 ?>
