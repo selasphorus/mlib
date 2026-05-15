@@ -6,7 +6,7 @@
  * //Requires PHP:      7.4
  * Dependencies:      Requires WHx4 plugin for People CPT
  * Requires Plugins:  whx4
- * Version:           0.1.260310
+ * Version:           0.1.260515
  * Author:            atc
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,8 +17,7 @@
 
 // TODO: generalize as "library" w/ sub-options for music?
 
-
-if( !defined('ABSPATH') ) {
+if ( !defined('ABSPATH') ) {
     exit;
 }
 
@@ -106,7 +105,6 @@ foreach ( $active_modules as $module ) {
             'parent_slug'   => 'edit.php?post_type='.$primary_cpt,
         ));
     }
-
 }
 
 /* +~+~+ Enable ACF FORM as shortcode +~+~+ */
@@ -117,7 +115,6 @@ add_action( 'template_redirect', 'acf_form_head' ); // See https://wordpress.org
 add_shortcode('mlib_acf_form', 'mlib_acf_form');
 function mlib_acf_form ( $atts = array() ) 
 {
-
     $info = "";
     $ts_info = "";
 
@@ -151,5 +148,4 @@ function mlib_acf_form ( $atts = array() )
 
     //return ob_get_clean();
     return $info;
-
 }
