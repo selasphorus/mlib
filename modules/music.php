@@ -140,11 +140,9 @@ function get_cpt_repertoire_content( $post_id = null )
     $ts_info = "";
     
     if ($post_id === null) { $post_id = get_the_ID(); }
-    //$ts_info .="[get_cpt_repertoire_content] post_id: $post_id<br />";
     
     $arr_rep_info = get_rep_info( $post_id, 'display', true, true ); // get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true )
     $rep_info = $arr_rep_info['info'];
-    $ts_info .= $arr_rep_info['ts_info'];
                         
     if ( $rep_info ) {
         //$info .= "<h3>The Work:</h3>";
@@ -229,9 +227,7 @@ function get_cpt_repertoire_content( $post_id = null )
     //$ts_info .= "test"; // tft
     //if ( $ts_info != "" && $do_ts === true ) { $ts_info = '<div class="troubleshooting">'.$ts_info.'</div>'; }
     
-    $arr_info['info'] = $info;
-    if ( $ts_info != "" && $do_ts === true ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
-    
+    $arr_info['info'] = $info;    
     return $arr_info;
 }
 
@@ -449,17 +445,17 @@ function str_from_persons_array ( $args = array() )
     $args = wp_parse_args( $args, $defaults );
     extract( $args );
     
-    //sdg_log( "[str_from_persons] arr_persons: ".print_r($arr_persons, true), $do_log );
-    sdg_log( "[ssfpa] person_category: ".$person_category, $do_log );
-    sdg_log( "[ssfpa] post_id: ".$post_id, $do_log );
-    sdg_log( "[ssfpa] format: ".$format, $do_log );
-    sdg_log( "[ssfpa] arr_of: ".$arr_of, $do_log );
-    sdg_log( "[ssfpa] abbr: ".(int)$abbr, $do_log );
-    sdg_log( "[ssfpa] links: ".(int)$links, $do_log );
+    //wxc_log( "[str_from_persons] arr_persons: ".print_r($arr_persons, true), null );
+    wxc_log( "person_category: ".$person_category, null );
+    wxc_log( "post_id: ".$post_id, null );
+    wxc_log( "format: ".$format, null );
+    wxc_log( "arr_of: ".$arr_of, null );
+    wxc_log( "abbr: ".(int)$abbr, null );
+    wxc_log( "links: ".(int)$links, null );
     
-    $ts_info .= "<!-- [ssfpa] format: $format -->";
-    $ts_info .= "<!-- [ssfpa] person_category: $person_category -->";
-    $ts_info .= "<!-- [ssfpa] arr_persons: ".print_r($arr_persons, true)." -->";
+    $ts_info .= "<!-- format: $format -->";
+    $ts_info .= "<!-- person_category: $person_category -->";
+    $ts_info .= "<!-- arr_persons: ".print_r($arr_persons, true)." -->";
     
     foreach ( $arr_persons AS $person_id ) {
 
@@ -470,8 +466,8 @@ function str_from_persons_array ( $args = array() )
         } else {
             $person_id = $person;
         }*/
-        sdg_log( "[ssfpa] person_id: ".$person_id, $do_log );
-        $ts_info .= "<!-- [ssfpa] person_id: ".$person_id." -->";
+        wxc_log( "person_id: ".$person_id, null );
+        $ts_info .= "<!-- person_id: ".$person_id." -->";
         
         // Set up display args to pass to fcn get_person_display_name
         if ( $abbr || has_term( 'psalms', 'repertoire_category', $post_id ) && !has_term( 'motets', 'repertoire_category', $post_id ) && !has_term( 'anthems', 'repertoire_category', $post_id ) ) { 
@@ -514,7 +510,6 @@ function str_from_persons_array ( $args = array() )
         $arr_person_name = getPersonDisplayName( $display_args );
         $person_name = $arr_person_name['info'];            
         $info .= $person_name;
-        $ts_info .= $arr_person_name['ts_info'];
 
         if (count($arr_persons) > 1) { $info .= ", "; }
 
@@ -525,8 +520,7 @@ function str_from_persons_array ( $args = array() )
         $info = substr($info, 0, -2); // trim off trailing comma
     }
     
-    $arr_info['info'] = $info;
-    
+    $arr_info['info'] = $info;    
     return $arr_info;
 }
 
@@ -550,11 +544,11 @@ function get_authorship_info ( $args = array() )
     extract( $args );
     
     /*
-    sdg_log( "[authorship_info] data: ".print_r($data, true), $do_log );
-    sdg_log( "[authorship_info] format: ".$format, $do_log );
-    sdg_log( "[authorship_info] is_single_work: ".$is_single_work, $do_log );
-    sdg_log( "[authorship_info] show_title: ".$show_title, $do_log );
-    sdg_log( "[authorship_info] abbr: ".(int)$abbr, $do_log );
+    wxc_log( "[authorship_info] data: ".print_r($data, true), null );
+    wxc_log( "[authorship_info] format: ".$format, null );
+    wxc_log( "[authorship_info] is_single_work: ".$is_single_work, null );
+    wxc_log( "[authorship_info] show_title: ".$show_title, null );
+    wxc_log( "[authorship_info] abbr: ".(int)$abbr, null );
     */
     
     // Init vars
@@ -583,7 +577,7 @@ function get_authorship_info ( $args = array() )
     // Get info either via post_id, if set, or from data array
     if ( isset($data['post_id']) ) {
         
-        sdg_log( "[authorship_info] get info from data['post_id']", $do_log );
+        wxc_log( "[authorship_info] get info from data['post_id']", null );
         $ts_info .= "<!-- [authorship_info] get info from data['post_id'] -->";
         
         $post_id = $data['post_id'];
@@ -616,7 +610,6 @@ function get_authorship_info ( $args = array() )
             $persons_args = array( 'arr_persons' => $composers, 'person_category' => 'composers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => 'objects', 'abbr' => false, 'links' => $links );
             $arr_composers_str = str_from_persons_array ( $persons_args );
             $composers_str = $arr_composers_str['info'];
-            $ts_composers = $arr_composers_str['ts_info'];
             $ts_info .= $ts_composers;
             //args: $arr_persons, $person_category = null, $post_id = null, $format = 'display', $arr_of = "objects", $abbr = false ) {
         }
@@ -641,13 +634,11 @@ function get_authorship_info ( $args = array() )
             $plainsong = false;
         }
         
-        ///if ( $format == 'display') { $ts_info .= "<!-- anon_info: ".$anon_info." -->"; } // tft
-        
         $arr_of = 'objects';
         
     } else {
         
-        sdg_log( "[authorship_info] get info from data without post_id", $do_log );
+        wxc_log( "[authorship_info] get info from data without post_id", null );
         $ts_info .= "<!-- [authorship_info] get info from data without post_id -->";
         
         $post_id = null;
@@ -669,38 +660,37 @@ function get_authorship_info ( $args = array() )
     if ( $rep_title == "" || empty($rep_title) || $rep_title == "Responses" ) { $show_title = false; }
     $ts_info .= "<!-- [authorship_info] rep_title: ".print_r($rep_title,true)." -->";
     
-    sdg_log( "[authorship_info] anon_info: ".$anon_info, $do_log );
-    //sdg_log( "[authorship_info] rep_title: ".print_r($rep_title, true), $do_log );
+    wxc_log( "[authorship_info] anon_info: ".$anon_info, null );
+    //wxc_log( "[authorship_info] rep_title: ".print_r($rep_title, true), null );
     
     // Build the authorship_info string
     
     // 1. Composer(s)
     if ( !empty($composers) ) { //
         
-        sdg_log( "[authorship_info] composers: ".print_r($composers, true), $do_log );
+        wxc_log( "[authorship_info] composers: ".print_r($composers, true), null );
         
         $persons_args = array( 'arr_persons' => $composers, 'person_category' => 'composers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
-        sdg_log( "[authorship_info] persons_args: ".print_r($persons_args, true), $do_log );
+        wxc_log( "[authorship_info] persons_args: ".print_r($persons_args, true), null );
         $ts_info .= "<!-- [authorship_info] persons_args: <pre>".print_r($persons_args, true)."</pre> -->";
         $arr_composers_str = str_from_persons_array ( $persons_args );
         $composer_info = $arr_composers_str['info'];
-        $ts_composers = $arr_composers_str['ts_info'];
         $ts_info .= $ts_composers;
                 
         // TODO: check instead by ID? Would be more accurate and would allow for comments to be returned by fcn str_from_persons_array
         // Redundant: TODO: instead use is_anon fcn? Any reason why not to do this?
         if ( $composer_info == '[Unknown]' || $composer_info == 'Unknown' || $composer_info == 'Anonymous' || $composer_info == 'Plainsong' ) { //
             $is_anon = true;
-            sdg_log( "[authorship_info] is_anon.", $do_log);
+            wxc_log( "[authorship_info] is_anon.", $do_log);
         } else {
-            sdg_log( "[authorship_info] NOT is_anon.", $do_log);
+            wxc_log( "[authorship_info] NOT is_anon.", $do_log);
         }
         if ( $composer_info == "Unknown" || ( $composer_info == "Anonymous" && $anon_info == "" ) ) { 
             $composer_info = "";
         }
         
-        sdg_log( "[authorship_info] composer_info: ".$composer_info, $do_log );
-        sdg_log( "[authorship_info] anon_info: ".$anon_info, $do_log );
+        wxc_log( "[authorship_info] composer_info: ".$composer_info, null );
+        wxc_log( "[authorship_info] anon_info: ".$anon_info, null );
         
         ///$ts_info .= "<!-- composer_info: ".$composer_info." -->";
         ///$ts_info .= "<!-- anon_info: ".$anon_info." -->";
@@ -711,7 +701,7 @@ function get_authorship_info ( $args = array() )
                 if ( $anon_info != "" ) {
                     $show_anon = "";
                     // 1a. "Anonymous/anon_info"
-                    //sdg_log( "[authorship_info] is_anon + anon_info", $do_log );
+                    //wxc_log( "[authorship_info] is_anon + anon_info", null );
                     if ( $format == "post_title" || $format == "edition_title" || $format == "concert_item" ) {
                         if ( $composer_info != "" ) {
                             $show_anon .= "/";
@@ -778,7 +768,6 @@ function get_authorship_info ( $args = array() )
         $persons_args = array( 'arr_persons' => $arrangers, 'person_category' => 'arrangers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
         $arr_arrangers_info = str_from_persons_array ( $persons_args );
         $arrangers_info = $arr_arrangers_info['info'];
-        $ts_arrangers = $arr_arrangers_info['ts_info'];
         $ts_info .= $ts_arrangers;
 
         if ( $is_single_work == true && $arrangers_info != "") {
@@ -808,7 +797,6 @@ function get_authorship_info ( $args = array() )
         $persons_args = array( 'arr_persons' => $transcribers, 'person_category' => 'transcribers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
         $arr_transcribers_info = str_from_persons_array ( $persons_args );
         $transcribers_info = $arr_transcribers_info['info'];
-        $ts_transcribers = $arr_transcribers_info['ts_info'];
         $ts_info .= $ts_transcribers;
 
         if ( $transcribers_info != "" ) {
@@ -837,7 +825,6 @@ function get_authorship_info ( $args = array() )
         $persons_args = array( 'arr_persons' => $librettists, 'person_category' => 'librettists', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
         $arr_librettists_info = str_from_persons_array ( $persons_args );
         $librettists_info = $arr_librettists_info['info'];
-        $ts_librettists = $arr_librettists_info['ts_info'];
         $ts_info .= $ts_librettists;
 
         if ( $is_single_work == true && $librettists_info != "") {
@@ -859,7 +846,6 @@ function get_authorship_info ( $args = array() )
         $persons_args = array( 'arr_persons' => $translators, 'person_category' => 'translators', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
         $arr_translators_info = str_from_persons_array ( $persons_args );
         $translators_info = $arr_translators_info['info'];
-        $ts_translators = $arr_translators_info['ts_info'];
         $ts_info .= $ts_translators;
         
         if ( $is_single_work == true && $translators_info != "") {
@@ -875,8 +861,7 @@ function get_authorship_info ( $args = array() )
 
     }
     
-    $arr_info['info'] = $authorship_info;
-    
+    $arr_info['info'] = $authorship_info;    
     return $arr_info; 
 }
 
@@ -931,10 +916,10 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
     $ts_info = "";    
     if ( $post_id === null ) { $post_id = get_the_ID(); }
     
-    sdg_log( "[get_rep_info] post_id: ".$post_id, $do_log );
-    sdg_log( "[get_rep_info] format: ".$format, $do_log );
-    sdg_log( "[get_rep_info] show_authorship: ".$show_authorship, $do_log );
-    sdg_log( "[get_rep_info] show_title: ".$show_title, $do_log );
+    wxc_log( "[get_rep_info] post_id: ".$post_id, null );
+    wxc_log( "[get_rep_info] format: ".$format, null );
+    wxc_log( "[get_rep_info] show_authorship: ".$show_authorship, null );
+    wxc_log( "[get_rep_info] show_title: ".$show_title, null );
     
     // Do nothing if post_id is empty or this is not a rep record
     if ( $post_id === null || get_post_type( $post_id ) != 'repertoire' ) { return null; }
@@ -989,7 +974,6 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
     
     $arr_excerpted_from = get_excerpted_from( $post_id );
     $excerpted_from = $arr_excerpted_from['info'];
-    if ( $format == 'display' ) { $info .= $arr_excerpted_from['ts_info']; }
        
     if ( $excerpted_from != "" ) {
         if ( $is_single_work == true ) {
@@ -1038,8 +1022,6 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
         $arr_authorship_info = get_authorship_info ( $authorship_args );
         $authorship_info = $arr_authorship_info['info'];
         if ( $title == "" && substr($authorship_info, 0, 2) == ", " ) { $authorship_info = substr($authorship_info, 2); } // trim leading comma and space
-    
-        $ts_info .= $arr_authorship_info['ts_info'];
         
         // ( $data = array(), $format = 'post_title', $abbr = false, $is_single_work = false, $show_title = true ) 
         if ( $authorship_info != "Unknown" ) {
@@ -1367,7 +1349,6 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" )
         $authorship_args = array( 'data' => array( 'post_id' => $post_id ), 'format' => 'display', 'abbr' => false, 'is_single_work' => false, 'show_title' => false, 'links' => true );
         $arr_authorship_info = get_authorship_info ( $authorship_args );
         $authorship_info = $arr_authorship_info['info'];
-        $ts_info .= $arr_authorship_info['ts_info'];
         $info .= $authorship_info;
         /*
         $info .= " by ";
