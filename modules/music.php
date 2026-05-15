@@ -610,7 +610,6 @@ function get_authorship_info ( $args = array() )
             $persons_args = array( 'arr_persons' => $composers, 'person_category' => 'composers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => 'objects', 'abbr' => false, 'links' => $links );
             $arr_composers_str = str_from_persons_array ( $persons_args );
             $composers_str = $arr_composers_str['info'];
-            $ts_info .= $ts_composers;
             //args: $arr_persons, $person_category = null, $post_id = null, $format = 'display', $arr_of = "objects", $abbr = false ) {
         }
         $display_composer = $composers_str;
@@ -675,15 +674,14 @@ function get_authorship_info ( $args = array() )
         $ts_info .= "<!-- [authorship_info] persons_args: <pre>".print_r($persons_args, true)."</pre> -->";
         $arr_composers_str = str_from_persons_array ( $persons_args );
         $composer_info = $arr_composers_str['info'];
-        $ts_info .= $ts_composers;
                 
         // TODO: check instead by ID? Would be more accurate and would allow for comments to be returned by fcn str_from_persons_array
         // Redundant: TODO: instead use is_anon fcn? Any reason why not to do this?
         if ( $composer_info == '[Unknown]' || $composer_info == 'Unknown' || $composer_info == 'Anonymous' || $composer_info == 'Plainsong' ) { //
             $is_anon = true;
-            wxc_log( "[authorship_info] is_anon.", $do_log);
+            wxc_log( "[authorship_info] is_anon.", null);
         } else {
-            wxc_log( "[authorship_info] NOT is_anon.", $do_log);
+            wxc_log( "[authorship_info] NOT is_anon.", null);
         }
         if ( $composer_info == "Unknown" || ( $composer_info == "Anonymous" && $anon_info == "" ) ) { 
             $composer_info = "";
