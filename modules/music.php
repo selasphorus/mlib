@@ -8,12 +8,11 @@ if ( !function_exists( 'add_action' ) ) {
     exit;
 }
 
-
 /*********** CPT: REPERTOIRE (aka Musical Works) ***********/
 
 /* ~~~ Admin/Dev functions ~~~ */
-function update_repertoire_events( $rep_id = null, $run_slow_queries = false, $arr_event_ids = array() ) {
-    
+function update_repertoire_events( $rep_id = null, $run_slow_queries = false, $arr_event_ids = array() )
+{    
     $info = "";
     $updates = false;
     
@@ -69,7 +68,6 @@ function update_repertoire_events( $rep_id = null, $run_slow_queries = false, $a
     $info .= "+++++<br /><br />";
     
     return $info;
-    
 }
 
 // WIP fcn to update to new bidirectional field: repertoire_litdates
@@ -132,16 +130,10 @@ function update_repertoire_events( $rep_id = null, $run_slow_queries = false, $a
     
 }*/
 
-
 /* ~~~ Display functions ~~~ */
 
-function get_cpt_repertoire_content( $post_id = null ) {
-    
-    // TS/logging setup
-    $do_ts = devmode_active( array("sdg", "music") );
-    $do_log = false;
-    sdg_log( "divline2", $do_log );
-    
+function get_cpt_repertoire_content( $post_id = null )
+{
     // Init vars
     $arr_info = array();
     $info = "";
@@ -248,13 +240,8 @@ function get_cpt_repertoire_content( $post_id = null ) {
 // See display content plugin >> ACF repeater rows fcn...
 
 /*********** CPT: EDITION ***********/
-function get_cpt_edition_content( $post_id = null ) {
-    
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "editions") ); 
-    $do_log = false;
-    sdg_log( "divline2", $do_log );
-    
+function get_cpt_edition_content( $post_id = null )
+{
     // Init vars
     $info = "";
     $ts_info = "";
@@ -329,7 +316,6 @@ function get_cpt_edition_content( $post_id = null ) {
             $info .= '<tr><td class="label">Choir Forces</td><td>'.$choir_label.'</td></tr>';
         }
     }
-    
     
     // TODO: streamline this to process array of taxonomies
         
@@ -408,15 +394,12 @@ function get_cpt_edition_content( $post_id = null ) {
 
     $info .= '</table>';
     
-    if ( $do_ts ) { $info .= $ts_info; }
-    
     return $info;
-    
 }
 
 // Function to determine if rep work is of anonymous or unknown authorship
-function is_anon( $post_id = null ) {
-    
+function is_anon( $post_id = null )
+{
     // Init vars
     if ($post_id === null) { $post_id = get_the_ID(); }
     if ( empty($post_id) ) { return null; }
@@ -444,14 +427,8 @@ function is_anon( $post_id = null ) {
 // Stringify an array of person ids or objects, with formatting options
 // TODO: better documentation
 // TODO: add option to make_link for each name
-function str_from_persons_array ( $args = array() ) {
-    
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "people") ); 
-    $do_log = false;
-    sdg_log( "divline2", $do_log );
-    sdg_log( "function called: str_from_persons_array", $do_log );
-    
+function str_from_persons_array ( $args = array() )
+{
     // Init vars
     $arr_info = array();
     $info = "";
@@ -549,23 +526,15 @@ function str_from_persons_array ( $args = array() ) {
     }
     
     $arr_info['info'] = $info;
-    if ( $do_ts ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
     
     return $arr_info;
-    
 }
 
 // Retrieve properly formatted authorship info for Repertoire records
 // Authorship: Composers, Arrangers, Transcriber, Librettists, &c.
 // $format options include: display; post_title; ....? (TODO: better info here)
-function get_authorship_info ( $args = array() ) {
-
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "people") ); 
-    $do_log = false;
-    sdg_log( "divline2", $do_log ); 
-    sdg_log( "function called: get_authorship_info", $do_log );
-    
+function get_authorship_info ( $args = array() )
+{
     // Defaults
     $defaults = array(
         'data'             => array(),
@@ -907,20 +876,13 @@ function get_authorship_info ( $args = array() ) {
     }
     
     $arr_info['info'] = $authorship_info;
-    if ( $do_ts ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
     
-    return $arr_info;
-    
+    return $arr_info; 
 }
 
 // Excerpted From
-function get_excerpted_from( $post_id = null ) {
-
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "rep") ); 
-    $do_log = false;
-    sdg_log( "divline2", $do_log ); 
-    
+function get_excerpted_from( $post_id = null )
+{
     // Init vars
     $arr_info = array();
     $excerpted_from = "";
@@ -954,23 +916,15 @@ function get_excerpted_from( $post_id = null ) {
     }
     
     $arr_info['info'] = $excerpted_from;
-    if ( $do_ts ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
     
     return $arr_info;
-    
 }
 
 // Retrieve full rep title and associated info. 
 // Return formats include 'display' (for front end), 'txt' (for back end(, and 'sanitized' (for DB matching)
 // TODO: streamline, pass args instead of separate parameters, build in more formatting options
-function get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true, $full_title = false ) {
-    
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "rep") ); 
-    $do_log = false;
-    sdg_log( "divline2", $do_log );
-    sdg_log( "function called: get_rep_info", $do_log );
-    
+function get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true, $full_title = false )
+{
     // Init vars
     $arr_info = array();
     $info = "";
@@ -1106,21 +1060,12 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
         $info = make_link( get_the_permalink( $post_id ), $info, $title_clean, 'subtle', '_blank' );
     }
     
-    $arr_info['info'] = $info;
-    if ( $do_ts ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
-    
+    $arr_info['info'] = $info;    
     return $arr_info;
-    
-} // END function get_rep_info
+}
 
-function get_rep_meta_info ( $post_id = null ) {
-
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "rep") ); 
-    $do_log = false;
-    sdg_log( "divline2", $do_log );
-    sdg_log( "function called: get_rep_meta_info", $do_log );
-    
+function get_rep_meta_info ( $post_id = null )
+{
     // Init vars
     $arr_info = array();
     $info = "";
@@ -1209,13 +1154,11 @@ function get_rep_meta_info ( $post_id = null ) {
     }
     
     return $info;
-        
 }
 
-function get_author_ids ( $post_id = null, $include_composers = true ) {
-    
+function get_author_ids ( $post_id = null, $include_composers = true )
+{
     $arr_ids = array();
-    //if ($post_id === null) { $post_id = get_the_ID(); }
     
     // Do nothing if post_id is empty or this is not a rep record
     if ( $post_id === null || get_post_type( $post_id ) != 'repertoire' ) { return "no post_id"; } //return null; }
@@ -1240,13 +1183,11 @@ function get_author_ids ( $post_id = null, $include_composers = true ) {
     //array_merge($arr_ids, $transcribers);
     
     return $arr_ids;
-    
 }
 
-function get_composer_ids ( $post_id = null ) {
-    
+function get_composer_ids ( $post_id = null )
+{
     $arr_ids = array();
-    //if ($post_id === null) { $post_id = get_the_ID(); }
     
     // Do nothing if post_id is empty or this is not a rep record
     if ( $post_id === null || get_post_type( $post_id ) != 'repertoire' ) { return "no post_id"; } //return null; }
@@ -1258,7 +1199,6 @@ function get_composer_ids ( $post_id = null ) {
     }
 
     return $arr_ids;
-    
 }
 
 /*** Choirplanner ***/
@@ -1324,15 +1264,9 @@ function match_group_field ( $field_groups, $field_name ) {
 }
 */
 
-
 //
-function format_search_results ( $post_ids, $search_type = "choirplanner" ) {
-    
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib") );
-    $do_log = false;
-    sdg_log( "divline2", $do_log );
-
+function format_search_results ( $post_ids, $search_type = "choirplanner" )
+{
     // Init vars
     $info = ""; 
     $ts_info = "";
@@ -1663,22 +1597,15 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" ) {
     
     $info .= "</form>";
     
-    if ( $ts_info != "" && $do_ts === true ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
-    
     return $info;
-    
 }
 
-
 /*********** CPT: GROUP ***********/
-function get_cpt_group_content() {
-    
+function get_cpt_group_content()
+{
     $info = "";
     $post_id = get_the_ID();
     $info .= "group post_id: $post_id<br />";
     
     return $info;
-    
 }
-
-?>
