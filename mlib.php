@@ -6,7 +6,7 @@
  * //Requires PHP:      7.4
  * Dependencies:      Requires WHx4 plugin for People CPT
  * Requires Plugins:  whx4
- * Version:           0.1.260515
+ * Version:           0.1.260611
  * Author:            atc
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
