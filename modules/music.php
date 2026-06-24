@@ -8,6 +8,8 @@ if ( !function_exists( 'add_action' ) ) {
     exit;
 }
 
+$logCtx = ['music'];
+
 /*********** CPT: REPERTOIRE (aka Musical Works) ***********/
 
 /* ~~~ Admin/Dev functions ~~~ */
@@ -163,7 +165,6 @@ function get_cpt_repertoire_content( $post_id = null )
         $x = 1;
         foreach($repertoire_events as $event_post_id) { 
             //setup_postdata($event_post);
-            //$ts_info .= "[$x] event_post: <pre>".print_r($event_post, true)."</pre>"; // tft
             //$event_post_id = $event_post->ID;
             
             // TODO: modify to show title & event date as link text
@@ -190,9 +191,7 @@ function get_cpt_repertoire_content( $post_id = null )
        ) {
            //-- STC
         $info .= "<h3>Edition(s) in the Saint Thomas Library:</h3>";
-        //$ts_info .= "<pre>related_editions: ".print_r($related_editions, true)."</pre>";
         foreach ( $related_editions as $edition_id ) {
-            //$ts_info .= "edition_id: ".$edition_id."<br />";
             $info .= make_link( get_the_permalink($edition_id), get_the_title($edition_id) ) . "<br />";
         }        
     }
@@ -202,30 +201,16 @@ function get_cpt_repertoire_content( $post_id = null )
     $duplicate_posts = $dupes['posts'];
     $duplicate_posts_info = $dupes['info'];
     
-    if ( $duplicate_posts ) { 
-        
-        $ts_info .= "<h3>Possible Duplicate(s):</h3>";
+    if ( $duplicate_posts ) {
         $x = 1;
         foreach($duplicate_posts as $duplicate_post) { 
-        
             setup_postdata($duplicate_post);
-            //$ts_info .= "[$x] duplicate_post: <pre>".print_r($duplicate_post, true)."</pre>"; // tft
             $duplicate_post_id = $duplicate_post->ID;
-            
             $ts_info .= make_link( get_the_permalink($duplicate_post_id), $duplicate_post->post_title, null, null, "_blank" ) . "<br />";
-            
-            // TODO: build in merge options
-                        
+            // TODO: build in merge options          
             $x++;
         }
-    } else {
-        if ( devmode_active( array("mlib", "rep") ) ) { 
-            $ts_info .= "<p>No duplicate posts were found.</p>"; // tft
-        }
     }*/
-    
-    //$ts_info .= "test"; // tft
-    //if ( $ts_info != "" && $do_ts === true ) { $ts_info = '<div class="troubleshooting">'.$ts_info.'</div>'; }
     
     $arr_info['info'] = $info;    
     return $arr_info;
@@ -240,29 +225,22 @@ function get_cpt_edition_content( $post_id = null )
 {
     // Init vars
     $info = "";
-    $ts_info = "";
     if ($post_id === null) { $post_id = get_the_ID(); }
-    
-    $ts_info .= "<!-- edition post_id: $post_id -->";
     
     // Musical Work
     if ( get_field( 'repertoire_editions', $post_id )  ) {
         $repertoire_editions = get_field( 'repertoire_editions', $post_id );
-        //$info .= '<pre>'.print_r($repertoire_editions, true).'</pre>';
         foreach ( $repertoire_editions as $musical_work_id ) {
             $info .= "<h3>".get_the_title($musical_work_id)."</h3>";
-            //$info .= "<h3>".$musical_work->post_title."</h3>";
         }
     } elseif ( get_field( 'musical_work', $post_id )  ) {
-        //$ts_info .= '<p class="devinfo">'."This record requires an update. It is using the old musical_work field and should be updated to use the new bidirectional repertoire_editions field.".'</p>';
-        $ts_info .= '<!-- NB: This record requires an update. It is using the old musical_work field and should be updated to use the new bidirectional repertoire_editions field -->';
+        // NB: This record requires an update. It is using the old musical_work field and should be updated to use the new bidirectional repertoire_editions field
         $musical_works = get_field( 'musical_work', $post_id );
-        //$info .= '<pre>'.print_r($musical_works, true).'</pre>';
         foreach ( $musical_works as $musical_work ) {
             $info .= "<h3>".$musical_work->post_title."</h3>";
         }
     } else {
-        $ts_info .= "<!-- No musical_work found for edition with id: $post_id -->";
+        // No musical_work found for edition with id: $post_id
     }
     
     // TODO: use get_rep_info to make more refined view?
@@ -274,12 +252,10 @@ function get_cpt_edition_content( $post_id = null )
     }*/
     
     $info .= '<table class="edition_info">';
-    //$info .= '<tr><td class="label"></td><td></td></tr>';
         
     // Publication Info
     if ( get_field( 'editor', $post_id )  ) {
         $editors = get_field( 'editor', $post_id );
-        //$info .= '<tr><td><pre>'.print_r($editors, true).'</pre></td></tr>';
         foreach ( $editors as $editor ) {
             $info .= '<tr><td class="label">Editor</td><td>'.$editor->post_title.'</td></tr>';
         }
@@ -292,7 +268,6 @@ function get_cpt_edition_content( $post_id = null )
     }
     if ( get_field( 'publication', $post_id )  ) {
         $publications = get_field( 'publication', $post_id );
-        //$info .= '<tr><td class="label">Publication</td><td><pre>'.print_r($publications, true).'</pre></td></tr>'; // tft
         foreach ( $publications as $publication ) {
             if ( is_object($publication) ) { $publication_title = $publication->post_title; } else { $publication_title = get_the_title($publication); }
             $info .= '<tr><td class="label">Publication</td><td>'.$publication_title.'</td></tr>';
@@ -306,7 +281,6 @@ function get_cpt_edition_content( $post_id = null )
     // Choir Forces
     if ( get_field( 'choir_forces', $post_id )  ) {
         $choir_forces = get_field( 'choir_forces', $post_id );
-        //$info .= '<tr><td class="label">Choir Forces</td><td><pre>'.print_r($choir_forces, true).'</pre></td></tr>';
         foreach ( $choir_forces as $choir ) {
             if ( is_array($choir) ) { $choir_label = $choir['label']; } else { $choir_label = $choir; }
             $info .= '<tr><td class="label">Choir Forces</td><td>'.$choir_label.'</td></tr>';
@@ -320,10 +294,7 @@ function get_cpt_edition_content( $post_id = null )
     $voicings_str = "";
     if ( count($voicings) > 0 ) {
         foreach ( $voicings as $voicing ) {
-            //$voicings_str .= '<span class="voicing">';
-            //$voicings_str .= '<pre>'.print_r($voicing, true).'</pre>';
             $voicings_str .= $voicing;
-            //$voicings_str .= '</span>';
         }
     } else {
         $voicings_str = '<span class="fyi">N/A</span>';
@@ -333,7 +304,6 @@ function get_cpt_edition_content( $post_id = null )
     // Get and display term names for "soloists"
     $soloists = wp_get_post_terms( $post_id, 'soloist', array( 'fields' => 'names' ) );
     $soloists_str = "";
-    #$info .= print_r($soloists, true); // tft
     if ( count($soloists) > 0 ) {
         foreach ( $soloists as $soloist ) {
             $soloists_str .= $soloist;
@@ -346,7 +316,6 @@ function get_cpt_edition_content( $post_id = null )
     // Get and display term names for "instruments"
     $instruments = wp_get_post_terms( $post_id, 'instrument', array( 'fields' => 'names' ) );
     $instruments_str = "";
-    #$info .= print_r($instruments, true); // tft
     if ( count($instruments) > 0 ) {
         foreach ( $instruments as $instrument ) {
             $instruments_str .= $instrument;
@@ -359,7 +328,6 @@ function get_cpt_edition_content( $post_id = null )
     // Get and display term names for "keys"
     $keys = wp_get_post_terms( $post_id, 'key', array( 'fields' => 'names' ) );
     $keys_str = "";
-    #$info .= print_r($keys, true); // tft
     if ( count($keys) > 0 ) {
         foreach ( $keys as $key ) {
             $keys_str .= $key;
@@ -373,9 +341,7 @@ function get_cpt_edition_content( $post_id = null )
     // library tags
         
     // Library Info
-    //if ( current_user_can('music') ) {
     if ( current_user_can('read_music') ) { // Why is this generating an error?
-
         if ( $box_num = get_field( 'box_num', $post_id ) ) {            
             $info .= '<tr><td class="label">Call Num</td><td>'.$box_num.'</td></tr>';
         }
@@ -385,7 +351,6 @@ function get_cpt_edition_content( $post_id = null )
         if ( $scores = get_field( 'scores', $post_id ) ) {
             //$info .= '<tr><td class="label">Score(s)</td><td>'.$scores.'</td></tr>';
         }
-
     }
 
     $info .= '</table>';
@@ -425,10 +390,11 @@ function is_anon( $post_id = null )
 // TODO: add option to make_link for each name
 function str_from_persons_array ( $args = array() )
 {
+    $logCtx = ['music', 'people'];
+    
     // Init vars
     $arr_info = array();
     $info = "";
-    $ts_info = "";
     
     // Defaults
     $defaults = array(
@@ -445,29 +411,21 @@ function str_from_persons_array ( $args = array() )
     $args = wp_parse_args( $args, $defaults );
     extract( $args );
     
-    //wxc_log( "[str_from_persons] arr_persons: ".print_r($arr_persons, true), null );
-    wxc_log( "person_category: ".$person_category, null );
-    wxc_log( "post_id: ".$post_id, null );
-    wxc_log( "format: ".$format, null );
-    wxc_log( "arr_of: ".$arr_of, null );
-    wxc_log( "abbr: ".(int)$abbr, null );
-    wxc_log( "links: ".(int)$links, null );
-    
-    $ts_info .= "<!-- format: $format -->";
-    $ts_info .= "<!-- person_category: $person_category -->";
-    $ts_info .= "<!-- arr_persons: ".print_r($arr_persons, true)." -->";
+    //wxc_log("arr_persons", $arr_persons, $logCtx );
+    wxc_log("person_category: ".$person_category, null, $logCtx );
+    wxc_log("post_id: ".$post_id, null, $logCtx );
+    wxc_log("format: ".$format, null, $logCtx );
+    wxc_log("arr_of: ".$arr_of, null, $logCtx );
+    wxc_log("abbr: ".(int)$abbr, null, $logCtx );
+    wxc_log("links: ".(int)$links, null, $logCtx );
     
     foreach ( $arr_persons AS $person_id ) {
-
-        //$info .= "<pre>person: ".print_r($person, true)."</pre>"; // tft
-        
         /*if ( $arr_of == "objects" ) {
             if ( isset($person['ID']) ) { $person_id = $person['ID']; } else { $person_id = null; }
         } else {
             $person_id = $person;
         }*/
-        wxc_log( "person_id: ".$person_id, null );
-        $ts_info .= "<!-- person_id: ".$person_id." -->";
+        wxc_log("person_id: ".$person_id, null, $logCtx );
         
         // Set up display args to pass to fcn get_person_display_name
         if ( $abbr || has_term( 'psalms', 'repertoire_category', $post_id ) && !has_term( 'motets', 'repertoire_category', $post_id ) && !has_term( 'anthems', 'repertoire_category', $post_id ) ) { 
@@ -528,6 +486,8 @@ function str_from_persons_array ( $args = array() )
 // $format options include: display; post_title; ....? (TODO: better info here)
 function get_authorship_info ( $args = array() )
 {
+    $logCtx = ['music', 'people'];
+    
     // Defaults
     $defaults = array(
         'data'             => array(),
@@ -543,17 +503,16 @@ function get_authorship_info ( $args = array() )
     extract( $args );
     
     /*
-    wxc_log( "[authorship_info] data: ".print_r($data, true), null );
-    wxc_log( "[authorship_info] format: ".$format, null );
-    wxc_log( "[authorship_info] is_single_work: ".$is_single_work, null );
-    wxc_log( "[authorship_info] show_title: ".$show_title, null );
-    wxc_log( "[authorship_info] abbr: ".(int)$abbr, null );
+    wxc_log("data: ".print_r($data, true), null, $logCtx );
+    wxc_log("format: ".$format, null, $logCtx );
+    wxc_log("is_single_work: ".$is_single_work, null, $logCtx );
+    wxc_log("show_title: ".$show_title, null, $logCtx );
+    wxc_log("abbr: ".(int)$abbr, null, $logCtx );
     */
     
     // Init vars
     $arr_info = array();
     $authorship_info = "";
-    $ts_info = "";
     //
     $rep_title = "";
     $composers = array();
@@ -575,18 +534,14 @@ function get_authorship_info ( $args = array() )
     
     // Get info either via post_id, if set, or from data array
     if ( isset($data['post_id']) ) {
-        
-        wxc_log( "[authorship_info] get info from data['post_id']", null );
-        $ts_info .= "<!-- [authorship_info] get info from data['post_id'] -->";
-        
+        wxc_log("get info from data['post_id']", null, $logCtx );
         $post_id = $data['post_id'];
-        ///$ts_info .= "<!-- [authorship_info] post_id: ".$post_id." -->";
         
         if ( isset($data['rep_title']) && $data['rep_title'] != "" ) {
-            $ts_info .= "<!-- [authorship_info] rep_title from data['rep_title'] -->";
+            // rep_title from data['rep_title']
             $rep_title = $data['rep_title'];
         } else {
-               $ts_info .= "<!-- [authorship_info] rep_title from post_id -->";
+            // rep_title from post_id
             $title_clean = get_post_meta( $post_id, 'title_clean' );
             if ( $title_clean != "" ) {
                 $rep_title = $title_clean;
@@ -596,7 +551,6 @@ function get_authorship_info ( $args = array() )
         }
         
         $is_anon = is_anon($post_id);
-        ///if ( $format == 'display' && $is_anon == true ) { $ts_info .= "<!-- anon: true -->"; } else { $ts_info .= "<!-- anon: false -->"; }
 
         // Taxonomies
         if ( has_term( 'hymns', 'repertoire_category', $post_id ) ) { $is_hymn = true; }
@@ -609,7 +563,6 @@ function get_authorship_info ( $args = array() )
             $persons_args = array( 'arr_persons' => $composers, 'person_category' => 'composers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => 'objects', 'abbr' => false, 'links' => $links );
             $arr_composers_str = str_from_persons_array ( $persons_args );
             $composers_str = $arr_composers_str['info'];
-            //args: $arr_persons, $person_category = null, $post_id = null, $format = 'display', $arr_of = "objects", $abbr = false ) {
         }
         $display_composer = $composers_str;
         //
@@ -621,7 +574,6 @@ function get_authorship_info ( $args = array() )
         $anon_info = get_post_meta( $post_id, 'anon_info', true ); // post_meta ok for text fields... but is it better/faster? TODO: RS //$anon_info = get_field( $post_id, 'anon_info', false );//
 
         // TODO: streamline this -- maybe along the lines of is_anon?
-        if ( $format == 'display' ) { $ts_info .= "<!-- [authorship_info] display_composer: ".$display_composer." -->"; } // tft
         if ( $display_composer == 'Plainsong' ) { 
             $plainsong = true;
             if ( $anon_info == "" ) {
@@ -633,11 +585,8 @@ function get_authorship_info ( $args = array() )
         }
         
         $arr_of = 'objects';
-        
     } else {
-        
-        wxc_log( "[authorship_info] get info from data without post_id", null );
-        $ts_info .= "<!-- [authorship_info] get info from data without post_id -->";
+        wxc_log("get info from data without post_id", null, $logCtx );
         
         $post_id = null;
         //$is_hymn
@@ -652,25 +601,22 @@ function get_authorship_info ( $args = array() )
         if ( isset($data['is_hymn']) ) { $is_hymn = $data['is_hymn']; }
         if ( isset($data['is_psalm']) ) { $is_psalm = $data['is_psalm']; }
         
-        $arr_of = 'ids';
-        
+        $arr_of = 'ids'; 
     }
     if ( $rep_title == "" || empty($rep_title) || $rep_title == "Responses" ) { $show_title = false; }
-    $ts_info .= "<!-- [authorship_info] rep_title: ".print_r($rep_title,true)." -->";
     
-    wxc_log( "[authorship_info] anon_info: ".$anon_info, null );
-    //wxc_log( "[authorship_info] rep_title: ".print_r($rep_title, true), null );
+    wxc_log("anon_info: ".$anon_info, null, $logCtx );
+    //wxc_log("rep_title", $rep_title, $logCtx);
     
     // Build the authorship_info string
     
     // 1. Composer(s)
     if ( !empty($composers) ) { //
         
-        wxc_log( "[authorship_info] composers: ".print_r($composers, true), null );
+        wxc_log("composers: ".print_r($composers, true), null, $logCtx );
         
         $persons_args = array( 'arr_persons' => $composers, 'person_category' => 'composers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
-        wxc_log( "[authorship_info] persons_args: ".print_r($persons_args, true), null );
-        $ts_info .= "<!-- [authorship_info] persons_args: <pre>".print_r($persons_args, true)."</pre> -->";
+        wxc_log("persons_args", $persons_args, $logCtx );
         $arr_composers_str = str_from_persons_array ( $persons_args );
         $composer_info = $arr_composers_str['info'];
                 
@@ -678,19 +624,16 @@ function get_authorship_info ( $args = array() )
         // Redundant: TODO: instead use is_anon fcn? Any reason why not to do this?
         if ( $composer_info == '[Unknown]' || $composer_info == 'Unknown' || $composer_info == 'Anonymous' || $composer_info == 'Plainsong' ) { //
             $is_anon = true;
-            wxc_log( "[authorship_info] is_anon.", null);
+            wxc_log("is_anon.", null, $logCtx);
         } else {
-            wxc_log( "[authorship_info] NOT is_anon.", null);
+            wxc_log("NOT is_anon.", null, $logCtx);
         }
         if ( $composer_info == "Unknown" || ( $composer_info == "Anonymous" && $anon_info == "" ) ) { 
             $composer_info = "";
         }
         
-        wxc_log( "[authorship_info] composer_info: ".$composer_info, null );
-        wxc_log( "[authorship_info] anon_info: ".$anon_info, null );
-        
-        ///$ts_info .= "<!-- composer_info: ".$composer_info." -->";
-        ///$ts_info .= "<!-- anon_info: ".$anon_info." -->";
+        wxc_log("composer_info: ".$composer_info, null, $logCtx );
+        wxc_log("anon_info: ".$anon_info, null, $logCtx );
         
         if ( $composer_info != "" || $anon_info != "" ) {
 
@@ -698,7 +641,7 @@ function get_authorship_info ( $args = array() )
                 if ( $anon_info != "" ) {
                     $show_anon = "";
                     // 1a. "Anonymous/anon_info"
-                    //wxc_log( "[authorship_info] is_anon + anon_info", null );
+                    //wxc_log("is_anon + anon_info", null );
                     if ( $format == "post_title" || $format == "edition_title" || $format == "concert_item" ) {
                         if ( $composer_info != "" ) {
                             $show_anon .= "/";
@@ -761,11 +704,9 @@ function get_authorship_info ( $args = array() )
 
     // 2. Arranger(s)
     if ( !empty($arrangers) ) {
-
         $persons_args = array( 'arr_persons' => $arrangers, 'person_category' => 'arrangers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
         $arr_arrangers_info = str_from_persons_array ( $persons_args );
         $arrangers_info = $arr_arrangers_info['info'];
-        $ts_info .= $ts_arrangers;
 
         if ( $is_single_work == true && $arrangers_info != "") {
             $authorship_info .= "Arranger(s): ".$arrangers_info."<br />";
@@ -781,20 +722,16 @@ function get_authorship_info ( $args = array() )
             } else {
                 $authorship_info .= "arr. ".$arrangers_info;
             }
-            
         }
-
     }
 
     // TODO: consolidate the following three blocks into a single loop for transcribers, librettists, translators (poss also arrangers)
     
     // 3. Transcriber(s)
     if ( !empty($transcribers) ) {
-
         $persons_args = array( 'arr_persons' => $transcribers, 'person_category' => 'transcribers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
         $arr_transcribers_info = str_from_persons_array ( $persons_args );
         $transcribers_info = $arr_transcribers_info['info'];
-        $ts_info .= $ts_transcribers;
 
         if ( $transcribers_info != "" ) {
             if ( $is_single_work == true ) {
@@ -813,16 +750,13 @@ function get_authorship_info ( $args = array() )
                 }
             }
         }
-        
     }
 
     // 4. Librettist(s)
     if ( !empty($librettists) && $format != "post_title" && $format != "edition_title" && $format != "concert_item" ) {
-        
         $persons_args = array( 'arr_persons' => $librettists, 'person_category' => 'librettists', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
         $arr_librettists_info = str_from_persons_array ( $persons_args );
         $librettists_info = $arr_librettists_info['info'];
-        $ts_info .= $ts_librettists;
 
         if ( $is_single_work == true && $librettists_info != "") {
             $authorship_info .= "Librettist(s): ".$librettists_info."<br />";
@@ -834,16 +768,13 @@ function get_authorship_info ( $args = array() )
                 $authorship_info .= "text by ".$librettists_info;
             }            
         }
-
     }
 
     // 5. Translator(s)
     if ( !empty($translators) && $format != "post_title" ) {
-
         $persons_args = array( 'arr_persons' => $translators, 'person_category' => 'translators', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
         $arr_translators_info = str_from_persons_array ( $persons_args );
         $translators_info = $arr_translators_info['info'];
-        $ts_info .= $ts_translators;
         
         if ( $is_single_work == true && $translators_info != "") {
             $authorship_info .= "Translator(s): ".$translators_info."<br />";
@@ -855,7 +786,6 @@ function get_authorship_info ( $args = array() )
                 $authorship_info .= "transl. ".$translators_info;
             }
         }
-
     }
     
     $arr_info['info'] = $authorship_info;    
@@ -868,20 +798,13 @@ function get_excerpted_from( $post_id = null )
     // Init vars
     $arr_info = array();
     $excerpted_from = "";
-    $ts_info = "";
     
-    if ( $post_id == null ) { return null; }    
-    //$ts_info .= "<!-- seeking excerpted_from info for post_id: $post_id -->"; // tft
+    if ( $post_id == null ) { return null; }
     
     $excerpted_from_post = get_field('excerpted_from', $post_id, false);
     
     if ( $excerpted_from_post ) {
-        
-        //$ts_info .= "<!-- excerpted_from_post: ".print_r($excerpted_from_post, true)." -->";
-        
         $excerpted_from_id = $excerpted_from_post[0]; // TODO: deal w/ possibility that there may be multiple values in the array
-        
-        $ts_info .= "<!-- excerpted_from_id: $excerpted_from_id -->";
         
         $excerpted_from_title_clean = get_post_meta( $excerpted_from_id, 'title_clean', true );
         if ( $excerpted_from_title_clean ) {
@@ -889,9 +812,7 @@ function get_excerpted_from( $post_id = null )
         } else {
             $excerpted_from = get_the_title($excerpted_from_id);
         }
-        
     } else if ( $excerpted_from_txt = get_post_meta( $post_id, 'excerpted_from_txt', true ) ) {
-        $ts_info .= "<!-- excerpted_from_txt: $excerpted_from_txt -->";
         $excerpted_from = $excerpted_from_txt;
     } else {
         $excerpted_from = null;
@@ -907,16 +828,17 @@ function get_excerpted_from( $post_id = null )
 // TODO: streamline, pass args instead of separate parameters, build in more formatting options
 function get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true, $full_title = false )
 {
+    global $logCtx;
+    
     // Init vars
     $arr_info = array();
     $info = "";
-    $ts_info = "";    
     if ( $post_id === null ) { $post_id = get_the_ID(); }
     
-    wxc_log( "[get_rep_info] post_id: ".$post_id, null );
-    wxc_log( "[get_rep_info] format: ".$format, null );
-    wxc_log( "[get_rep_info] show_authorship: ".$show_authorship, null );
-    wxc_log( "[get_rep_info] show_title: ".$show_title, null );
+    wxc_log("post_id: ".$post_id, null, $logCtx );
+    wxc_log("format: ".$format, null, $logCtx );
+    wxc_log("show_authorship: ".$show_authorship, null, $logCtx );
+    wxc_log("show_title: ".$show_title, null, $logCtx );
     
     // Do nothing if post_id is empty or this is not a rep record
     if ( $post_id === null || get_post_type( $post_id ) != 'repertoire' ) { return null; }
@@ -944,7 +866,6 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
     
     // Psalms
     if ( $is_single_work == false && $full_title == false ) {
-        
         if (substr($title,0,6) == "Psalm ") {
             $title = substr($title,6);
         } else if (substr($title,0,7) == "Psalms ") {
@@ -952,7 +873,6 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
         } else {
             //if ( $format == 'display') { $info .= "<!-- ".substr($title,0,6)." -->"; }
         }
-        
     }
     
     // Psalms: Anglican Chant
@@ -1034,7 +954,7 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
     } else if ( $format == 'txt' ) { 
         //$info = super_sanitize_title( $info );
     } else if ( $is_single_work == true ) {
-        $ts_info .= "<!-- test -->";
+        //
     } else {
         $info = make_link( get_the_permalink( $post_id ), $info, $title_clean, 'subtle', '_blank' );
     }
@@ -1047,8 +967,7 @@ function get_rep_meta_info ( $post_id = null )
 {
     // Init vars
     $arr_info = array();
-    $info = "";
-    $ts_info = "";    
+    $info = "";  
     if ( $post_id === null ) { $post_id = get_the_ID(); }
     
     // Get and display term names for "repertoire_category".
@@ -1092,13 +1011,11 @@ function get_rep_meta_info ( $post_id = null )
     // Old version of field.
     $related_liturgical_dates = get_field('related_liturgical_dates', $post_id, false);
     if ( $related_liturgical_dates ) {
-
         foreach ($related_liturgical_dates AS $litdate_id) {
             $info .= '<span class="liturgical_date_old devinfo">';
             $info .= get_the_title($litdate_id);
             $info .= '</span>';
         }
-
     }
     
     // Get and display term names for "occasion".
@@ -1187,8 +1104,8 @@ function get_composer_ids ( $post_id = null )
 // https://www.advancedcustomfields.com/resources/creating-wp-archive-custom-field-filter/
 
 /*
-function match_group_field ( $field_groups, $field_name ) {
-    
+function match_group_field ( $field_groups, $field_name )
+{
     $field = null;
     
     // Loop through the field_groups and their fields to look for a match (by field name)
@@ -1229,7 +1146,6 @@ function match_group_field ( $field_groups, $field_name ) {
 
                 break;
             }
-
         }
 
         if ( $field ) { 
@@ -1247,10 +1163,7 @@ function match_group_field ( $field_groups, $field_name ) {
 function format_search_results ( $post_ids, $search_type = "choirplanner" )
 {
     // Init vars
-    $info = ""; 
-    $ts_info = "";
-    
-    $ts_info .= "+~+~+~+~+~+~+~+~+~+~ format_search_results +~+~+~+~+~+~+~+~+~+~<br />";
+    $info = "";
     
     // TODO: generalize -- this is currently very specific to display of repertoire/editions info
     //if ( $search_type = "choirplanner" ) { }
@@ -1264,16 +1177,10 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" )
     //$posts = $posts->posts; // Retrieves an array of WP_Post Objects
     $rep_ids = array();
     foreach ( $post_ids as $post_id ) {
-            
-        //$info .= '<pre>'.print_r($post, true).'</pre>';
-        //$info .= '<div class="troubleshooting">post: <pre>'.print_r($post, true).'</pre></div>';
         $post_type = get_post_type($post_id);
-        //$ts_info .= 'post_id: '.$post_id."<br />";
-        //$ts_info .= 'post_type: '.$post_type."<br />";
         if ( $post_type == "edition" ) {
             // Get the related repertoire record(s)
             if ( $repertoire_editions = get_field( 'repertoire_editions', $post_id ) ) { //  && !empty($repertoire_editions)
-                $ts_info .= 'repertoire_editions for edition with post_id '.$post_id.': <pre>'.print_r($repertoire_editions, true).'</pre>';
                 foreach ( $repertoire_editions as $musical_work ) {
                     if ( is_object($musical_work) ) {
                         $rep_ids[] = $musical_work->ID;
@@ -1282,8 +1189,7 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" )
                     }
                 }
             } elseif ( $musical_works = get_field( 'musical_work', $post_id )  ) {
-                $ts_info .= 'musical_works for edition with post_id '.$post_id.': <pre>'.print_r($musical_works, true).'</pre>';
-                $ts_info .= '<span class="devinfo">'."[$post_id] This record requires an update. It is using the old musical_work field and should be updated to use the new bidirectional repertoire_editions field.</span><br />";
+                // This record requires an update. It is using the old musical_work field and should be updated to use the new bidirectional repertoire_editions field.
                 foreach ( $musical_works as $musical_work ) {
                     if ( is_object($musical_work) ) {
                         $rep_ids[] = $musical_work->ID;
@@ -1292,19 +1198,14 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" )
                     }
                 }           
             } else {
-                $ts_info .= '<span class="devinfo">No musical_work found for edition with id: '.$post_id.'</span><br />';
+                // No musical_work found for edition with id: '.$post_id
             }
-            //$rep_ids[] = $rep_post_id;
         } else if ( $post_type == "repertoire" ) {
             $rep_ids[] = $post_id;
         }
     }
     
-    //$ts_info .= 'rep_ids: <pre>'.print_r($rep_ids, true).'</pre>';
-    
     $rep_ids = array_unique($rep_ids);
-    //$info .= 'array_unique rep_ids: <pre>'.print_r($rep_ids, true).'</pre>';
-    //$info .= "<br />+++++++++++<br />";
     
     $info .= "<p>Num matching posts found: [".count($rep_ids)."]</p>";
     $limit = 100; // tft -- limit num of posts to display, lest search is broken and it tried to display thousands of records at once...
@@ -1323,9 +1224,6 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" )
     
     $i = 0;
     foreach ( $rep_ids as $rep_id ) {
-        
-        //$ts_info .= 'rep_id: <pre>'.print_r($rep_id, true).'</pre>';
-        
         $post_id = $rep_id;
         $post_title = get_the_title($post_id);
 
@@ -1416,18 +1314,15 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" )
         $info .= '<td class="editions">';
         
         if ( empty($related_editions) ) {
-
             $editions = '<div class="edition_info">';
             $editions .= "<span>No editions found in library database.</span>";
             $editions .= '</div>';
 
         } else {
-
             $editions = ""; // init
             $i = 1; // init counter
 
             foreach ( $related_editions AS $edition_id ) {
-
                 //$info .= "<pre>".print_r($edition, true)."</pre>";
                 
                 $editions .= '<div class="edition_info">';
@@ -1479,7 +1374,6 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" )
                         //$editions .= $choir['label'];
                         $editions .= '</span>';
                     }
-
                         /*if ( is_array($choir_forces) ) {
                             $editions .= "<pre>".print_r($choir_forces, true)."</pre>";
                             foreach ( $choir_forces as $choir ) {
@@ -1495,7 +1389,6 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" )
                             $editions .= '</span>';
                         }*/
                         //$editions .= $edition_pod->display('choir_forces');
-
                 }
 
                 // Voicings

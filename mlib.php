@@ -6,7 +6,7 @@
  * //Requires PHP:      7.4
  * Dependencies:      Requires WHx4 plugin for People CPT
  * Requires Plugins:  whx4
- * Version:           0.1.260611
+ * Version:           0.1.260624
  * Author:            atc
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -63,7 +63,6 @@ $options = get_option( 'mlib_settings' );
 if ( isset($options['mlib_active_modules']) ) { $active_modules = $options['mlib_active_modules']; } else { $active_modules = array(); }
 
 foreach ( $active_modules as $module ) {
-
     // Load associated functions file, if any
     $filepath = MLIB_PLUGIN_DIR.'/modules/'.$module.'.php';
     $arr_exclusions = array ( 'mdev' ); // 'instruments', 'groups', 'newsletters', 'snippets', 'logbook', 'venues',
@@ -116,7 +115,6 @@ add_shortcode('mlib_acf_form', 'mlib_acf_form');
 function mlib_acf_form ( $atts = array() ) 
 {
     $info = "";
-    $ts_info = "";
 
     $args = shortcode_atts( array(
         'post_content' => true,
@@ -136,11 +134,7 @@ function mlib_acf_form ( $atts = array() )
         $arr_fields[] = $fields;
     }
 
-
     $settings = array( 'post_content' => $post_content, 'instruction_placement' => $instruction_placement, 'fields' => $arr_fields );
-    //$ts_info .= "arr_fields: <pre>".print_r($arr_fields, true)."</pre>";
-    //$ts_info .= "settings: <pre>".print_r($settings, true)."</pre>";
-    //$info .= $ts_info;
 
     ob_start();
     acf_form( $settings );
