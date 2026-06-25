@@ -25,5 +25,3 @@ function mlib_cpts_and_field_groups() {
     //require 'acf-field-groups.php';
 
 }
-
-?>

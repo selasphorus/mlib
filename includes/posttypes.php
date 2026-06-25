@@ -337,7 +337,6 @@ if ( in_array('organs', $active_modules ) || in_array('instruments', $active_mod
         add_action( 'init', 'register_post_type_organ' );
     }
     
-
     // Organ Builder
     function register_post_type_builder() {
 
@@ -643,4 +642,3 @@ function mlib_bidirectional_field_updates () {
     }
 }
 */
-?>

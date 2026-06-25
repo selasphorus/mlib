@@ -952,7 +952,7 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
     if ( $format == 'sanitized' ) { 
         $info = super_sanitize_title( $info );
     } else if ( $format == 'txt' ) { 
-        //$info = super_sanitize_title( $info );
+        //
     } else if ( $is_single_work == true ) {
         //
     } else {
