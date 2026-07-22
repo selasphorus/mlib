@@ -10,30 +10,22 @@ if ( !function_exists( 'add_action' ) ) {
 
 /*********** Functions pertaining to CPT: ORGANS ***********/
 
-function get_cpt_organ_content( $post_id = null ) {
-    
+function get_cpt_organ_content( $post_id = null )
+{    
     // This function retrieves supplementary info -- the regular content template (content.php) handles title, content, featured image
-    
-    // TS/logging setup
-    $do_ts = devmode_active( array("mlib", "instruments") ); 
-    $do_log = false;
-    $fcn_id = "[mlib-get_cpt_instrument_content]&nbsp;";
-    sdg_log( "divline2", $do_log );
     
     // Init vars
     $info = "";
-    $ts_info = "";
     if ( $post_id === null ) { $post_id = get_the_ID(); }
     if ( $post_id === null ) { return false; }
     
     $post_meta = get_post_meta( $post_id );
-    $ts_info .= $fcn_id."<pre>post_meta: ".print_r($post_meta, true)."</pre>";
     
     if ($post_id === null) { $post_id = get_the_ID(); } 
     if ( $post_id === null ) { return false; }
     
     //
-    if ( function_exists('sdg_editmode') && sdg_editmode() ) {
+    if ( function_exists('stc_editmode') && stc_editmode() ) {
         
         //$settings = array( 'post_content' => true, 'instruction_placement' => 'field', 'fields' => array( 'builder', 'model', 'opus_num', 'build_year', 'build_location', 'num_manuals', 'num_divisions', 'num_ranks', 'num_stops', 'num_pipes', 'num_registers', 'num_other', 'action_type', 'venue_filename', 'venue_name', 'organ_sum_html', 'organ_html', 'specs_html', 'stops_summary' ) );
         //$info .= acf_form( $settings );
@@ -85,10 +77,5 @@ function get_cpt_organ_content( $post_id = null ) {
         
     }
     
-    if ( $ts_info != "" && ( $do_ts === true || $do_ts == "venues" ) ) { $info .= '<div class="troubleshooting">'.$ts_info.'</div>'; }
-    
     return $info;
-    
 }
-
-?>

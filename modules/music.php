@@ -950,7 +950,7 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
     } // END if ( $show_authorship == true ):
     
     if ( $format == 'sanitized' ) { 
-        $info = super_sanitize_title( $info );
+        $info = stc_super_sanitize_title( $info );
     } else if ( $format == 'txt' ) { 
         //
     } else if ( $is_single_work == true ) {
@@ -1476,7 +1476,7 @@ function get_cpt_group_content()
 {
     $info = "";
     $post_id = get_the_ID();
-    $info .= "group post_id: $post_id<br />";
+    //$info .= "group post_id: $post_id<br />";
     
     return $info;
 }
