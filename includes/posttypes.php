@@ -25,10 +25,8 @@ function mlib_custom_caps() {
 
 // TODO: generalize as "library" w/ sub-options for music?
 if ( in_array('music', $active_modules ) ) {
-
     // Repertoire, aka Musical Work
     function register_post_type_repertoire() {
-
         if ( mlib_custom_caps() ) { $caps = array('musicwork', 'repertoire'); } else { $caps = "post"; }
         
         $labels = array(
@@ -64,13 +62,11 @@ if ( in_array('music', $active_modules ) ) {
         );
 
         register_post_type( 'repertoire', $args );
-    
     }
     add_action( 'init', 'register_post_type_repertoire' );
 
     // Edition
     function register_post_type_edition() {
-
         if ( mlib_custom_caps() ) { $caps = "edition"; } else { $caps = "post"; }
         
         $labels = array(
@@ -106,13 +102,11 @@ if ( in_array('music', $active_modules ) ) {
         );
 
         register_post_type( 'edition', $args );
-    
     }
     add_action( 'init', 'register_post_type_edition' );
 
     // Publisher
     function register_post_type_publisher() {
-
         if ( mlib_custom_caps() ) { $caps = "publisher"; } else { $caps = "post"; }
         
         $labels = array(
@@ -148,13 +142,11 @@ if ( in_array('music', $active_modules ) ) {
         );
 
         register_post_type( 'publisher', $args );
-    
     }
     add_action( 'init', 'register_post_type_publisher' );
 
     // Publication
     function register_post_type_publication() {
-
         if ( mlib_custom_caps() ) { $caps = "publication"; } else { $caps = "post"; }
         
         $labels = array(
@@ -190,7 +182,6 @@ if ( in_array('music', $active_modules ) ) {
         );
 
         register_post_type( 'publication', $args );
-    
     }
     add_action( 'init', 'register_post_type_publication' );
 
@@ -252,7 +243,6 @@ if ( in_array('organs', $active_modules ) || in_array('instruments', $active_mod
     if ( in_array('instruments', $active_modules ) ) {
         // Instrument
         function register_post_type_instrument() {
-    
             if ( mlib_custom_caps() ) { $caps = array('instrument', 'instruments'); } else { $caps = "post"; }
             
             $labels = array(
@@ -288,7 +278,6 @@ if ( in_array('organs', $active_modules ) || in_array('instruments', $active_mod
             );
     
             register_post_type( 'instrument', $args );
-        
         }
         add_action( 'init', 'register_post_type_instrument' );
     }
@@ -296,7 +285,6 @@ if ( in_array('organs', $active_modules ) || in_array('instruments', $active_mod
     if ( in_array('organs', $active_modules ) ) {
         // Organ
         function register_post_type_organ() {
-    
             if ( mlib_custom_caps() ) { $caps = array('organ', 'organs'); } else { $caps = "post"; }
             
             $labels = array(
@@ -332,14 +320,12 @@ if ( in_array('organs', $active_modules ) || in_array('instruments', $active_mod
             );
     
             register_post_type( 'organ', $args );
-        
         }
         add_action( 'init', 'register_post_type_organ' );
     }
     
     // Organ Builder
     function register_post_type_builder() {
-
         if ( mlib_custom_caps() ) { $caps = array('organ', 'organs'); } else { $caps = "post"; }
         
         $labels = array(
@@ -375,13 +361,11 @@ if ( in_array('organs', $active_modules ) || in_array('instruments', $active_mod
         );
 
         register_post_type( 'builder', $args );
-    
     }
     add_action( 'init', 'register_post_type_builder' );
 
     // Division
     function register_post_type_division() {
-
         if ( mlib_custom_caps() ) { $caps = array('organ', 'organs'); } else { $caps = "post"; }
         
         $labels = array(
@@ -417,13 +401,11 @@ if ( in_array('organs', $active_modules ) || in_array('instruments', $active_mod
         );
 
         register_post_type( 'division', $args );
-    
     }
     add_action( 'init', 'register_post_type_division' );
 
     // Manual
     function register_post_type_manual() {
-
         if ( mlib_custom_caps() ) { $caps = array('organ', 'organs'); } else { $caps = "post"; }
         
         $labels = array(
@@ -459,13 +441,11 @@ if ( in_array('organs', $active_modules ) || in_array('instruments', $active_mod
         );
 
         register_post_type( 'manual', $args );
-    
     }
     add_action( 'init', 'register_post_type_manual' );
 
     // Stop
     function register_post_type_stop() {
-
         if ( mlib_custom_caps() ) { $caps = array('organ', 'organs'); } else { $caps = "post"; }
         
         $labels = array(
@@ -501,7 +481,6 @@ if ( in_array('organs', $active_modules ) || in_array('instruments', $active_mod
         );
 
         register_post_type( 'stop', $args );
-    
     }
     add_action( 'init', 'register_post_type_stop' );
 }
