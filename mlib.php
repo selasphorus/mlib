@@ -5,8 +5,8 @@
  * //Requires at least: 6.4
  * //Requires PHP:      7.4
  * Dependencies:      Requires WHx4 plugin for People CPT
- * Requires Plugins:  whx4
- * Version:           0.1.260727
+ * Requires Plugins:  whx4, stc
+ * Version:           0.1.260730
  * Author:            atc
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -16,6 +16,7 @@
  */
 
 // TODO: generalize as "library" w/ sub-options for music?
+// TODO: remove stc dependency once transition to OOP is complete. It is needed now only for ACF basics.
 
 if ( !defined('ABSPATH') ) {
     exit;
@@ -41,9 +42,6 @@ require 'includes/acf-json.php';
 
 // Register a default "Site Settings" Options Page
 require 'includes/acf-settings-page.php';
-
-// Restrict access to ACF Admin screens
-require 'includes/acf-restrict-access.php';
 
 // Load ACF field groups hard-coded as PHP
 require 'includes/acf-field-groups.php';
