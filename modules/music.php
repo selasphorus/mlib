@@ -482,7 +482,6 @@ function str_from_persons_array ( $args = array() )
             $person_id = $person;
         }*/
         wxc_log( "[ssfpa] person_id: ".$person_id);
-        $ts_info .= "<!-- [ssfpa] person_id: ".$person_id." -->";
         
         // Set up display args to pass to fcn getPersonDisplayName
         if ( $abbr || has_term( 'psalms', 'repertoire_category', $post_id ) && !has_term( 'motets', 'repertoire_category', $post_id ) && !has_term( 'anthems', 'repertoire_category', $post_id ) ) { 
@@ -491,6 +490,7 @@ function str_from_persons_array ( $args = array() )
             $name_abbr = "full";
         }
         
+        $person_name = "";
         $override = "none";
         $use_post_title = false;
         $show_prefix = false;
@@ -522,10 +522,13 @@ function str_from_persons_array ( $args = array() )
         $display_args = array( 'person_id' => $person_id, 'override' => $override, 'name_abbr' => $name_abbr, 'show_prefix' => $show_prefix, 'show_suffix' => $show_suffix, 'show_job_title' => $show_job_title, 'show_dates' => $show_dates, 'url' => $person_url, 'styled' => $styled );
         
         // Get the display_name
-        $arr_person_name = getPersonDisplayName( $display_args );
-        $person_name = $arr_person_name['info'];            
+        if ( function_exists('getPersonDisplayName') )  {
+            $arr_person_name = getPersonDisplayName( $display_args );
+            $person_name = $arr_person_name['info'];    
+        } else if ( function_exists('whx4_get_display_name') )  {
+            $person_name = whx4_get_display_name('person', $args);
+        }
         $info .= $person_name;
-        $ts_info .= $arr_person_name['ts_info'];
 
         if (count($arr_persons) > 1) { $info .= ", "; }
 
@@ -537,7 +540,6 @@ function str_from_persons_array ( $args = array() )
     }
     
     $arr_info['info'] = $info;
-    if ( $do_ts ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
     
     return $arr_info;
     
