@@ -13,6 +13,7 @@ if ( !function_exists( 'add_action' ) ) {
 // WIP -- not for production use -- see organs.php
 function get_cpt_instrument_content( $post_id = null )
 {    
+    $logCtx = ['mlib', 'instruments'];
     // This function retrieves supplementary info -- the regular content template (content.php) handles title, content, featured image
     
     // Init vars
@@ -21,6 +22,7 @@ function get_cpt_instrument_content( $post_id = null )
     if ( $post_id === null ) { return false; }
     
     $post_meta = get_post_meta( $post_id );
+    wxc_log("post_meta", $post_meta, $logCtx);
     
     if ($post_id === null) { $post_id = get_the_ID(); } 
     if ( $post_id === null ) { return false; }
