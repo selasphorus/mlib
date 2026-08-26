@@ -8,6 +8,8 @@ if ( !function_exists( 'add_action' ) ) {
     exit;
 }
 
+// TODO: **** Make master Library plugin with Subtypes to cover repertoire etc.? -- TBD **** //
+
 // Get plugin options to determine which modules are active
 $options = get_option( 'mlib_settings' );
 if ( get_field('mlib_active_modules', 'option') ) { $active_modules = get_field('mlib_active_modules', 'option'); } else { $active_modules = array(); }
@@ -412,5 +414,3 @@ if ( in_array('organs', $active_modules ) ) {
     add_action( 'init', 'register_taxonomy_organ_tag' );
     
 }
-
-?>
