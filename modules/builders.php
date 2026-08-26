@@ -59,5 +59,3 @@ function get_cpt_builder_content( $post_id = null )
     
     return $info;
 }
-
-?>
