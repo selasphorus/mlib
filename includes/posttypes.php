@@ -643,4 +643,3 @@ function mlib_bidirectional_field_updates () {
     }
 }
 */
-?>
