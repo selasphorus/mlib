@@ -158,7 +158,7 @@ function get_cpt_repertoire_content( $post_id = null )
     $repertoire_events = get_field('repertoire_events', $post_id, false);
     if ( empty($repertoire_events) && is_dev_site() ) {
         // Field repertoire_events is empty -> check to see if updates are in order
-        $ts_info .= '<!-- '.update_repertoire_events( $post_id ).' -->';
+        ///$ts_info .= '<!-- '.update_repertoire_events( $post_id ).' -->';
     }
     
     if ( $repertoire_events ) { 
@@ -168,7 +168,7 @@ function get_cpt_repertoire_content( $post_id = null )
         $x = 1;
         foreach($repertoire_events as $event_post_id) { 
             //setup_postdata($event_post);
-            //$ts_info .= "[$x] event_post: <pre>".print_r($event_post, true)."</pre>"; // tft
+            //wxc_log("event_post", $event_post, $logCtx);
             //$event_post_id = $event_post->ID;
             
             // TODO: modify to show title & event date as link text
@@ -195,9 +195,8 @@ function get_cpt_repertoire_content( $post_id = null )
        ) {
            //-- STC
         $info .= "<h3>Edition(s) in the Saint Thomas Library:</h3>";
-        //$ts_info .= "<pre>related_editions: ".print_r($related_editions, true)."</pre>";
+        //wxc_log("related_editions", $related_editions, $logCtx);
         foreach ( $related_editions as $edition_id ) {
-            //$ts_info .= "edition_id: ".$edition_id."<br />";
             $info .= make_link( get_the_permalink($edition_id), get_the_title($edition_id) ) . "<br />";
         }        
     }
@@ -208,11 +207,10 @@ function get_cpt_repertoire_content( $post_id = null )
     $duplicate_posts_info = $dupes['info'];
     
     if ( $duplicate_posts ) { 
-        
+        //wxc_log("Possible duplicates found", null, $logCtx);
         $ts_info .= "<h3>Possible Duplicate(s):</h3>";
         $x = 1;
-        foreach($duplicate_posts as $duplicate_post) { 
-        
+        foreach($duplicate_posts as $duplicate_post) {        
             setup_postdata($duplicate_post);
             //$ts_info .= "[$x] duplicate_post: <pre>".print_r($duplicate_post, true)."</pre>"; // tft
             $duplicate_post_id = $duplicate_post->ID;
@@ -233,7 +231,6 @@ function get_cpt_repertoire_content( $post_id = null )
     //if ( $ts_info != "" && $do_ts === true ) { $ts_info = '<div class="troubleshooting">'.$ts_info.'</div>'; }
     
     $arr_info['info'] = $info;
-    if ( $ts_info != "" && $do_ts === true ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
     
     return $arr_info;
 }
@@ -249,7 +246,6 @@ function get_cpt_edition_content( $post_id = null )
     
     // Init vars
     $info = "";
-    $ts_info = "";
     if ($post_id === null) { $post_id = get_the_ID(); }
     
     $ts_info .= "<!-- edition post_id: $post_id -->";
@@ -634,7 +630,6 @@ function get_authorship_info ( $args = array() )
             $arr_composers_str = str_from_persons_array ( $persons_args );
             $composers_str = $arr_composers_str['info'];
             $ts_composers = $arr_composers_str['ts_info'];
-            $ts_info .= $ts_composers;
             //args: $arr_persons, $person_category = null, $post_id = null, $format = 'display', $arr_of = "objects", $abbr = false ) {
         }
         $display_composer = $composers_str;
@@ -702,7 +697,6 @@ function get_authorship_info ( $args = array() )
         $arr_composers_str = str_from_persons_array ( $persons_args );
         $composer_info = $arr_composers_str['info'];
         $ts_composers = $arr_composers_str['ts_info'];
-        $ts_info .= $ts_composers;
                 
         // TODO: check instead by ID? Would be more accurate and would allow for comments to be returned by fcn str_from_persons_array
         // Redundant: TODO: instead use is_anon fcn? Any reason why not to do this?
@@ -893,10 +887,8 @@ function get_authorship_info ( $args = array() )
     }
     
     $arr_info['info'] = $authorship_info;
-    if ( $do_ts ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
     
-    return $arr_info;
-    
+    return $arr_info;   
 }
 
 // Excerpted From
@@ -907,17 +899,13 @@ function get_excerpted_from( $post_id = null )
     // Init vars
     $arr_info = array();
     $excerpted_from = "";
-    $ts_info = "";
     
     if ( $post_id == null ) { return null; }    
     //$ts_info .= "<!-- seeking excerpted_from info for post_id: $post_id -->"; // tft
     
     $excerpted_from_post = get_field('excerpted_from', $post_id, false);
     
-    if ( $excerpted_from_post ) {
-        
-        //$ts_info .= "<!-- excerpted_from_post: ".print_r($excerpted_from_post, true)." -->";
-        
+    if ( $excerpted_from_post ) {        
         $excerpted_from_id = $excerpted_from_post[0]; // TODO: deal w/ possibility that there may be multiple values in the array
         
         $ts_info .= "<!-- excerpted_from_id: $excerpted_from_id -->";
@@ -937,10 +925,8 @@ function get_excerpted_from( $post_id = null )
     }
     
     $arr_info['info'] = $excerpted_from;
-    if ( $do_ts ) { $arr_info['ts_info'] = $ts_info; } else { $arr_info['ts_info'] = null; }
     
     return $arr_info;
-    
 }
 
 // Retrieve full rep title and associated info. 
