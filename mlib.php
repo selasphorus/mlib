@@ -4,7 +4,7 @@
  * Description:       A WordPress plugin for managing a Music Library (Works/Editions) using ACF PRO Blocks, Post Types, Options Pages, Taxonomies and more.
  * //Requires at least: 6.4
  * //Requires PHP:      7.4
- * Dependencies:      Requires WHx4 plugin for People CPT
+ * Dependencies:      Requires WHx4 and STC plugins for People CPT, etc.
  * Requires Plugins:  whx4, stc
  * Version:           0.1.260826
  * Author:            atc
@@ -133,6 +133,8 @@ function mlib_acf_form ( $atts = array() )
     }
 
     $settings = array( 'post_content' => $post_content, 'instruction_placement' => $instruction_placement, 'fields' => $arr_fields );
+    //wxc_log("arr_fields", $arr_fields);
+    //wxc_log("settings", $settings);
 
     ob_start();
     acf_form( $settings );
