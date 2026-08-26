@@ -6,7 +6,7 @@
  * //Requires PHP:      7.4
  * Dependencies:      Requires WHx4 plugin for People CPT etc.
  * Requires Plugins:  whx4
- * Version:           0.1.260824
+ * Version:           0.1.260826
  * Author:            atc
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -16,7 +16,7 @@
  */
 
 // TODO: generalize as "library" w/ sub-options for music?
-
+// NB: this is the barest skeleton of an OOP version of the plugin and is in no way currently useable
 
 if( !defined('ABSPATH') ) {
     exit;
