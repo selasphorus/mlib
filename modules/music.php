@@ -136,12 +136,14 @@ function update_repertoire_events( $rep_id = null, $run_slow_queries = false, $a
 
 function get_cpt_repertoire_content( $post_id = null )
 {
+    $logCtx = ['mlib', 'music'];
+    
     // Init vars
     $arr_info = array();
     $info = "";
-    $ts_info = "";
     
     if ($post_id === null) { $post_id = get_the_ID(); }
+    wxc_log("post_id", $post_id, $logCtx);
     
     $arr_rep_info = get_rep_info( $post_id, 'display', true, true ); // get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true )
     $rep_info = $arr_rep_info['info'];
@@ -155,7 +157,7 @@ function get_cpt_repertoire_content( $post_id = null )
     $repertoire_events = get_field('repertoire_events', $post_id, false);
     if ( empty($repertoire_events) && is_dev_site() ) {
         // Field repertoire_events is empty -> check to see if updates are in order
-        $ts_info .= '<!-- '.update_repertoire_events( $post_id ).' -->';
+        ///$ts_info .= '<!-- '.update_repertoire_events( $post_id ).' -->';
     }
     
     if ( $repertoire_events ) { 
@@ -165,6 +167,7 @@ function get_cpt_repertoire_content( $post_id = null )
         $x = 1;
         foreach($repertoire_events as $event_post_id) { 
             //setup_postdata($event_post);
+            //wxc_log("event_post", $event_post, $logCtx);
             //$event_post_id = $event_post->ID;
             
             // TODO: modify to show title & event date as link text
@@ -191,6 +194,7 @@ function get_cpt_repertoire_content( $post_id = null )
        ) {
            //-- STC
         $info .= "<h3>Edition(s) in the Saint Thomas Library:</h3>";
+        //wxc_log("related_editions", $related_editions, $logCtx);
         foreach ( $related_editions as $edition_id ) {
             $info .= make_link( get_the_permalink($edition_id), get_the_title($edition_id) ) . "<br />";
         }        
@@ -202,6 +206,7 @@ function get_cpt_repertoire_content( $post_id = null )
     $duplicate_posts_info = $dupes['info'];
     
     if ( $duplicate_posts ) {
+        //wxc_log("Possible duplicates found", null, $logCtx);
         $x = 1;
         foreach($duplicate_posts as $duplicate_post) { 
             setup_postdata($duplicate_post);
@@ -209,6 +214,10 @@ function get_cpt_repertoire_content( $post_id = null )
             $ts_info .= make_link( get_the_permalink($duplicate_post_id), $duplicate_post->post_title, null, null, "_blank" ) . "<br />";
             // TODO: build in merge options          
             $x++;
+        }
+    } else {
+        if ( devmode_active( array("mlib", "rep") ) ) { 
+            $ts_info .= "<p>No duplicate posts were found.</p>"; // tft
         }
     }*/
     
@@ -223,6 +232,8 @@ function get_cpt_repertoire_content( $post_id = null )
 /*********** CPT: EDITION ***********/
 function get_cpt_edition_content( $post_id = null )
 {
+    $logCtx = ['mlib', 'editions'];
+    
     // Init vars
     $info = "";
     if ($post_id === null) { $post_id = get_the_ID(); }
@@ -434,6 +445,7 @@ function str_from_persons_array ( $args = array() )
             $name_abbr = "full";
         }
         
+        $person_name = "";
         $override = "none";
         $use_post_title = false;
         $show_prefix = false;
@@ -795,6 +807,8 @@ function get_authorship_info ( $args = array() )
 // Excerpted From
 function get_excerpted_from( $post_id = null )
 {
+    $logCtx = ['music', 'rep'];
+    
     // Init vars
     $arr_info = array();
     $excerpted_from = "";
@@ -965,6 +979,8 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
 
 function get_rep_meta_info ( $post_id = null )
 {
+    $logCtx = ['music', 'rep'];
+    
     // Init vars
     $arr_info = array();
     $info = "";  
@@ -1162,6 +1178,8 @@ function match_group_field ( $field_groups, $field_name )
 //
 function format_search_results ( $post_ids, $search_type = "choirplanner" )
 {
+    $logCtx = ['music'];
+
     // Init vars
     $info = "";
     
