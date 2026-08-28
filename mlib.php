@@ -6,7 +6,7 @@
  * //Requires PHP:      7.4
  * Dependencies:      Requires WHx4 and STC plugins for People CPT, etc.
  * Requires Plugins:  whx4, stc
- * Version:           0.1.260826
+ * Version:           0.1.260828
  * Author:            atc
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -36,9 +36,6 @@ define( 'MLIB_PLUGIN_BLOCKS', MLIB_PLUGIN_DIR . '/blocks/' );
 //$plugin_path = plugin_dir_path( __FILE__ );
 
 /* +~+~+ ACF +~+~+ */
-
-// Set custom load & save JSON points for ACF sync
-require 'includes/acf-json.php';
 
 // Register a default "Site Settings" Options Page
 require 'includes/acf-settings-page.php';
