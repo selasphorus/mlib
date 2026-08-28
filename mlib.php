@@ -35,6 +35,25 @@ define( 'MLIB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'MLIB_PLUGIN_BLOCKS', MLIB_PLUGIN_DIR . '/blocks/' );
 //$plugin_path = plugin_dir_path( __FILE__ );
 
+/**
+ * Temporarily exposes MLib's procedurally-registered post types to WXC's
+ * TaxonomyRegistrar, until the OOP SDG rewrite registers them natively.
+ *
+ * @param array $postTypes Active post type slugs already contributed.
+ * @return array
+ */
+function mlib_contribute_active_post_types(array $postTypes): array
+{
+    return array_merge($postTypes, [
+        'repertoire', 'edition'//, 'publisher', ....
+    ]);
+}
+
+//if ( function_exists('wxc_log') ) { wxc_log('SDG about to register wxc_active_post_types filter [wxc_log]'); } // tft
+//error_log('SDG about to register wxc_active_post_types filter [error_log]'); //tft
+add_filter('wxc_active_post_types', 'mlib_contribute_active_post_types');
+
+
 /* +~+~+ ACF +~+~+ */
 
 // Register a default "Site Settings" Options Page
@@ -140,3 +159,4 @@ function mlib_acf_form ( $atts = array() )
     //return ob_get_clean();
     return $info;
 }
+
