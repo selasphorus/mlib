@@ -143,7 +143,7 @@ function get_cpt_repertoire_content( $post_id = null )
     $info = "";
     
     if ($post_id === null) { $post_id = get_the_ID(); }
-    wxc_log("post_id", $post_id, $logCtx);
+    //wxc_log("post_id", $post_id, $logCtx);
     
     $arr_rep_info = get_rep_info( $post_id, 'display', true, true ); // get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true )
     $rep_info = $arr_rep_info['info'];
@@ -396,107 +396,6 @@ function is_anon( $post_id = null )
     return $anon;
 }
 
-// Stringify an array of person ids or objects, with formatting options
-// TODO: better documentation
-// TODO: add option to make_link for each name
-function str_from_persons_array ( $args = array() )
-{
-    $logCtx = ['music', 'people'];
-    
-    // Init vars
-    $arr_info = array();
-    $info = "";
-    
-    // Defaults
-    $defaults = array(
-        'arr_persons'         => array(),
-        'person_category'     => null,
-        'post_id'             => null,
-        'format'            => 'display', // other possible values include: "post_title", "edition_title" -- ??
-        'arr_of'            => 'objects',
-        'abbr'                => false,
-        'links'                => false,
-    );
-
-    // Parse & Extract args
-    $args = wp_parse_args( $args, $defaults );
-    extract( $args );
-    
-    //wxc_log("arr_persons", $arr_persons, $logCtx );
-    wxc_log("person_category: ".$person_category, null, $logCtx );
-    wxc_log("post_id: ".$post_id, null, $logCtx );
-    wxc_log("format: ".$format, null, $logCtx );
-    wxc_log("arr_of: ".$arr_of, null, $logCtx );
-    wxc_log("abbr: ".(int)$abbr, null, $logCtx );
-    wxc_log("links: ".(int)$links, null, $logCtx );
-    
-    foreach ( $arr_persons AS $person_id ) {
-        /*if ( $arr_of == "objects" ) {
-            if ( isset($person['ID']) ) { $person_id = $person['ID']; } else { $person_id = null; }
-        } else {
-            $person_id = $person;
-        }*/
-        wxc_log("person_id: ".$person_id, null, $logCtx );
-        
-        // Set up display args to pass to fcn get_person_display_name
-        if ( $abbr || has_term( 'psalms', 'repertoire_category', $post_id ) && !has_term( 'motets', 'repertoire_category', $post_id ) && !has_term( 'anthems', 'repertoire_category', $post_id ) ) { 
-            $name_abbr = "abbr";
-        } else {
-            $name_abbr = "full";
-        }
-        
-        $person_name = "";
-        $override = "none";
-        $use_post_title = false;
-        $show_prefix = false;
-        $show_suffix = false;
-        $show_job_title = false;
-        $show_dates = false;
-        $styled = true;
-            
-        if ( $person_category == "composers" || $person_category == "arrangers" ) {
-            //
-        }
-        
-        if ( ( $format == "post_title" || $format == "edition_title" ) && ( $person_category == "composers" || $person_category == "arrangers" ) ) { 
-            $show_dates = true;
-            $styled = false; // don't add person_dates span/style for post_titles
-        } else if ( $abbr !== true ) {
-            $show_dates = true;
-            $styled = true; // add dates with span/style
-        }
-        
-        if ( $links ) {
-            // TODO: verify post_type == person?
-            $person_url = esc_url( get_permalink( $person_id ) );
-            if ( $person_url ) { $display_args['url'] = $person_url; }
-        } else {
-            $person_url = null;
-        }
-        
-        $display_args = array( 'person_id' => $person_id, 'override' => $override, 'name_abbr' => $name_abbr, 'show_prefix' => $show_prefix, 'show_suffix' => $show_suffix, 'show_job_title' => $show_job_title, 'show_dates' => $show_dates, 'url' => $person_url, 'styled' => $styled );
-        
-        // Get the display_name
-        if ( function_exists('getPersonDisplayName') )  {
-            $person_name = getPersonDisplayName( $display_args );
-        } else if ( function_exists('whx4_get_display_name') )  {
-            $person_name = whx4_get_display_name('person', $args);
-        }        
-        $info .= $person_name;
-
-        if (count($arr_persons) > 1) { $info .= ", "; }
-
-    } // END foreach $arr_persons
-
-    // Trim trailing comma and space
-    if ( substr($info, -2) == ", " ) {
-        $info = substr($info, 0, -2); // trim off trailing comma
-    }
-    
-    $arr_info['info'] = $info;    
-    return $arr_info;
-}
-
 // Retrieve properly formatted authorship info for Repertoire records
 // Authorship: Composers, Arrangers, Transcriber, Librettists, &c.
 // $format options include: display; post_title; ....? (TODO: better info here)
@@ -621,7 +520,7 @@ function get_authorship_info ( $args = array() )
     }
     if ( $rep_title == "" || empty($rep_title) || $rep_title == "Responses" ) { $show_title = false; }
     
-    wxc_log("anon_info: ".$anon_info, null, $logCtx );
+    //wxc_log("anon_info: ".$anon_info, null, $logCtx );
     //wxc_log("rep_title", $rep_title, $logCtx);
     
     // Build the authorship_info string
@@ -629,7 +528,7 @@ function get_authorship_info ( $args = array() )
     // 1. Composer(s)
     if ( !empty($composers) ) { //
         
-        wxc_log("composers: ".print_r($composers, true), null, $logCtx );
+        wxc_log("composers: ", $composers, $logCtx );
         
         $persons_args = array( 'arr_persons' => $composers, 'person_category' => 'composers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
         wxc_log("persons_args", $persons_args, $logCtx );
