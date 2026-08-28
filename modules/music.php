@@ -539,16 +539,16 @@ function get_authorship_info ( $args = array() )
         // Redundant: TODO: instead use is_anon fcn? Any reason why not to do this?
         if ( $composer_info == '[Unknown]' || $composer_info == 'Unknown' || $composer_info == 'Anonymous' || $composer_info == 'Plainsong' ) { //
             $is_anon = true;
-            wxc_log("is_anon.", null, $logCtx);
+            //wxc_log("is_anon.", null, $logCtx);
         } else {
-            wxc_log("NOT is_anon.", null, $logCtx);
+            //wxc_log("NOT is_anon.", null, $logCtx);
         }
         if ( $composer_info == "Unknown" || ( $composer_info == "Anonymous" && $anon_info == "" ) ) { 
             $composer_info = "";
         }
         
         wxc_log("composer_info: ".$composer_info, null, $logCtx );
-        wxc_log("anon_info: ".$anon_info, null, $logCtx );
+        //wxc_log("anon_info: ".$anon_info, null, $logCtx );
         
         if ( $composer_info != "" || $anon_info != "" ) {
 
