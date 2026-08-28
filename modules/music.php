@@ -476,8 +476,7 @@ function get_authorship_info ( $args = array() )
         $composers = get_field('composer', $post_id, false); // Can't use get_post_meta for ACF relationship fields because stored value is array
         if ( $composers ) { 
             $persons_args = array( 'arr_persons' => $composers, 'person_category' => 'composers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => 'objects', 'abbr' => false, 'links' => $links );
-            $arr_composers_str = str_from_persons_array ( $persons_args );
-            $composers_str = $arr_composers_str['info'];
+            $composers_str = str_from_persons_array ( $persons_args );
         }
         $display_composer = $composers_str;
         //
