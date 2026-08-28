@@ -531,8 +531,7 @@ function get_authorship_info ( $args = array() )
         
         $persons_args = array( 'arr_persons' => $composers, 'person_category' => 'composers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
         wxc_log("persons_args", $persons_args, $logCtx );
-        $arr_composers_str = str_from_persons_array ( $persons_args );
-        $composer_info = $arr_composers_str['info'];
+        $composer_info = str_from_persons_array ( $persons_args );
                 
         // TODO: check instead by ID? Would be more accurate and would allow for comments to be returned by fcn str_from_persons_array
         // Redundant: TODO: instead use is_anon fcn? Any reason why not to do this?
@@ -619,8 +618,7 @@ function get_authorship_info ( $args = array() )
     // 2. Arranger(s)
     if ( !empty($arrangers) ) {
         $persons_args = array( 'arr_persons' => $arrangers, 'person_category' => 'arrangers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
-        $arr_arrangers_info = str_from_persons_array ( $persons_args );
-        $arrangers_info = $arr_arrangers_info['info'];
+        $arrangers_info = str_from_persons_array ( $persons_args );
 
         if ( $is_single_work == true && $arrangers_info != "") {
             $authorship_info .= "Arranger(s): ".$arrangers_info."<br />";
@@ -644,8 +642,7 @@ function get_authorship_info ( $args = array() )
     // 3. Transcriber(s)
     if ( !empty($transcribers) ) {
         $persons_args = array( 'arr_persons' => $transcribers, 'person_category' => 'transcribers', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
-        $arr_transcribers_info = str_from_persons_array ( $persons_args );
-        $transcribers_info = $arr_transcribers_info['info'];
+        $transcribers_info = str_from_persons_array ( $persons_args );
 
         if ( $transcribers_info != "" ) {
             if ( $is_single_work == true ) {
@@ -669,8 +666,7 @@ function get_authorship_info ( $args = array() )
     // 4. Librettist(s)
     if ( !empty($librettists) && $format != "post_title" && $format != "edition_title" && $format != "concert_item" ) {
         $persons_args = array( 'arr_persons' => $librettists, 'person_category' => 'librettists', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
-        $arr_librettists_info = str_from_persons_array ( $persons_args );
-        $librettists_info = $arr_librettists_info['info'];
+        $librettists_info = str_from_persons_array ( $persons_args );
 
         if ( $is_single_work == true && $librettists_info != "") {
             $authorship_info .= "Librettist(s): ".$librettists_info."<br />";
@@ -687,8 +683,7 @@ function get_authorship_info ( $args = array() )
     // 5. Translator(s)
     if ( !empty($translators) && $format != "post_title" ) {
         $persons_args = array( 'arr_persons' => $translators, 'person_category' => 'translators', 'post_id' => $post_id, 'format' => $format, 'arr_of' => $arr_of, 'abbr' => $abbr, 'links' => $links );
-        $arr_translators_info = str_from_persons_array ( $persons_args );
-        $translators_info = $arr_translators_info['info'];
+        $translators_info = str_from_persons_array ( $persons_args );
         
         if ( $is_single_work == true && $translators_info != "") {
             $authorship_info .= "Translator(s): ".$translators_info."<br />";
