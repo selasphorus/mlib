@@ -742,7 +742,6 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
     global $logCtx;
     
     // Init vars
-    $arr_info = array();
     $info = "";
     if ( $post_id === null ) { $post_id = get_the_ID(); }
     
@@ -869,9 +868,8 @@ function get_rep_info( $post_id = null, $format = 'display', $show_authorship = 
     } else {
         $info = make_link( get_the_permalink( $post_id ), $info, $title_clean, 'subtle', '_blank' );
     }
-    
-    $arr_info['info'] = $info;    
-    return $arr_info;
+      
+    return $info;
 }
 
 function get_rep_meta_info ( $post_id = null )

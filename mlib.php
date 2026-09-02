@@ -6,7 +6,7 @@
  * //Requires PHP:      7.4
  * Dependencies:      Requires WHx4 and STC plugins for People CPT, etc.
  * Requires Plugins:  whx4, stc
- * Version:           0.1.260828
+ * Version:           0.1.260902
  * Author:            atc
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -115,11 +115,7 @@ function mlib_contribute_active_post_types(array $postTypes): array
         'repertoire', 'edition',//'publisher', ....
     ]);
 }
-
-//if ( function_exists('wxc_log') ) { wxc_log('SDG about to register wxc_active_post_types filter [wxc_log]'); } // tft
-//error_log('SDG about to register wxc_active_post_types filter [error_log]'); //tft
 add_filter('wxc_active_post_types', 'mlib_contribute_active_post_types');
-
 
 
 /* +~+~+ Enable ACF FORM as shortcode +~+~+ */
