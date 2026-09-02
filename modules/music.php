@@ -145,8 +145,7 @@ function get_cpt_repertoire_content( $post_id = null )
     if ($post_id === null) { $post_id = get_the_ID(); }
     //wxc_log("post_id", $post_id, $logCtx);
     
-    $arr_rep_info = get_rep_info( $post_id, 'display', true, true ); // get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true )
-    $rep_info = $arr_rep_info['info'];
+    $rep_info = get_rep_info( $post_id, 'display', true, true ); // get_rep_info( $post_id = null, $format = 'display', $show_authorship = true, $show_title = true )
                         
     if ( $rep_info ) {
         //$info .= "<h3>The Work:</h3>";
