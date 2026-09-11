@@ -156,7 +156,6 @@ function get_cpt_repertoire_content( $post_id = null )
     $repertoire_events = get_field('repertoire_events', $post_id, false);
     if ( empty($repertoire_events) && is_dev_site() ) {
         // Field repertoire_events is empty -> check to see if updates are in order
-        ///$ts_info .= '<!-- '.update_repertoire_events( $post_id ).' -->';
     }
     
     if ( $repertoire_events ) { 
@@ -210,13 +209,13 @@ function get_cpt_repertoire_content( $post_id = null )
         foreach($duplicate_posts as $duplicate_post) { 
             setup_postdata($duplicate_post);
             $duplicate_post_id = $duplicate_post->ID;
-            $ts_info .= make_link( get_the_permalink($duplicate_post_id), $duplicate_post->post_title, null, null, "_blank" ) . "<br />";
+            //wxc_log("Duplicate post:".make_link( get_the_permalink($duplicate_post_id), $duplicate_post->post_title, null, null, "_blank" ), null, $logCtx);
             // TODO: build in merge options          
             $x++;
         }
     } else {
-        if ( devmode_active( array("mlib", "rep") ) ) { 
-            $ts_info .= "<p>No duplicate posts were found.</p>"; // tft
+        if ( devmode_active( array("mlib", "rep") ) ) {
+            //wxc_log("No duplicate posts were found.", null, $logCtx);
         }
     }*/
     
