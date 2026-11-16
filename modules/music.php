@@ -36,8 +36,7 @@ function update_repertoire_events( $rep_id = null, $run_slow_queries = false, $a
     if ( empty($arr_event_ids) && $run_slow_queries == true ) {
     
         // No event_ids were submitted -> run a query to find ALL event_ids for events with programs containing the rep_id        
-        $related_events = get_related_events ( "program_item", $rep_id );
-        $arr_event_ids = $related_events['event_posts'];
+        $arr_event_ids = get_related_events ( "program_item", $rep_id );
     
         if ( empty($arr_event_ids) ) {
             $info .= "No related events were found using the get_related_events fcn.<br />"; // tft
@@ -1205,8 +1204,7 @@ function format_search_results ( $post_ids, $search_type = "choirplanner" )
     
         // Old way
         /*
-        $related_events = get_related_events ( "program_item", $post_id );
-        $event_post_ids = $related_events['event_posts'];
+        $event_post_ids = get_related_events ( "program_item", $post_id );
 
         if ( $event_post_ids ) {
             $info .= '<br /><span class="nb orange">This work appears in ['.count($event_post_ids).'] event program(s).</span>';
